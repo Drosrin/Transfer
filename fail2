@@ -1,0 +1,500 @@
+WARNING 09-24 16:38:41 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+WARNING 09-24 16:38:41 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+INFO 09-24 16:38:41 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+INFO 09-24 16:38:41 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:38:41 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+INFO 09-24 16:38:41 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+INFO 09-24 16:38:41 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+INFO 09-24 16:38:41 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+INFO 09-24 16:38:41 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+WARNING 09-24 16:38:41 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+INFO 09-24 16:38:41 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+[W924 16:38:42.211322120 OptionRegister.cpp:95] Warning: Current device only support allow_internal_format=False, the requested value True is invalid and has been reverted to False. (function operator())
+[W924 16:38:42.280585780 OptionRegister.cpp:95] Warning: Current device only support allow_internal_format=False, the requested value True is invalid and has been reverted to False. (function operator())
+INFO 09-24 16:38:42 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+INFO 09-24 16:38:42 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+[W924 16:38:42.456879690 OptionRegister.cpp:95] Warning: Current device only support allow_internal_format=False, the requested value True is invalid and has been reverted to False. (function operator())
+[W924 16:38:42.557432650 OptionRegister.cpp:95] Warning: Current device only support allow_internal_format=False, the requested value True is invalid and has been reverted to False. (function operator())
+[W924 16:38:42.768394210 OptionRegister.cpp:95] Warning: Current device only support allow_internal_format=False, the requested value True is invalid and has been reverted to False. (function operator())
+[W924 16:38:42.795090850 OptionRegister.cpp:95] Warning: Current device only support allow_internal_format=False, the requested value True is invalid and has been reverted to False. (function operator())
+[W924 16:38:42.883123800 OptionRegister.cpp:95] Warning: Current device only support allow_internal_format=False, the requested value True is invalid and has been reverted to False. (function operator())
+[W924 16:38:42.089245540 OptionRegister.cpp:95] Warning: Current device only support allow_internal_format=False, the requested value True is invalid and has been reverted to False. (function operator())
+WARNING 09-24 16:38:44 [patch_triton.py:332] NPU Triton causal_conv1d_update is unavailable (cannot import name 'causal_conv1d_update_npu' from 'vllm_ascend.ops.triton.mamba.causal_conv1d' (/home/j00950773/code/0924/vllm-ascend/vllm_ascend/ops/triton/mamba/causal_conv1d.py)); falling back to the PyTorch implementation, which syncs per request and therefore stalls ACL graph capture at decode-FULL.
+WARNING 09-24 16:38:44 [patch_triton.py:332] NPU Triton causal_conv1d_update is unavailable (cannot import name 'causal_conv1d_update_npu' from 'vllm_ascend.ops.triton.mamba.causal_conv1d' (/home/j00950773/code/0924/vllm-ascend/vllm_ascend/ops/triton/mamba/causal_conv1d.py)); falling back to the PyTorch implementation, which syncs per request and therefore stalls ACL graph capture at decode-FULL.
+WARNING 09-24 16:38:44 [patch_triton.py:332] NPU Triton causal_conv1d_update is unavailable (cannot import name 'causal_conv1d_update_npu' from 'vllm_ascend.ops.triton.mamba.causal_conv1d' (/home/j00950773/code/0924/vllm-ascend/vllm_ascend/ops/triton/mamba/causal_conv1d.py)); falling back to the PyTorch implementation, which syncs per request and therefore stalls ACL graph capture at decode-FULL.
+WARNING 09-24 16:38:45 [patch_triton.py:332] NPU Triton causal_conv1d_update is unavailable (cannot import name 'causal_conv1d_update_npu' from 'vllm_ascend.ops.triton.mamba.causal_conv1d' (/home/j00950773/code/0924/vllm-ascend/vllm_ascend/ops/triton/mamba/causal_conv1d.py)); falling back to the PyTorch implementation, which syncs per request and therefore stalls ACL graph capture at decode-FULL.
+INFO 09-24 16:38:45 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:38:45 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:38:45 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+INFO 09-24 16:38:45 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:38:45 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:38:45 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+INFO 09-24 16:38:45 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:38:45 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:38:45 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+WARNING 09-24 16:38:45 [patch_triton.py:332] NPU Triton causal_conv1d_update is unavailable (cannot import name 'causal_conv1d_update_npu' from 'vllm_ascend.ops.triton.mamba.causal_conv1d' (/home/j00950773/code/0924/vllm-ascend/vllm_ascend/ops/triton/mamba/causal_conv1d.py)); falling back to the PyTorch implementation, which syncs per request and therefore stalls ACL graph capture at decode-FULL.
+INFO 09-24 16:38:45 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:38:45 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:38:45 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+WARNING 09-24 16:38:45 [patch_triton.py:332] NPU Triton causal_conv1d_update is unavailable (cannot import name 'causal_conv1d_update_npu' from 'vllm_ascend.ops.triton.mamba.causal_conv1d' (/home/j00950773/code/0924/vllm-ascend/vllm_ascend/ops/triton/mamba/causal_conv1d.py)); falling back to the PyTorch implementation, which syncs per request and therefore stalls ACL graph capture at decode-FULL.
+WARNING 09-24 16:38:45 [patch_triton.py:332] NPU Triton causal_conv1d_update is unavailable (cannot import name 'causal_conv1d_update_npu' from 'vllm_ascend.ops.triton.mamba.causal_conv1d' (/home/j00950773/code/0924/vllm-ascend/vllm_ascend/ops/triton/mamba/causal_conv1d.py)); falling back to the PyTorch implementation, which syncs per request and therefore stalls ACL graph capture at decode-FULL.
+INFO 09-24 16:38:45 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:38:45 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:38:45 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+INFO 09-24 16:38:45 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:38:45 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:38:45 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+WARNING 09-24 16:38:45 [patch_triton.py:332] NPU Triton causal_conv1d_update is unavailable (cannot import name 'causal_conv1d_update_npu' from 'vllm_ascend.ops.triton.mamba.causal_conv1d' (/home/j00950773/code/0924/vllm-ascend/vllm_ascend/ops/triton/mamba/causal_conv1d.py)); falling back to the PyTorch implementation, which syncs per request and therefore stalls ACL graph capture at decode-FULL.
+INFO 09-24 16:38:45 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:38:45 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:38:45 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+INFO 09-24 16:38:45 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:38:45 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:38:45 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+(Worker pid=391611) INFO 09-24 16:38:47 [parallel_state.py:1827] world_size=8 rank=6 local_rank=0 distributed_init_method=tcp://127.0.0.1:58571 backend=hccl
+(Worker pid=391612) INFO 09-24 16:38:47 [parallel_state.py:1827] world_size=8 rank=2 local_rank=0 distributed_init_method=tcp://127.0.0.1:58571 backend=hccl
+(Worker pid=391614) INFO 09-24 16:38:47 [parallel_state.py:1827] world_size=8 rank=7 local_rank=0 distributed_init_method=tcp://127.0.0.1:58571 backend=hccl
+(Worker pid=391615) INFO 09-24 16:38:47 [parallel_state.py:1827] world_size=8 rank=3 local_rank=0 distributed_init_method=tcp://127.0.0.1:58571 backend=hccl
+(Worker pid=391715) INFO 09-24 16:38:47 [parallel_state.py:1827] world_size=8 rank=0 local_rank=0 distributed_init_method=tcp://127.0.0.1:58571 backend=hccl
+(Worker pid=391714) INFO 09-24 16:38:47 [parallel_state.py:1827] world_size=8 rank=4 local_rank=0 distributed_init_method=tcp://127.0.0.1:58571 backend=hccl
+(Worker pid=391610) INFO 09-24 16:38:47 [parallel_state.py:1827] world_size=8 rank=1 local_rank=0 distributed_init_method=tcp://127.0.0.1:58571 backend=hccl
+(Worker pid=391613) INFO 09-24 16:38:47 [parallel_state.py:1827] world_size=8 rank=5 local_rank=0 distributed_init_method=tcp://127.0.0.1:58571 backend=hccl
+[Gloo] Rank 0 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 1 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 6 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 2 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 3 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 5 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 4 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 7 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 2 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 1 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 4 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 3 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 5 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 6 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 7 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 0 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 1 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 2 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 3 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 5 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+(Worker pid=391715) INFO 09-24 16:38:48 [parallel_state.py:2267] rank 0 in world size 8 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, ETP rank 0, EP rank 0, EPLB rank N/A
+[Gloo] Rank 4 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 7 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 6 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+(Worker pid=391610) INFO 09-24 16:38:48 [parallel_state.py:2267] rank 1 in world size 8 is assigned as DP rank 1, PP rank 0, PCP rank 0, TP rank 0, ETP rank 0, EP rank 1, EPLB rank N/A
+(Worker pid=391612) INFO 09-24 16:38:48 [parallel_state.py:2267] rank 2 in world size 8 is assigned as DP rank 2, PP rank 0, PCP rank 0, TP rank 0, ETP rank 0, EP rank 2, EPLB rank N/A
+(Worker pid=391614) INFO 09-24 16:38:48 [parallel_state.py:2267] rank 7 in world size 8 is assigned as DP rank 7, PP rank 0, PCP rank 0, TP rank 0, ETP rank 0, EP rank 7, EPLB rank N/A
+(Worker pid=391714) INFO 09-24 16:38:48 [parallel_state.py:2267] rank 4 in world size 8 is assigned as DP rank 4, PP rank 0, PCP rank 0, TP rank 0, ETP rank 0, EP rank 4, EPLB rank N/A
+(Worker pid=391611) INFO 09-24 16:38:48 [parallel_state.py:2267] rank 6 in world size 8 is assigned as DP rank 6, PP rank 0, PCP rank 0, TP rank 0, ETP rank 0, EP rank 6, EPLB rank N/A
+(Worker pid=391613) INFO 09-24 16:38:48 [parallel_state.py:2267] rank 5 in world size 8 is assigned as DP rank 5, PP rank 0, PCP rank 0, TP rank 0, ETP rank 0, EP rank 5, EPLB rank N/A
+(Worker pid=391615) INFO 09-24 16:38:48 [parallel_state.py:2267] rank 3 in world size 8 is assigned as DP rank 3, PP rank 0, PCP rank 0, TP rank 0, ETP rank 0, EP rank 3, EPLB rank N/A
+[Gloo] Rank 0 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 1 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 4 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 3 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 2 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 5 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 7 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+[Gloo] Rank 6 is connected to 7 peer ranks. Expected number of connected peer ranks is : 7
+(Worker pid=391612) WARNING 09-24 16:38:48 [__init__.py:205] min_p and logit_bias parameters won't work with speculative decoding.
+(Worker pid=391714) WARNING 09-24 16:38:48 [__init__.py:205] min_p and logit_bias parameters won't work with speculative decoding.
+(Worker pid=391614) WARNING 09-24 16:38:48 [__init__.py:205] min_p and logit_bias parameters won't work with speculative decoding.
+(Worker pid=391715) WARNING 09-24 16:38:48 [__init__.py:205] min_p and logit_bias parameters won't work with speculative decoding.
+(Worker pid=391613) WARNING 09-24 16:38:48 [__init__.py:205] min_p and logit_bias parameters won't work with speculative decoding.
+(Worker pid=391615) WARNING 09-24 16:38:48 [__init__.py:205] min_p and logit_bias parameters won't work with speculative decoding.
+(Worker pid=391611) WARNING 09-24 16:38:48 [__init__.py:205] min_p and logit_bias parameters won't work with speculative decoding.
+(Worker pid=391610) WARNING 09-24 16:38:48 [__init__.py:205] min_p and logit_bias parameters won't work with speculative decoding.
+(Worker pid=391612) INFO 09-24 16:38:50 [platform.py:1381] FA3 will not be enabled when rl_config.enable_training_consistency is false. Note that Ascend NPU will use its registered plugin backend instead.
+(Worker pid=391612) WARNING 09-24 16:38:50 [utils.py:1187] The max_cudagraph_capture_size (128) is smaller than the potential max tokens required for decode (192). This may lead to suboptimal performance. Consider adjusting max_cudagraph_capture_size or scheduler_config (max_num_batched_tokens or max_num_seqs) to ensure max_cudagraph_capture_size can accommodate the decode workload. For more details, see the issue #8240(https://github.com/vllm-project/vllm-ascend/issues/8240).
+(Worker pid=391612) WARNING 09-24 16:38:50 [__init__.py:205] min_p and logit_bias parameters won't work with speculative decoding.
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:50 [model_runner_v1.py:4362] Starting to load model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918...
+(Worker pid=391611) INFO 09-24 16:38:50 [platform.py:1381] FA3 will not be enabled when rl_config.enable_training_consistency is false. Note that Ascend NPU will use its registered plugin backend instead.
+(Worker pid=391611) WARNING 09-24 16:38:50 [utils.py:1187] The max_cudagraph_capture_size (128) is smaller than the potential max tokens required for decode (192). This may lead to suboptimal performance. Consider adjusting max_cudagraph_capture_size or scheduler_config (max_num_batched_tokens or max_num_seqs) to ensure max_cudagraph_capture_size can accommodate the decode workload. For more details, see the issue #8240(https://github.com/vllm-project/vllm-ascend/issues/8240).
+(Worker pid=391611) WARNING 09-24 16:38:50 [__init__.py:205] min_p and logit_bias parameters won't work with speculative decoding.
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:50 [model_runner_v1.py:4362] Starting to load model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918...
+(Worker pid=391615) INFO 09-24 16:38:50 [platform.py:1381] FA3 will not be enabled when rl_config.enable_training_consistency is false. Note that Ascend NPU will use its registered plugin backend instead.
+(Worker pid=391615) WARNING 09-24 16:38:50 [utils.py:1187] The max_cudagraph_capture_size (128) is smaller than the potential max tokens required for decode (192). This may lead to suboptimal performance. Consider adjusting max_cudagraph_capture_size or scheduler_config (max_num_batched_tokens or max_num_seqs) to ensure max_cudagraph_capture_size can accommodate the decode workload. For more details, see the issue #8240(https://github.com/vllm-project/vllm-ascend/issues/8240).
+(Worker pid=391615) WARNING 09-24 16:38:50 [__init__.py:205] min_p and logit_bias parameters won't work with speculative decoding.
+(Worker pid=391613) INFO 09-24 16:38:50 [platform.py:1381] FA3 will not be enabled when rl_config.enable_training_consistency is false. Note that Ascend NPU will use its registered plugin backend instead.
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:50 [model_runner_v1.py:4362] Starting to load model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918...
+(Worker pid=391613) WARNING 09-24 16:38:50 [utils.py:1187] The max_cudagraph_capture_size (128) is smaller than the potential max tokens required for decode (192). This may lead to suboptimal performance. Consider adjusting max_cudagraph_capture_size or scheduler_config (max_num_batched_tokens or max_num_seqs) to ensure max_cudagraph_capture_size can accommodate the decode workload. For more details, see the issue #8240(https://github.com/vllm-project/vllm-ascend/issues/8240).
+(Worker pid=391613) WARNING 09-24 16:38:50 [__init__.py:205] min_p and logit_bias parameters won't work with speculative decoding.
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:50 [model_runner_v1.py:4362] Starting to load model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918...
+(Worker pid=391715) INFO 09-24 16:38:50 [platform.py:1381] FA3 will not be enabled when rl_config.enable_training_consistency is false. Note that Ascend NPU will use its registered plugin backend instead.
+(Worker pid=391715) WARNING 09-24 16:38:50 [utils.py:1187] The max_cudagraph_capture_size (128) is smaller than the potential max tokens required for decode (192). This may lead to suboptimal performance. Consider adjusting max_cudagraph_capture_size or scheduler_config (max_num_batched_tokens or max_num_seqs) to ensure max_cudagraph_capture_size can accommodate the decode workload. For more details, see the issue #8240(https://github.com/vllm-project/vllm-ascend/issues/8240).
+(Worker pid=391715) WARNING 09-24 16:38:50 [__init__.py:205] min_p and logit_bias parameters won't work with speculative decoding.
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:50 [model_runner_v1.py:4362] Starting to load model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918...
+(Worker pid=391610) INFO 09-24 16:38:50 [platform.py:1381] FA3 will not be enabled when rl_config.enable_training_consistency is false. Note that Ascend NPU will use its registered plugin backend instead.
+(Worker pid=391610) WARNING 09-24 16:38:50 [utils.py:1187] The max_cudagraph_capture_size (128) is smaller than the potential max tokens required for decode (192). This may lead to suboptimal performance. Consider adjusting max_cudagraph_capture_size or scheduler_config (max_num_batched_tokens or max_num_seqs) to ensure max_cudagraph_capture_size can accommodate the decode workload. For more details, see the issue #8240(https://github.com/vllm-project/vllm-ascend/issues/8240).
+(Worker pid=391610) WARNING 09-24 16:38:50 [__init__.py:205] min_p and logit_bias parameters won't work with speculative decoding.
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:50 [model_runner_v1.py:4362] Starting to load model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918...
+(Worker pid=391714) INFO 09-24 16:38:50 [platform.py:1381] FA3 will not be enabled when rl_config.enable_training_consistency is false. Note that Ascend NPU will use its registered plugin backend instead.
+(Worker pid=391714) WARNING 09-24 16:38:50 [utils.py:1187] The max_cudagraph_capture_size (128) is smaller than the potential max tokens required for decode (192). This may lead to suboptimal performance. Consider adjusting max_cudagraph_capture_size or scheduler_config (max_num_batched_tokens or max_num_seqs) to ensure max_cudagraph_capture_size can accommodate the decode workload. For more details, see the issue #8240(https://github.com/vllm-project/vllm-ascend/issues/8240).
+(Worker pid=391714) WARNING 09-24 16:38:50 [__init__.py:205] min_p and logit_bias parameters won't work with speculative decoding.
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:50 [model_runner_v1.py:4362] Starting to load model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918...
+(Worker pid=391614) INFO 09-24 16:38:50 [platform.py:1381] FA3 will not be enabled when rl_config.enable_training_consistency is false. Note that Ascend NPU will use its registered plugin backend instead.
+(Worker pid=391614) WARNING 09-24 16:38:50 [utils.py:1187] The max_cudagraph_capture_size (128) is smaller than the potential max tokens required for decode (192). This may lead to suboptimal performance. Consider adjusting max_cudagraph_capture_size or scheduler_config (max_num_batched_tokens or max_num_seqs) to ensure max_cudagraph_capture_size can accommodate the decode workload. For more details, see the issue #8240(https://github.com/vllm-project/vllm-ascend/issues/8240).
+(Worker pid=391614) WARNING 09-24 16:38:50 [__init__.py:205] min_p and logit_bias parameters won't work with speculative decoding.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:50 [model_runner_v1.py:4362] Starting to load model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918...
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:50 [modelslim_config.py:428] Applied hf_to_vllm_mapper to quant_description keys
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:50 [interface.py:414] Using default backend AttentionBackendEnum.TORCH_SDPA for vit attention
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:50 [mm_encoder_attention.py:372] Using AttentionBackendEnum.TORCH_SDPA for MMEncoderAttention.
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:50 [modelslim_config.py:428] Applied hf_to_vllm_mapper to quant_description keys
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:51 [modelslim_config.py:428] Applied hf_to_vllm_mapper to quant_description keys
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:51 [interface.py:414] Using default backend AttentionBackendEnum.TORCH_SDPA for vit attention
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:51 [mm_encoder_attention.py:372] Using AttentionBackendEnum.TORCH_SDPA for MMEncoderAttention.
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:51 [modelslim_config.py:428] Applied hf_to_vllm_mapper to quant_description keys
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:51 [interface.py:414] Using default backend AttentionBackendEnum.TORCH_SDPA for vit attention
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:51 [mm_encoder_attention.py:372] Using AttentionBackendEnum.TORCH_SDPA for MMEncoderAttention.
+(Worker_DP2_EP2 pid=391612) WARNING 09-24 16:38:51 [vllm.py:1508] Disabling cascade attention (not yet compatible with async speculative decoding).
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:51 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(Worker_DP2_EP2 pid=391612) WARNING 09-24 16:38:51 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:51 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:51 [ascend_config.py:252] Dynamic EPLB is False
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:51 [ascend_config.py:253] The number of redundant experts is 0
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:51 [interface.py:414] Using default backend AttentionBackendEnum.TORCH_SDPA for vit attention
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:51 [mm_encoder_attention.py:372] Using AttentionBackendEnum.TORCH_SDPA for MMEncoderAttention.
+(Worker_DP3_EP3 pid=391615) WARNING 09-24 16:38:51 [vllm.py:1508] Disabling cascade attention (not yet compatible with async speculative decoding).
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:51 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(Worker_DP3_EP3 pid=391615) WARNING 09-24 16:38:51 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:51 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:51 [ascend_config.py:252] Dynamic EPLB is False
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:51 [ascend_config.py:253] The number of redundant experts is 0
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:51 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(Worker_DP0_EP0 pid=391715) WARNING 09-24 16:38:51 [vllm.py:1508] Disabling cascade attention (not yet compatible with async speculative decoding).
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:51 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(Worker_DP0_EP0 pid=391715) WARNING 09-24 16:38:51 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:51 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:51 [ascend_config.py:252] Dynamic EPLB is False
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:51 [ascend_config.py:253] The number of redundant experts is 0
+(Worker_DP6_EP6 pid=391611) WARNING 09-24 16:38:51 [vllm.py:1508] Disabling cascade attention (not yet compatible with async speculative decoding).
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:51 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(Worker_DP6_EP6 pid=391611) WARNING 09-24 16:38:51 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:51 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:51 [modelslim_config.py:316] Using the vLLM Ascend modelslim Quantization now!
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:51 [ascend_config.py:252] Dynamic EPLB is False
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:51 [ascend_config.py:253] The number of redundant experts is 0
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:51 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:51 [modelslim_config.py:428] Applied hf_to_vllm_mapper to quant_description keys
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:51 [modelslim_config.py:428] Applied hf_to_vllm_mapper to quant_description keys
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:51 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:51 [compilation.py:336] Enabled custom fusions: norm_quant, act_quant
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:51 [interface.py:414] Using default backend AttentionBackendEnum.TORCH_SDPA for vit attention
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:51 [mm_encoder_attention.py:372] Using AttentionBackendEnum.TORCH_SDPA for MMEncoderAttention.
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:51 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:51 [platform.py:1381] FA3 will not be enabled when rl_config.enable_training_consistency is false. Note that Ascend NPU will use its registered plugin backend instead.
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:51 [modelslim_config.py:316] Using the vLLM Ascend modelslim Quantization now!
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:51 [modelslim_config.py:316] Using the vLLM Ascend modelslim Quantization now!
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:51 [interface.py:414] Using default backend AttentionBackendEnum.TORCH_SDPA for vit attention
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:51 [mm_encoder_attention.py:372] Using AttentionBackendEnum.TORCH_SDPA for MMEncoderAttention.
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:51 [expert_map_manager.py:245] [EP Rank 2/8] Expert parallelism is enabled. Expert placement strategy: linear. Local/global number of experts: 36/288. Experts local to global index map: 0->72, 1->73, 2->74, 3->75, 4->76, 5->77, 6->78, 7->79, 8->80, 9->81, 10->82, 11->83, 12->84, 13->85, 14->86, 15->87, 16->88, 17->89, 18->90, 19->91, 20->92, 21->93, 22->94, 23->95, 24->96, 25->97, 26->98, 27->99, 28->100, 29->101, 30->102, 31->103, 32->104, 33->105, 34->106, 35->107.
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:51 [modelslim_config.py:316] Using the vLLM Ascend modelslim Quantization now!
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:51 [platform.py:1381] FA3 will not be enabled when rl_config.enable_training_consistency is false. Note that Ascend NPU will use its registered plugin backend instead.
+(Worker_DP1_EP1 pid=391610) WARNING 09-24 16:38:51 [vllm.py:1508] Disabling cascade attention (not yet compatible with async speculative decoding).
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:51 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(Worker_DP1_EP1 pid=391610) WARNING 09-24 16:38:51 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:51 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:51 [ascend_config.py:252] Dynamic EPLB is False
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:51 [ascend_config.py:253] The number of redundant experts is 0
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:51 [platform.py:1381] FA3 will not be enabled when rl_config.enable_training_consistency is false. Note that Ascend NPU will use its registered plugin backend instead.
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:51 [expert_map_manager.py:245] [EP Rank 3/8] Expert parallelism is enabled. Expert placement strategy: linear. Local/global number of experts: 36/288. Experts local to global index map: 0->108, 1->109, 2->110, 3->111, 4->112, 5->113, 6->114, 7->115, 8->116, 9->117, 10->118, 11->119, 12->120, 13->121, 14->122, 15->123, 16->124, 17->125, 18->126, 19->127, 20->128, 21->129, 22->130, 23->131, 24->132, 25->133, 26->134, 27->135, 28->136, 29->137, 30->138, 31->139, 32->140, 33->141, 34->142, 35->143.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:51 [modelslim_config.py:428] Applied hf_to_vllm_mapper to quant_description keys
+(Worker_DP5_EP5 pid=391613) WARNING 09-24 16:38:51 [vllm.py:1508] Disabling cascade attention (not yet compatible with async speculative decoding).
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:51 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(Worker_DP5_EP5 pid=391613) WARNING 09-24 16:38:51 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:51 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:51 [ascend_config.py:252] Dynamic EPLB is False
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:51 [ascend_config.py:253] The number of redundant experts is 0
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:51 [modelslim_config.py:428] Applied hf_to_vllm_mapper to quant_description keys
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:51 [expert_map_manager.py:245] [EP Rank 0/8] Expert parallelism is enabled. Expert placement strategy: linear. Local/global number of experts: 36/288. Experts local to global index map: 0->0, 1->1, 2->2, 3->3, 4->4, 5->5, 6->6, 7->7, 8->8, 9->9, 10->10, 11->11, 12->12, 13->13, 14->14, 15->15, 16->16, 17->17, 18->18, 19->19, 20->20, 21->21, 22->22, 23->23, 24->24, 25->25, 26->26, 27->27, 28->28, 29->29, 30->30, 31->31, 32->32, 33->33, 34->34, 35->35.
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:51 [platform.py:1381] FA3 will not be enabled when rl_config.enable_training_consistency is false. Note that Ascend NPU will use its registered plugin backend instead.
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:51 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:51 [expert_map_manager.py:245] [EP Rank 6/8] Expert parallelism is enabled. Expert placement strategy: linear. Local/global number of experts: 36/288. Experts local to global index map: 0->216, 1->217, 2->218, 3->219, 4->220, 5->221, 6->222, 7->223, 8->224, 9->225, 10->226, 11->227, 12->228, 13->229, 14->230, 15->231, 16->232, 17->233, 18->234, 19->235, 20->236, 21->237, 22->238, 23->239, 24->240, 25->241, 26->242, 27->243, 28->244, 29->245, 30->246, 31->247, 32->248, 33->249, 34->250, 35->251.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:51 [interface.py:414] Using default backend AttentionBackendEnum.TORCH_SDPA for vit attention
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:51 [mm_encoder_attention.py:372] Using AttentionBackendEnum.TORCH_SDPA for MMEncoderAttention.
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:51 [interface.py:414] Using default backend AttentionBackendEnum.TORCH_SDPA for vit attention
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:51 [mm_encoder_attention.py:372] Using AttentionBackendEnum.TORCH_SDPA for MMEncoderAttention.
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:51 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:51 [modelslim_config.py:316] Using the vLLM Ascend modelslim Quantization now!
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:51 [modelslim_config.py:316] Using the vLLM Ascend modelslim Quantization now!
+(Worker_DP7_EP7 pid=391614) WARNING 09-24 16:38:51 [vllm.py:1508] Disabling cascade attention (not yet compatible with async speculative decoding).
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:51 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(Worker_DP7_EP7 pid=391614) WARNING 09-24 16:38:51 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:51 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:51 [ascend_config.py:252] Dynamic EPLB is False
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:51 [ascend_config.py:253] The number of redundant experts is 0
+(Worker_DP4_EP4 pid=391714) WARNING 09-24 16:38:51 [vllm.py:1508] Disabling cascade attention (not yet compatible with async speculative decoding).
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:51 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:51 [platform.py:1381] FA3 will not be enabled when rl_config.enable_training_consistency is false. Note that Ascend NPU will use its registered plugin backend instead.
+(Worker_DP4_EP4 pid=391714) WARNING 09-24 16:38:51 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:51 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:51 [ascend_config.py:252] Dynamic EPLB is False
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:51 [ascend_config.py:253] The number of redundant experts is 0
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:51 [expert_map_manager.py:245] [EP Rank 1/8] Expert parallelism is enabled. Expert placement strategy: linear. Local/global number of experts: 36/288. Experts local to global index map: 0->36, 1->37, 2->38, 3->39, 4->40, 5->41, 6->42, 7->43, 8->44, 9->45, 10->46, 11->47, 12->48, 13->49, 14->50, 15->51, 16->52, 17->53, 18->54, 19->55, 20->56, 21->57, 22->58, 23->59, 24->60, 25->61, 26->62, 27->63, 28->64, 29->65, 30->66, 31->67, 32->68, 33->69, 34->70, 35->71.
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:51 [platform.py:1381] FA3 will not be enabled when rl_config.enable_training_consistency is false. Note that Ascend NPU will use its registered plugin backend instead.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:51 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:51 [expert_map_manager.py:245] [EP Rank 5/8] Expert parallelism is enabled. Expert placement strategy: linear. Local/global number of experts: 36/288. Experts local to global index map: 0->180, 1->181, 2->182, 3->183, 4->184, 5->185, 6->186, 7->187, 8->188, 9->189, 10->190, 11->191, 12->192, 13->193, 14->194, 15->195, 16->196, 17->197, 18->198, 19->199, 20->200, 21->201, 22->202, 23->203, 24->204, 25->205, 26->206, 27->207, 28->208, 29->209, 30->210, 31->211, 32->212, 33->213, 34->214, 35->215.
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:51 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:51 [modelslim_config.py:316] Using the vLLM Ascend modelslim Quantization now!
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:51 [modelslim_config.py:316] Using the vLLM Ascend modelslim Quantization now!
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:51 [platform.py:1381] FA3 will not be enabled when rl_config.enable_training_consistency is false. Note that Ascend NPU will use its registered plugin backend instead.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:51 [platform.py:1381] FA3 will not be enabled when rl_config.enable_training_consistency is false. Note that Ascend NPU will use its registered plugin backend instead.
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:51 [expert_map_manager.py:245] [EP Rank 4/8] Expert parallelism is enabled. Expert placement strategy: linear. Local/global number of experts: 36/288. Experts local to global index map: 0->144, 1->145, 2->146, 3->147, 4->148, 5->149, 6->150, 7->151, 8->152, 9->153, 10->154, 11->155, 12->156, 13->157, 14->158, 15->159, 16->160, 17->161, 18->162, 19->163, 20->164, 21->165, 22->166, 23->167, 24->168, 25->169, 26->170, 27->171, 28->172, 29->173, 30->174, 31->175, 32->176, 33->177, 34->178, 35->179.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:51 [expert_map_manager.py:245] [EP Rank 7/8] Expert parallelism is enabled. Expert placement strategy: linear. Local/global number of experts: 36/288. Experts local to global index map: 0->252, 1->253, 2->254, 3->255, 4->256, 5->257, 6->258, 7->259, 8->260, 9->261, 10->262, 11->263, 12->264, 13->265, 14->266, 15->267, 16->268, 17->269, 18->270, 19->271, 20->272, 21->273, 22->274, 23->275, 24->276, 25->277, 26->278, 27->279, 28->280, 29->281, 30->282, 31->283, 32->284, 33->285, 34->286, 35->287.
+(Worker_DP0_EP0 pid=391715) WARNING 09-24 16:38:54 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP2_EP2 pid=391612) WARNING 09-24 16:38:54 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP1_EP1 pid=391610) WARNING 09-24 16:38:54 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP3_EP3 pid=391615) WARNING 09-24 16:38:54 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP0_EP0 pid=391715) WARNING 09-24 16:38:54 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:54 [weight_utils.py:895] Filesystem type for checkpoints: NFS. Checkpoint size: 314.87 GiB. Available RAM: 1421.03 GiB.
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:54 [weight_utils.py:857] Prefetching checkpoint files into page cache started (in background, num_threads=8, block_size=16777216 bytes)
+Loading safetensors checkpoint shards:   0% Completed | 0/79 [00:00<?, ?it/s]
+(Worker_DP2_EP2 pid=391612) WARNING 09-24 16:38:54 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP1_EP1 pid=391610) WARNING 09-24 16:38:54 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:54 [weight_utils.py:895] Filesystem type for checkpoints: NFS. Checkpoint size: 314.87 GiB. Available RAM: 1420.99 GiB.
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:54 [weight_utils.py:857] Prefetching checkpoint files into page cache started (in background, num_threads=8, block_size=16777216 bytes)
+(Worker_DP7_EP7 pid=391614) WARNING 09-24 16:38:54 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP6_EP6 pid=391611) WARNING 09-24 16:38:54 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:54 [weight_utils.py:895] Filesystem type for checkpoints: NFS. Checkpoint size: 314.87 GiB. Available RAM: 1420.94 GiB.
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:54 [weight_utils.py:857] Prefetching checkpoint files into page cache started (in background, num_threads=8, block_size=16777216 bytes)
+(Worker_DP5_EP5 pid=391613) WARNING 09-24 16:38:54 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP3_EP3 pid=391615) WARNING 09-24 16:38:54 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:54 [weight_utils.py:895] Filesystem type for checkpoints: NFS. Checkpoint size: 314.87 GiB. Available RAM: 1420.50 GiB.
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:54 [weight_utils.py:857] Prefetching checkpoint files into page cache started (in background, num_threads=8, block_size=16777216 bytes)
+(Worker_DP7_EP7 pid=391614) WARNING 09-24 16:38:54 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP6_EP6 pid=391611) WARNING 09-24 16:38:54 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP5_EP5 pid=391613) WARNING 09-24 16:38:54 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:54 [weight_utils.py:895] Filesystem type for checkpoints: NFS. Checkpoint size: 314.87 GiB. Available RAM: 1420.05 GiB.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:54 [weight_utils.py:857] Prefetching checkpoint files into page cache started (in background, num_threads=8, block_size=16777216 bytes)
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:54 [weight_utils.py:895] Filesystem type for checkpoints: NFS. Checkpoint size: 314.87 GiB. Available RAM: 1420.04 GiB.
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:54 [weight_utils.py:857] Prefetching checkpoint files into page cache started (in background, num_threads=8, block_size=16777216 bytes)
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:54 [weight_utils.py:895] Filesystem type for checkpoints: NFS. Checkpoint size: 314.87 GiB. Available RAM: 1419.98 GiB.
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:54 [weight_utils.py:857] Prefetching checkpoint files into page cache started (in background, num_threads=8, block_size=16777216 bytes)
+(Worker_DP4_EP4 pid=391714) WARNING 09-24 16:38:54 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP4_EP4 pid=391714) WARNING 09-24 16:38:55 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:55 [weight_utils.py:895] Filesystem type for checkpoints: NFS. Checkpoint size: 314.87 GiB. Available RAM: 1416.68 GiB.
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:55 [weight_utils.py:857] Prefetching checkpoint files into page cache started (in background, num_threads=8, block_size=16777216 bytes)
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:55 [weight_utils.py:829] Prefetching checkpoint files: 10% (1/10)
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:55 [weight_utils.py:829] Prefetching checkpoint files: 20% (2/10)
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:55 [weight_utils.py:829] Prefetching checkpoint files: 10% (1/9)
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:55 [weight_utils.py:829] Prefetching checkpoint files: 30% (3/10)
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:55 [weight_utils.py:829] Prefetching checkpoint files: 10% (1/10)
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:55 [weight_utils.py:829] Prefetching checkpoint files: 10% (1/10)
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:55 [weight_utils.py:829] Prefetching checkpoint files: 10% (1/10)
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:55 [weight_utils.py:829] Prefetching checkpoint files: 10% (1/10)
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:55 [weight_utils.py:829] Prefetching checkpoint files: 20% (2/10)
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:56 [weight_utils.py:829] Prefetching checkpoint files: 40% (4/10)
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:56 [weight_utils.py:829] Prefetching checkpoint files: 20% (2/9)
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:56 [weight_utils.py:829] Prefetching checkpoint files: 50% (5/10)
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:56 [weight_utils.py:829] Prefetching checkpoint files: 20% (2/10)
+Loading safetensors checkpoint shards:   1% Completed | 1/79 [00:02<02:36,  2.01s/it]
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:56 [weight_utils.py:829] Prefetching checkpoint files: 60% (6/10)
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:56 [weight_utils.py:829] Prefetching checkpoint files: 20% (2/10)
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:56 [weight_utils.py:829] Prefetching checkpoint files: 70% (7/10)
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:56 [weight_utils.py:829] Prefetching checkpoint files: 80% (8/10)
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:56 [weight_utils.py:829] Prefetching checkpoint files: 10% (1/10)
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:56 [weight_utils.py:829] Prefetching checkpoint files: 30% (3/10)
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:56 [weight_utils.py:829] Prefetching checkpoint files: 40% (4/10)
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:56 [weight_utils.py:829] Prefetching checkpoint files: 90% (9/10)
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:56 [weight_utils.py:829] Prefetching checkpoint files: 20% (2/10)
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:56 [weight_utils.py:829] Prefetching checkpoint files: 30% (3/10)
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:56 [weight_utils.py:829] Prefetching checkpoint files: 40% (4/10)
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 30% (3/9)
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 50% (5/10)
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 40% (4/9)
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 60% (6/10)
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 50% (5/10)
+Loading safetensors checkpoint shards:   3% Completed | 2/79 [00:02<01:42,  1.33s/it]
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 60% (6/10)
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 70% (7/10)
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 30% (3/10)
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 20% (2/10)
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 50% (5/9)
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 70% (7/10)
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 40% (4/10)
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 10% (1/10)
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 30% (3/10)
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 50% (5/10)
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 60% (6/10)
+Loading safetensors checkpoint shards:   4% Completed | 3/79 [00:03<01:13,  1.04it/s]
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 80% (8/10)
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 40% (4/10)
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 50% (5/10)
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 60% (6/10)
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 60% (6/9)
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 90% (9/10)
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 70% (7/10)
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 30% (3/10)
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 40% (4/10)
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 20% (2/10)
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 30% (3/10)
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 40% (4/10)
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 80% (8/10)
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 100% (10/10)
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 90% (9/10)
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:38:57 [weight_utils.py:852] Prefetching checkpoint files into page cache finished in 3.51s
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 50% (5/10)
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 100% (10/10)
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:38:57 [weight_utils.py:852] Prefetching checkpoint files into page cache finished in 3.40s
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 80% (8/10)
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 70% (7/10)
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 70% (7/9)
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 50% (5/10)
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:57 [weight_utils.py:829] Prefetching checkpoint files: 60% (6/10)
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:58 [weight_utils.py:829] Prefetching checkpoint files: 70% (7/10)
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:58 [weight_utils.py:829] Prefetching checkpoint files: 80% (8/9)
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:58 [weight_utils.py:829] Prefetching checkpoint files: 60% (6/10)
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:58 [weight_utils.py:829] Prefetching checkpoint files: 80% (8/10)
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:58 [weight_utils.py:829] Prefetching checkpoint files: 70% (7/10)
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:58 [weight_utils.py:829] Prefetching checkpoint files: 80% (8/10)
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:58 [weight_utils.py:829] Prefetching checkpoint files: 80% (8/10)
+Loading safetensors checkpoint shards:   5% Completed | 4/79 [00:03<00:57,  1.31it/s]
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:58 [weight_utils.py:829] Prefetching checkpoint files: 90% (9/10)
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:58 [weight_utils.py:829] Prefetching checkpoint files: 100% (10/10)
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:38:58 [weight_utils.py:852] Prefetching checkpoint files into page cache finished in 3.93s
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:58 [weight_utils.py:829] Prefetching checkpoint files: 90% (9/9)
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:38:58 [weight_utils.py:852] Prefetching checkpoint files into page cache finished in 3.90s
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:58 [weight_utils.py:829] Prefetching checkpoint files: 100% (10/10)
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:38:58 [weight_utils.py:852] Prefetching checkpoint files into page cache finished in 4.06s
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:58 [weight_utils.py:829] Prefetching checkpoint files: 90% (9/10)
+Loading safetensors checkpoint shards:   6% Completed | 5/79 [00:04<00:46,  1.58it/s]
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:58 [weight_utils.py:829] Prefetching checkpoint files: 90% (9/10)
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:58 [weight_utils.py:829] Prefetching checkpoint files: 100% (10/10)
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:38:58 [weight_utils.py:852] Prefetching checkpoint files into page cache finished in 4.34s
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:58 [weight_utils.py:829] Prefetching checkpoint files: 90% (9/10)
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:58 [weight_utils.py:829] Prefetching checkpoint files: 100% (10/10)
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:38:58 [weight_utils.py:852] Prefetching checkpoint files into page cache finished in 4.45s
+Loading safetensors checkpoint shards:   8% Completed | 6/79 [00:04<00:44,  1.65it/s]
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:59 [weight_utils.py:829] Prefetching checkpoint files: 100% (10/10)
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:38:59 [weight_utils.py:852] Prefetching checkpoint files into page cache finished in 3.97s
+Loading safetensors checkpoint shards:   9% Completed | 7/79 [00:05<00:38,  1.88it/s]
+Loading safetensors checkpoint shards:  10% Completed | 8/79 [00:05<00:35,  2.00it/s]
+Loading safetensors checkpoint shards:  11% Completed | 9/79 [00:06<00:33,  2.07it/s]
+Loading safetensors checkpoint shards:  13% Completed | 10/79 [00:06<00:36,  1.90it/s]
+Loading safetensors checkpoint shards:  14% Completed | 11/79 [00:07<00:35,  1.92it/s]
+Loading safetensors checkpoint shards:  15% Completed | 12/79 [00:07<00:36,  1.82it/s]
+Loading safetensors checkpoint shards:  16% Completed | 13/79 [00:08<00:34,  1.89it/s]
+Loading safetensors checkpoint shards:  18% Completed | 14/79 [00:08<00:34,  1.87it/s]
+Loading safetensors checkpoint shards:  19% Completed | 15/79 [00:09<00:33,  1.90it/s]
+Loading safetensors checkpoint shards:  20% Completed | 16/79 [00:09<00:31,  2.02it/s]
+Loading safetensors checkpoint shards:  22% Completed | 17/79 [00:10<00:34,  1.79it/s]
+Loading safetensors checkpoint shards:  23% Completed | 18/79 [00:10<00:31,  1.91it/s]
+Loading safetensors checkpoint shards:  24% Completed | 19/79 [00:11<00:32,  1.86it/s]
+Loading safetensors checkpoint shards:  25% Completed | 20/79 [00:12<00:34,  1.71it/s]
+Loading safetensors checkpoint shards:  27% Completed | 21/79 [00:12<00:32,  1.76it/s]
+Loading safetensors checkpoint shards:  28% Completed | 22/79 [00:13<00:30,  1.86it/s]
+Loading safetensors checkpoint shards:  29% Completed | 23/79 [00:13<00:29,  1.88it/s]
+Loading safetensors checkpoint shards:  30% Completed | 24/79 [00:14<00:29,  1.84it/s]
+Loading safetensors checkpoint shards:  32% Completed | 25/79 [00:14<00:28,  1.87it/s]
+Loading safetensors checkpoint shards:  33% Completed | 26/79 [00:15<00:28,  1.87it/s]
+Loading safetensors checkpoint shards:  34% Completed | 27/79 [00:15<00:29,  1.75it/s]
+Loading safetensors checkpoint shards:  35% Completed | 28/79 [00:16<00:26,  1.89it/s]
+Loading safetensors checkpoint shards:  37% Completed | 29/79 [00:17<00:28,  1.78it/s]
+Loading safetensors checkpoint shards:  38% Completed | 30/79 [00:17<00:29,  1.66it/s]
+Loading safetensors checkpoint shards:  39% Completed | 31/79 [00:18<00:27,  1.76it/s]
+Loading safetensors checkpoint shards:  41% Completed | 32/79 [00:18<00:25,  1.84it/s]
+Loading safetensors checkpoint shards:  42% Completed | 33/79 [00:19<00:24,  1.88it/s]
+Loading safetensors checkpoint shards:  43% Completed | 34/79 [00:19<00:22,  2.04it/s]
+Loading safetensors checkpoint shards:  44% Completed | 35/79 [00:20<00:23,  1.86it/s]
+Loading safetensors checkpoint shards:  46% Completed | 36/79 [00:20<00:23,  1.79it/s]
+Loading safetensors checkpoint shards:  47% Completed | 37/79 [00:21<00:20,  2.03it/s]
+Loading safetensors checkpoint shards:  48% Completed | 38/79 [00:21<00:22,  1.81it/s]
+Loading safetensors checkpoint shards:  49% Completed | 39/79 [00:22<00:21,  1.82it/s]
+Loading safetensors checkpoint shards:  51% Completed | 40/79 [00:23<00:23,  1.67it/s]
+Loading safetensors checkpoint shards:  52% Completed | 41/79 [00:23<00:22,  1.67it/s]
+Loading safetensors checkpoint shards:  53% Completed | 42/79 [00:24<00:21,  1.73it/s]
+Loading safetensors checkpoint shards:  54% Completed | 43/79 [00:24<00:19,  1.86it/s]
+Loading safetensors checkpoint shards:  56% Completed | 44/79 [00:25<00:18,  1.89it/s]
+Loading safetensors checkpoint shards:  57% Completed | 45/79 [00:25<00:19,  1.76it/s]
+Loading safetensors checkpoint shards:  58% Completed | 46/79 [00:26<00:18,  1.77it/s]
+Loading safetensors checkpoint shards:  59% Completed | 47/79 [00:26<00:16,  1.94it/s]
+Loading safetensors checkpoint shards:  61% Completed | 48/79 [00:27<00:16,  1.91it/s]
+Loading safetensors checkpoint shards:  62% Completed | 49/79 [00:27<00:16,  1.86it/s]
+Loading safetensors checkpoint shards:  63% Completed | 50/79 [00:28<00:15,  1.92it/s]
+Loading safetensors checkpoint shards:  65% Completed | 51/79 [00:28<00:14,  1.97it/s]
+Loading safetensors checkpoint shards:  66% Completed | 52/79 [00:29<00:13,  1.97it/s]
+Loading safetensors checkpoint shards:  67% Completed | 53/79 [00:29<00:13,  1.98it/s]
+Loading safetensors checkpoint shards:  68% Completed | 54/79 [00:30<00:13,  1.87it/s]
+Loading safetensors checkpoint shards:  70% Completed | 55/79 [00:31<00:13,  1.84it/s]
+Loading safetensors checkpoint shards:  71% Completed | 56/79 [00:31<00:12,  1.87it/s]
+Loading safetensors checkpoint shards:  72% Completed | 57/79 [00:32<00:11,  1.87it/s]
+Loading safetensors checkpoint shards:  73% Completed | 58/79 [00:32<00:11,  1.89it/s]
+Loading safetensors checkpoint shards:  75% Completed | 59/79 [00:33<00:10,  1.88it/s]
+Loading safetensors checkpoint shards:  76% Completed | 60/79 [00:33<00:10,  1.79it/s]
+Loading safetensors checkpoint shards:  77% Completed | 61/79 [00:34<00:10,  1.79it/s]
+Loading safetensors checkpoint shards:  78% Completed | 62/79 [00:35<00:10,  1.66it/s]
+Loading safetensors checkpoint shards:  80% Completed | 63/79 [00:35<00:08,  1.87it/s]
+Loading safetensors checkpoint shards:  81% Completed | 64/79 [00:35<00:07,  1.90it/s]
+Loading safetensors checkpoint shards:  82% Completed | 65/79 [00:36<00:07,  1.79it/s]
+Loading safetensors checkpoint shards:  84% Completed | 66/79 [00:37<00:07,  1.80it/s]
+Loading safetensors checkpoint shards:  85% Completed | 67/79 [00:37<00:06,  1.86it/s]
+Loading safetensors checkpoint shards:  86% Completed | 68/79 [00:38<00:05,  1.86it/s]
+Loading safetensors checkpoint shards:  87% Completed | 69/79 [00:38<00:05,  1.83it/s]
+Loading safetensors checkpoint shards:  89% Completed | 70/79 [00:39<00:05,  1.78it/s]
+Loading safetensors checkpoint shards:  90% Completed | 71/79 [00:39<00:04,  2.00it/s]
+Loading safetensors checkpoint shards:  91% Completed | 72/79 [00:40<00:03,  2.15it/s]
+Loading safetensors checkpoint shards:  92% Completed | 73/79 [00:40<00:03,  1.99it/s]
+Loading safetensors checkpoint shards:  94% Completed | 74/79 [00:41<00:02,  1.93it/s]
+Loading safetensors checkpoint shards:  95% Completed | 75/79 [00:41<00:02,  1.95it/s]
+Loading safetensors checkpoint shards:  96% Completed | 76/79 [00:43<00:02,  1.11it/s]
+Loading safetensors checkpoint shards:  97% Completed | 77/79 [00:46<00:02,  1.49s/it]
+Loading safetensors checkpoint shards:  99% Completed | 78/79 [00:49<00:01,  1.96s/it]
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:44 [default_loader.py:430] Loading weights took 50.41 seconds
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:44 [model_runner_v1.py:4387] Loading drafter model...
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:44 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(Worker_DP1_EP1 pid=391610) WARNING 09-24 16:39:44 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:44 [ascend_config.py:252] Dynamic EPLB is False
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:44 [ascend_config.py:253] The number of redundant experts is 0
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:44 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:44 [llm_base_proposer.py:367] [spec_decode/base] Loading draft model: method=mtp, load_format=None, model=/mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:44 [default_loader.py:430] Loading weights took 50.54 seconds
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:45 [model_runner_v1.py:4387] Loading drafter model...
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:45 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(Worker_DP6_EP6 pid=391611) WARNING 09-24 16:39:45 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:45 [ascend_config.py:252] Dynamic EPLB is False
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:45 [ascend_config.py:253] The number of redundant experts is 0
+(Worker_DP1_EP1 pid=391610) WARNING 09-24 16:39:45 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:45 [weight_utils.py:895] Filesystem type for checkpoints: NFS. Checkpoint size: 314.87 GiB. Available RAM: 1406.33 GiB.
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:45 [weight_utils.py:857] Prefetching checkpoint files into page cache started (in background, num_threads=8, block_size=16777216 bytes)
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:45 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:45 [llm_base_proposer.py:367] [spec_decode/base] Loading draft model: method=mtp, load_format=None, model=/mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918
+(Worker_DP6_EP6 pid=391611) WARNING 09-24 16:39:45 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:45 [weight_utils.py:895] Filesystem type for checkpoints: NFS. Checkpoint size: 314.87 GiB. Available RAM: 1404.63 GiB.
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:45 [weight_utils.py:857] Prefetching checkpoint files into page cache started (in background, num_threads=8, block_size=16777216 bytes)
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:45 [default_loader.py:430] Loading weights took 51.39 seconds
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:45 [model_runner_v1.py:4387] Loading drafter model...
