@@ -1,0 +1,500 @@
+(EngineCore_DP2 pid=387199) INFO 09-24 16:40:22 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+(EngineCore_DP6 pid=388361) INFO 09-24 16:40:22 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+(EngineCore_DP7 pid=388653) WARNING 09-24 16:40:22 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(EngineCore_DP7 pid=388653) INFO 09-24 16:40:22 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+(EngineCore_DP0 pid=386619) INFO 09-24 16:40:22 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(EngineCore_DP4 pid=387781) INFO 09-24 16:40:22 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(EngineCore_DP1 pid=386907) INFO 09-24 16:40:22 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(EngineCore_DP0 pid=386619) INFO 09-24 16:40:22 [compilation.py:336] Enabled custom fusions: norm_quant, act_quant
+(EngineCore_DP3 pid=387489) INFO 09-24 16:40:22 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(EngineCore_DP2 pid=387199) INFO 09-24 16:40:22 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(EngineCore_DP4 pid=387781) INFO 09-24 16:40:22 [compilation.py:336] Enabled custom fusions: norm_quant, act_quant
+(EngineCore_DP5 pid=388071) INFO 09-24 16:40:22 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(EngineCore_DP6 pid=388361) INFO 09-24 16:40:22 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(EngineCore_DP1 pid=386907) INFO 09-24 16:40:22 [compilation.py:336] Enabled custom fusions: norm_quant, act_quant
+(EngineCore_DP3 pid=387489) INFO 09-24 16:40:22 [compilation.py:336] Enabled custom fusions: norm_quant, act_quant
+(EngineCore_DP2 pid=387199) INFO 09-24 16:40:22 [compilation.py:336] Enabled custom fusions: norm_quant, act_quant
+(EngineCore_DP5 pid=388071) INFO 09-24 16:40:22 [compilation.py:336] Enabled custom fusions: norm_quant, act_quant
+(EngineCore_DP6 pid=388361) INFO 09-24 16:40:22 [compilation.py:336] Enabled custom fusions: norm_quant, act_quant
+(EngineCore_DP7 pid=388653) INFO 09-24 16:40:22 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(EngineCore_DP7 pid=388653) INFO 09-24 16:40:22 [compilation.py:336] Enabled custom fusions: norm_quant, act_quant
+(ApiServer_7 pid=388950) INFO 09-24 16:40:22 [entry.py:135] Supported tasks: ['generate']
+(ApiServer_5 pid=388948) INFO 09-24 16:40:22 [entry.py:135] Supported tasks: ['generate']
+(ApiServer_4 pid=388947) INFO 09-24 16:40:22 [entry.py:135] Supported tasks: ['generate']
+(ApiServer_6 pid=388949) INFO 09-24 16:40:22 [entry.py:135] Supported tasks: ['generate']
+(ApiServer_5 pid=388948) INFO 09-24 16:40:22 [factories.py:76] Scale-out endpoints are disabled. Set --enable-scale-out to enable them.
+(ApiServer_7 pid=388950) INFO 09-24 16:40:22 [factories.py:76] Scale-out endpoints are disabled. Set --enable-scale-out to enable them.
+(ApiServer_2 pid=388945) INFO 09-24 16:40:22 [entry.py:135] Supported tasks: ['generate']
+(ApiServer_4 pid=388947) INFO 09-24 16:40:22 [factories.py:76] Scale-out endpoints are disabled. Set --enable-scale-out to enable them.
+(ApiServer_6 pid=388949) INFO 09-24 16:40:22 [factories.py:76] Scale-out endpoints are disabled. Set --enable-scale-out to enable them.
+(ApiServer_0 pid=388943) INFO 09-24 16:40:22 [entry.py:135] Supported tasks: ['generate']
+(ApiServer_2 pid=388945) INFO 09-24 16:40:22 [factories.py:76] Scale-out endpoints are disabled. Set --enable-scale-out to enable them.
+(ApiServer_1 pid=388944) INFO 09-24 16:40:22 [entry.py:135] Supported tasks: ['generate']
+(ApiServer_3 pid=388946) INFO 09-24 16:40:22 [entry.py:135] Supported tasks: ['generate']
+(ApiServer_0 pid=388943) INFO 09-24 16:40:22 [factories.py:76] Scale-out endpoints are disabled. Set --enable-scale-out to enable them.
+(ApiServer_1 pid=388944) INFO 09-24 16:40:23 [factories.py:76] Scale-out endpoints are disabled. Set --enable-scale-out to enable them.
+(ApiServer_3 pid=388946) INFO 09-24 16:40:23 [factories.py:76] Scale-out endpoints are disabled. Set --enable-scale-out to enable them.
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [hf.py:642] Detected the chat template content format to be 'openai'. You can set `--chat-template-content-format` to override this.
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [hf.py:642] Detected the chat template content format to be 'openai'. You can set `--chat-template-content-format` to override this.
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [hf.py:642] Detected the chat template content format to be 'openai'. You can set `--chat-template-content-format` to override this.
+(ApiServer_7 pid=388950) WARNING 09-24 16:40:24 [model.py:1772] Default vLLM sampling parameters have been overridden by the model's `generation_config.json`: `{'temperature': 1.0, 'top_p': 0.95}`. If this is not intended, please relaunch vLLM instance with `--generation-config vllm`.
+(ApiServer_4 pid=388947) WARNING 09-24 16:40:24 [model.py:1772] Default vLLM sampling parameters have been overridden by the model's `generation_config.json`: `{'temperature': 1.0, 'top_p': 0.95}`. If this is not intended, please relaunch vLLM instance with `--generation-config vllm`.
+(ApiServer_6 pid=388949) WARNING 09-24 16:40:24 [model.py:1772] Default vLLM sampling parameters have been overridden by the model's `generation_config.json`: `{'temperature': 1.0, 'top_p': 0.95}`. If this is not intended, please relaunch vLLM instance with `--generation-config vllm`.
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [entry.py:139] Starting vLLM server on http://0.0.0.0:8017
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:61] Available routes are:
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /openapi.json, Methods: HEAD, GET
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /docs, Methods: HEAD, GET
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /docs/oauth2-redirect, Methods: HEAD, GET
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /redoc, Methods: HEAD, GET
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /load, Methods: GET
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /version, Methods: GET
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /health, Methods: GET
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /metrics, Methods: GET
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /tokenize, Methods: POST
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /detokenize, Methods: POST
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/models, Methods: GET
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /ping, Methods: GET
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /ping, Methods: POST
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /invocations, Methods: POST
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/chat/completions, Methods: POST
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/chat/completions/batch, Methods: POST
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/responses, Methods: POST
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/responses/{response_id}, Methods: GET
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/responses/{response_id}/cancel, Methods: POST
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/completions, Methods: POST
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/messages, Methods: POST
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/messages/count_tokens, Methods: POST
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /generative_scoring, Methods: POST
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /scale_elastic_ep, Methods: POST
+(ApiServer_7 pid=388950) INFO 09-24 16:40:24 [launcher.py:70] Route: /is_scaling_elastic_ep, Methods: POST
+(ApiServer_7 pid=388950) INFO:     Started server process [388950]
+(ApiServer_7 pid=388950) INFO:     Waiting for application startup.
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [entry.py:139] Starting vLLM server on http://0.0.0.0:8017
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:61] Available routes are:
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /openapi.json, Methods: GET, HEAD
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /docs, Methods: GET, HEAD
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /docs/oauth2-redirect, Methods: GET, HEAD
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /redoc, Methods: GET, HEAD
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /load, Methods: GET
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /version, Methods: GET
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /health, Methods: GET
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /metrics, Methods: GET
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /tokenize, Methods: POST
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /detokenize, Methods: POST
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/models, Methods: GET
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /ping, Methods: GET
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /ping, Methods: POST
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /invocations, Methods: POST
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/chat/completions, Methods: POST
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/chat/completions/batch, Methods: POST
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/responses, Methods: POST
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/responses/{response_id}, Methods: GET
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/responses/{response_id}/cancel, Methods: POST
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/completions, Methods: POST
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/messages, Methods: POST
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/messages/count_tokens, Methods: POST
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /generative_scoring, Methods: POST
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /scale_elastic_ep, Methods: POST
+(ApiServer_4 pid=388947) INFO 09-24 16:40:24 [launcher.py:70] Route: /is_scaling_elastic_ep, Methods: POST
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [hf.py:642] Detected the chat template content format to be 'openai'. You can set `--chat-template-content-format` to override this.
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [entry.py:139] Starting vLLM server on http://0.0.0.0:8017
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:61] Available routes are:
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /openapi.json, Methods: HEAD, GET
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /docs, Methods: HEAD, GET
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /docs/oauth2-redirect, Methods: HEAD, GET
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /redoc, Methods: HEAD, GET
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /load, Methods: GET
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /version, Methods: GET
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /health, Methods: GET
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /metrics, Methods: GET
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /tokenize, Methods: POST
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /detokenize, Methods: POST
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/models, Methods: GET
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /ping, Methods: GET
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /ping, Methods: POST
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /invocations, Methods: POST
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/chat/completions, Methods: POST
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/chat/completions/batch, Methods: POST
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/responses, Methods: POST
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/responses/{response_id}, Methods: GET
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/responses/{response_id}/cancel, Methods: POST
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/completions, Methods: POST
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/messages, Methods: POST
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/messages/count_tokens, Methods: POST
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /generative_scoring, Methods: POST
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /scale_elastic_ep, Methods: POST
+(ApiServer_6 pid=388949) INFO 09-24 16:40:24 [launcher.py:70] Route: /is_scaling_elastic_ep, Methods: POST
+(ApiServer_4 pid=388947) INFO:     Started server process [388947]
+(ApiServer_4 pid=388947) INFO:     Waiting for application startup.
+(ApiServer_6 pid=388949) INFO:     Started server process [388949]
+(ApiServer_6 pid=388949) INFO:     Waiting for application startup.
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [hf.py:642] Detected the chat template content format to be 'openai'. You can set `--chat-template-content-format` to override this.
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [hf.py:642] Detected the chat template content format to be 'openai'. You can set `--chat-template-content-format` to override this.
+(ApiServer_0 pid=388943) WARNING 09-24 16:40:24 [model.py:1772] Default vLLM sampling parameters have been overridden by the model's `generation_config.json`: `{'temperature': 1.0, 'top_p': 0.95}`. If this is not intended, please relaunch vLLM instance with `--generation-config vllm`.
+(ApiServer_3 pid=388946) WARNING 09-24 16:40:24 [model.py:1772] Default vLLM sampling parameters have been overridden by the model's `generation_config.json`: `{'temperature': 1.0, 'top_p': 0.95}`. If this is not intended, please relaunch vLLM instance with `--generation-config vllm`.
+(ApiServer_1 pid=388944) WARNING 09-24 16:40:24 [model.py:1772] Default vLLM sampling parameters have been overridden by the model's `generation_config.json`: `{'temperature': 1.0, 'top_p': 0.95}`. If this is not intended, please relaunch vLLM instance with `--generation-config vllm`.
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [entry.py:139] Starting vLLM server on http://0.0.0.0:8017
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:61] Available routes are:
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /openapi.json, Methods: HEAD, GET
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /docs, Methods: HEAD, GET
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /docs/oauth2-redirect, Methods: HEAD, GET
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /redoc, Methods: HEAD, GET
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /load, Methods: GET
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /version, Methods: GET
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /health, Methods: GET
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /metrics, Methods: GET
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /tokenize, Methods: POST
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /detokenize, Methods: POST
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/models, Methods: GET
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /ping, Methods: GET
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /ping, Methods: POST
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /invocations, Methods: POST
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/chat/completions, Methods: POST
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/chat/completions/batch, Methods: POST
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/responses, Methods: POST
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/responses/{response_id}, Methods: GET
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/responses/{response_id}/cancel, Methods: POST
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/completions, Methods: POST
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/messages, Methods: POST
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/messages/count_tokens, Methods: POST
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /generative_scoring, Methods: POST
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /scale_elastic_ep, Methods: POST
+(ApiServer_0 pid=388943) INFO 09-24 16:40:24 [launcher.py:70] Route: /is_scaling_elastic_ep, Methods: POST
+(ApiServer_0 pid=388943) INFO:     Started server process [388943]
+(ApiServer_0 pid=388943) INFO:     Waiting for application startup.
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [entry.py:139] Starting vLLM server on http://0.0.0.0:8017
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:61] Available routes are:
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /openapi.json, Methods: HEAD, GET
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /docs, Methods: HEAD, GET
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /docs/oauth2-redirect, Methods: HEAD, GET
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /redoc, Methods: HEAD, GET
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /load, Methods: GET
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /version, Methods: GET
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /health, Methods: GET
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /metrics, Methods: GET
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /tokenize, Methods: POST
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /detokenize, Methods: POST
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/models, Methods: GET
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /ping, Methods: GET
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /ping, Methods: POST
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /invocations, Methods: POST
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/chat/completions, Methods: POST
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/chat/completions/batch, Methods: POST
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/responses, Methods: POST
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/responses/{response_id}, Methods: GET
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/responses/{response_id}/cancel, Methods: POST
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/completions, Methods: POST
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/messages, Methods: POST
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/messages/count_tokens, Methods: POST
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /generative_scoring, Methods: POST
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /scale_elastic_ep, Methods: POST
+(ApiServer_3 pid=388946) INFO 09-24 16:40:24 [launcher.py:70] Route: /is_scaling_elastic_ep, Methods: POST
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [entry.py:139] Starting vLLM server on http://0.0.0.0:8017
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:61] Available routes are:
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /openapi.json, Methods: HEAD, GET
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /docs, Methods: HEAD, GET
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /docs/oauth2-redirect, Methods: HEAD, GET
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /redoc, Methods: HEAD, GET
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /load, Methods: GET
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /version, Methods: GET
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /health, Methods: GET
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /metrics, Methods: GET
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /tokenize, Methods: POST
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /detokenize, Methods: POST
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/models, Methods: GET
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /ping, Methods: GET
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /ping, Methods: POST
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /invocations, Methods: POST
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/chat/completions, Methods: POST
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/chat/completions/batch, Methods: POST
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/responses, Methods: POST
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/responses/{response_id}, Methods: GET
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/responses/{response_id}/cancel, Methods: POST
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/completions, Methods: POST
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/messages, Methods: POST
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /v1/messages/count_tokens, Methods: POST
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /generative_scoring, Methods: POST
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /scale_elastic_ep, Methods: POST
+(ApiServer_1 pid=388944) INFO 09-24 16:40:24 [launcher.py:70] Route: /is_scaling_elastic_ep, Methods: POST
+(ApiServer_3 pid=388946) INFO:     Started server process [388946]
+(ApiServer_3 pid=388946) INFO:     Waiting for application startup.
+(ApiServer_2 pid=388945) INFO 09-24 16:40:24 [hf.py:642] Detected the chat template content format to be 'openai'. You can set `--chat-template-content-format` to override this.
+(ApiServer_1 pid=388944) INFO:     Started server process [388944]
+(ApiServer_1 pid=388944) INFO:     Waiting for application startup.
+(ApiServer_2 pid=388945) WARNING 09-24 16:40:25 [model.py:1772] Default vLLM sampling parameters have been overridden by the model's `generation_config.json`: `{'temperature': 1.0, 'top_p': 0.95}`. If this is not intended, please relaunch vLLM instance with `--generation-config vllm`.
+(ApiServer_7 pid=388950) INFO:     Application startup complete.
+(ApiServer_4 pid=388947) INFO:     Application startup complete.
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [entry.py:139] Starting vLLM server on http://0.0.0.0:8017
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:61] Available routes are:
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /openapi.json, Methods: HEAD, GET
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /docs, Methods: HEAD, GET
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /docs/oauth2-redirect, Methods: HEAD, GET
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /redoc, Methods: HEAD, GET
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /load, Methods: GET
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /version, Methods: GET
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /health, Methods: GET
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /metrics, Methods: GET
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /tokenize, Methods: POST
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /detokenize, Methods: POST
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /v1/models, Methods: GET
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /ping, Methods: GET
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /ping, Methods: POST
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /invocations, Methods: POST
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /v1/chat/completions, Methods: POST
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /v1/chat/completions/batch, Methods: POST
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /v1/responses, Methods: POST
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /v1/responses/{response_id}, Methods: GET
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /v1/responses/{response_id}/cancel, Methods: POST
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /v1/completions, Methods: POST
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /v1/messages, Methods: POST
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /v1/messages/count_tokens, Methods: POST
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /generative_scoring, Methods: POST
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /scale_elastic_ep, Methods: POST
+(ApiServer_2 pid=388945) INFO 09-24 16:40:25 [launcher.py:70] Route: /is_scaling_elastic_ep, Methods: POST
+(ApiServer_6 pid=388949) INFO:     Application startup complete.
+(ApiServer_2 pid=388945) INFO:     Started server process [388945]
+(ApiServer_2 pid=388945) INFO:     Waiting for application startup.
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [hf.py:642] Detected the chat template content format to be 'openai'. You can set `--chat-template-content-format` to override this.
+(ApiServer_0 pid=388943) INFO:     Application startup complete.
+(ApiServer_5 pid=388948) WARNING 09-24 16:40:25 [model.py:1772] Default vLLM sampling parameters have been overridden by the model's `generation_config.json`: `{'temperature': 1.0, 'top_p': 0.95}`. If this is not intended, please relaunch vLLM instance with `--generation-config vllm`.
+(ApiServer_1 pid=388944) INFO:     Application startup complete.
+(ApiServer_3 pid=388946) INFO:     Application startup complete.
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [entry.py:139] Starting vLLM server on http://0.0.0.0:8017
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:61] Available routes are:
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /openapi.json, Methods: GET, HEAD
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /docs, Methods: GET, HEAD
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /docs/oauth2-redirect, Methods: GET, HEAD
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /redoc, Methods: GET, HEAD
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /load, Methods: GET
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /version, Methods: GET
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /health, Methods: GET
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /metrics, Methods: GET
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /tokenize, Methods: POST
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /detokenize, Methods: POST
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /v1/models, Methods: GET
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /ping, Methods: GET
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /ping, Methods: POST
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /invocations, Methods: POST
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /v1/chat/completions, Methods: POST
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /v1/chat/completions/batch, Methods: POST
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /v1/responses, Methods: POST
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /v1/responses/{response_id}, Methods: GET
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /v1/responses/{response_id}/cancel, Methods: POST
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /v1/completions, Methods: POST
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /v1/messages, Methods: POST
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /v1/messages/count_tokens, Methods: POST
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /generative_scoring, Methods: POST
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /scale_elastic_ep, Methods: POST
+(ApiServer_5 pid=388948) INFO 09-24 16:40:25 [launcher.py:70] Route: /is_scaling_elastic_ep, Methods: POST
+(ApiServer_5 pid=388948) INFO:     Started server process [388948]
+(ApiServer_5 pid=388948) INFO:     Waiting for application startup.
+(ApiServer_2 pid=388945) INFO:     Application startup complete.
+(ApiServer_5 pid=388948) INFO:     Application startup complete.
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:41:04 [acl_graph.py:301] ACL graph replay is active (logged once).
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:41:04 [acl_graph.py:301] ACL graph replay is active (logged once).
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:41:04 [acl_graph.py:301] ACL graph replay is active (logged once).
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:41:04 [acl_graph.py:301] ACL graph replay is active (logged once).
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:41:04 [acl_graph.py:301] ACL graph replay is active (logged once).
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:41:04 [acl_graph.py:301] ACL graph replay is active (logged once).
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:41:04 [acl_graph.py:301] ACL graph replay is active (logged once).
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:41:04 [acl_graph.py:301] ACL graph replay is active (logged once).
+(EngineCore_DP5 pid=388071) INFO 09-24 16:42:05 [shm_broadcast.py:801] No available shared memory broadcast block found in 60 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation, weight/kv cache quantization).
+(EngineCore_DP6 pid=388361) INFO 09-24 16:42:05 [shm_broadcast.py:801] No available shared memory broadcast block found in 60 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation, weight/kv cache quantization).
+(EngineCore_DP3 pid=387489) INFO 09-24 16:42:05 [shm_broadcast.py:801] No available shared memory broadcast block found in 60 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation, weight/kv cache quantization).
+(EngineCore_DP7 pid=388653) INFO 09-24 16:42:05 [shm_broadcast.py:801] No available shared memory broadcast block found in 60 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation, weight/kv cache quantization).
+(EngineCore_DP0 pid=386619) INFO 09-24 16:42:05 [shm_broadcast.py:801] No available shared memory broadcast block found in 60 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation, weight/kv cache quantization).
+(EngineCore_DP4 pid=387781) INFO 09-24 16:42:05 [shm_broadcast.py:801] No available shared memory broadcast block found in 60 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation, weight/kv cache quantization).
+(EngineCore_DP2 pid=387199) INFO 09-24 16:42:05 [shm_broadcast.py:801] No available shared memory broadcast block found in 60 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation, weight/kv cache quantization).
+(EngineCore_DP1 pid=386907) INFO 09-24 16:42:05 [shm_broadcast.py:801] No available shared memory broadcast block found in 60 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation, weight/kv cache quantization).
+(EngineCore_DP5 pid=388071) INFO 09-24 16:43:05 [shm_broadcast.py:801] No available shared memory broadcast block found in 60 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation, weight/kv cache quantization).
+(EngineCore_DP6 pid=388361) INFO 09-24 16:43:05 [shm_broadcast.py:801] No available shared memory broadcast block found in 60 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation, weight/kv cache quantization).
+(EngineCore_DP7 pid=388653) INFO 09-24 16:43:05 [shm_broadcast.py:801] No available shared memory broadcast block found in 60 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation, weight/kv cache quantization).
+(EngineCore_DP0 pid=386619) INFO 09-24 16:43:05 [shm_broadcast.py:801] No available shared memory broadcast block found in 60 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation, weight/kv cache quantization).
+(EngineCore_DP4 pid=387781) INFO 09-24 16:43:05 [shm_broadcast.py:801] No available shared memory broadcast block found in 60 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation, weight/kv cache quantization).
+(EngineCore_DP3 pid=387489) INFO 09-24 16:43:05 [shm_broadcast.py:801] No available shared memory broadcast block found in 60 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation, weight/kv cache quantization).
+(EngineCore_DP2 pid=387199) INFO 09-24 16:43:05 [shm_broadcast.py:801] No available shared memory broadcast block found in 60 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation, weight/kv cache quantization).
+(EngineCore_DP1 pid=386907) INFO 09-24 16:43:05 [shm_broadcast.py:801] No available shared memory broadcast block found in 60 seconds. This typically happens when some processes are hanging or doing some time-consuming work (e.g. compilation, weight/kv cache quantization).
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] Error getting async model runner output
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] Traceback (most recent call last):
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]   File "/home/j00950773/code/0924/vllm/vllm/v1/executor/multiproc_executor.py", line 989, in enqueue_output
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]     output = output.get_output()
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]              ^^^^^^^^^^^^^^^^^^^
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]   File "/home/j00950773/code/0924/vllm/vllm/v1/worker/gpu_model_runner.py", line 351, in get_output
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]     self.async_copy_ready_event.synchronize()
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]   File "/usr/local/python3.11.10/lib/python3.11/site-packages/torch_npu/npu/streams.py", line 192, in synchronize
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]     super(Event, self).synchronize()
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] RuntimeError: synchronize:../torch_npu/csrc/core/npu/NPUEvent.cpp:215 NPU function error: device error type 3, error code is 507011
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] [ERROR] 2026-09-24-16:43:13 (PID:391613, Device:5, RankID:-1) ERR00100 PTA call acl api failed
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] [Error]: Model execution failed.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]         Rectify the fault based on the error information in the ascend log.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] EZ9999: Internal error!
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] EZ9999[PID: 391613] 2026-09-24-16:41:25.362.133 (EZ9999):  An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 2, error code = 82, dump info: pc start: 0x120db25cdf20, current: 0x120db25d0e00, sc error info: 0xffffffffffff, su error info: 0xfffffffe1740f6ff,0x77fffef67800ffff, mte error info: 0x436f, vec error info: 0, cube error info: 0, l1 error info: 0x7ff700155e4f, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0x40000, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(82) errorStr: The address for MTE2 to write UB and MTE3 to write L1/UB is out of bounds. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] TraceBack (most recent call last):
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 3, error code = 82, dump info: pc start: 0x120db25cdf20, current: 0x120db25d0e00, sc error info: 0xffffffffffff, su error info: 0xffbfffff15e2dd5d,0xffe1fffff800fffe, mte error info: 0x436f, vec error info: 0, cube error info: 0, l1 error info: 0xdf91001737d7, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0x40000, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(82) errorStr: The address for MTE2 to write UB and MTE3 to write L1/UB is out of bounds. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 4, error code = 82, dump info: pc start: 0x120db25cdf20, current: 0x120db25d0e00, sc error info: 0xffffffffffff, su error info: 0xffd7fdff1f88ef0d,0x73d7fdf5f800ffff, mte error info: 0x436f, vec error info: 0, cube error info: 0, l1 error info: 0xbd3f0019dfc7, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0x40000, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(82) errorStr: The address for MTE2 to write UB and MTE3 to write L1/UB is out of bounds. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 0, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xfff3feff0c88ec2d,0xf7d37ffdf800fdff, mte error info: 0x6ed1987d00079ff5, vec error info: 0, cube error info: 0, l1 error info: 0xaf3f001cdec1, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 1, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0x3ebdffff1dcefdce,0x15edbff5e800fdff, mte error info: 0xb3ccf4ef0003f35f, vec error info: 0, cube error info: 0, l1 error info: 0xc75b0008bfb9, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 5, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0x3dfffeff1be4efcf,0xfedfff4fb800377e, mte error info: 0xdd804cdb0001539d, vec error info: 0, cube error info: 0, l1 error info: 0xd7df00127d5e, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 6, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xfbff7d7f0c94ef4f,0x427777afb800effe, mte error info: 0xbd7ef770004abf7, vec error info: 0, cube error info: 0, l1 error info: 0xf8ff0017afff, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 7, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xfffffaff104aff9e,0xb5ed2bc1f800ffff, mte error info: 0xf99fefd600068ddb, vec error info: 0, cube error info: 0, l1 error info: 0xb7be000f2ff9, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 8, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0x7fb7ffbb173cd32e,0xffe0cf7ff800ffff, mte error info: 0xfefffbff0006fd2f, vec error info: 0, cube error info: 0, l1 error info: 0xbefd000ff7ee, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 9, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xffffdfe91ff6ddff,0xffef7749f800fdff, mte error info: 0xc98905fc0003d3cf, vec error info: 0, cube error info: 0, l1 error info: 0xefae000f7bf6, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 11, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xffbf7fff1794e6e1,0xede77ffbf800dffa, mte error info: 0xe7ff61f60007f7b9, vec error info: 0, cube error info: 0, l1 error info: 0x8dff00176ebf, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 12, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xffffffd51efeefff,0xddc5ff9fb000ffd7, mte error info: 0x87f2fe9f0007c9cd, vec error info: 0, cube error info: 0, l1 error info: 0xdf3f0008c99a, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 13, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xffffffff1fb65fce,0x9ccdff4578007fff, mte error info: 0xff6ffed30007afdf, vec error info: 0, cube error info: 0, l1 error info: 0xffdf0007f1ff, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 14, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xff9ffffe053edf2f,0xffdff6ffb800fdff, mte error info: 0xfaf6f4e60003eeb5, vec error info: 0, cube error info: 0, l1 error info: 0x8faf001537fd, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 16, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xff777ffd16e2f9bf,0xed7fede9f800ffbf, mte error info: 0xeaddffe90007fff5, vec error info: 0, cube error info: 0, l1 error info: 0x3be30017bffd, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 17, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xffffffff1f36c92e,0xfbf5da55f800ffef, mte error info: 0xd19e9dcf00077b2f, vec error info: 0, cube error info: 0, l1 error info: 0xffdf0009f3fb, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 18, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xdfff7fff0af64fee,0xc9eff751f000ef7e, mte error info: 0xec7e3df50007ffbf, vec error info: 0, cube error info: 0, l1 error info: 0xffb70017ef7d, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 19, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xfffdfdfe06003eff,0xddb5af95f800ffff, mte error info: 0xf5fe344b0006bd1f, vec error info: 0, cube error info: 0, l1 error info: 0x739d0003790e, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 21, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xfdffffef097e39d9,0xd77f71fcf8003fff, mte error info: 0xbec6ecf0007ffee, vec error info: 0, cube error info: 0, l1 error info: 0xcfff001f77fe, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 22, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xdfe7ff6b1ffe9fef,0x57f3d7fed800fcff, mte error info: 0xe9b1ffc30000f587, vec error info: 0, cube error info: 0, l1 error info: 0x3f9a00081ff7, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 23, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xbbbe7ffd1afcffe6,0xf7fade6ff800fdf7, mte error info: 0xd9e7aed30006fbef, vec error info: 0, cube error info: 0, l1 error info: 0xf7fb001f3ff6, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 24, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xffffffdf1ffefe6f,0xc3fe66def8005fff, mte error info: 0x69bf7fe000008bde, vec error info: 0, cube error info: 0, l1 error info: 0xa3df001edf7f, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 25, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0x7fffffff053ecc3d,0x49ce8e7f800fbff, mte error info: 0x3feee7fe00073db4, vec error info: 0, cube error info: 0, l1 error info: 0xf55300167fff, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 26, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xfffaffdf13eecffe,0x9aefe366e800ffef, mte error info: 0x56df4f050002afed, vec error info: 0, cube error info: 0, l1 error info: 0xe7ff00106f7d, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 27, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xfddbfdff03bedffc,0xdd08ff95f800ffef, mte error info: 0xbadffdd40000fd9f, vec error info: 0, cube error info: 0, l1 error info: 0xaa9f0017a50d, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 29, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0x7ffcffef1f6adc5d,0xfd9784def800dfff, mte error info: 0xfdff9f670005eedc, vec error info: 0, cube error info: 0, l1 error info: 0xff5f00071dbf, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 30, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xe3fdfffb0feedcdf,0xbcd26e62f800ffff, mte error info: 0x3f8691fe000557f7, vec error info: 0, cube error info: 0, l1 error info: 0xfff50017fd4f, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 31, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xfed74ffe121efefd,0x6c3d7145e800ffff, mte error info: 0xc1bd05cd00047dab, vec error info: 0, cube error info: 0, l1 error info: 0x9ddf001effce, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 32, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xbebbfffb05dae666,0xbf61efd7e800dffe, mte error info: 0xbc6171bc0006c45b, vec error info: 0, cube error info: 0, l1 error info: 0x5fe30017dd57, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 33, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xffffe7bb1e72fffc,0xeff8fffcd000fffe, mte error info: 0xfdd2efff000158ed, vec error info: 0, cube error info: 0, l1 error info: 0xbbff00169e53, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 34, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xefff5fcf1bf2ffff,0xeedc4eecf800dfff, mte error info: 0xc9fcef4b0003afba, vec error info: 0, cube error info: 0, l1 error info: 0xbccb0018c8f6, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 17, the error is aicore error, core id is 35, error code = 0, dump info: pc start: 0x120db25cdf20, current: 0x120db25d1240, sc error info: 0xffffffffffff, su error info: 0xebffffbf13fcfeff,0xebc553c7e800dfff, mte error info: 0x7eceb7ff00004f4f, vec error info: 0, cube error info: 0, l1 error info: 0x9ff30018833f, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 4, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d1000, sc error info: 0xffffffffffff, su error info: 0xfa7debff3fee77ff,0xe7bd9cd9d000fbd7, mte error info: 0xbfeffefb0006edd3, vec error info: 0xdfbffbe3007ee7ff, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 5, error code = 263, dump info: pc start: 0x120db30c8800, current: 0x120db30d0264, sc error info: 0xffffffffffff, su error info: 0x6f2eef771bfe408d,0xffff75ff28002ffd, mte error info: 0x7ea6bfac00005f7b, vec error info: 0xb3768f7f007ff35d, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(263) errorStr: The address for scalar to use is unaligned or out of bounds The GM address exceeds 48 bits, or the on-chip buffer address exceeds the size of the buffer. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 6, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d1000, sc error info: 0xffffffffffff, su error info: 0x488f18a53ffc7fa7,0xf9ccf77ff000bfbf, mte error info: 0x71deff510007fd77, vec error info: 0xf37bfafd0074ff3f, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 7, error code = 263, dump info: pc start: 0x120db30c8800, current: 0x120db30d0264, sc error info: 0xffffffffffff, su error info: 0xadeb5fd83fec408d,0x76776bb62000be67, mte error info: 0x8e57768f00077ff7, vec error info: 0x437fdfff0074ffb9, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(263) errorStr: The address for scalar to use is unaligned or out of bounds The GM address exceeds 48 bits, or the on-chip buffer address exceeds the size of the buffer. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 8, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d1000, sc error info: 0xffffffffffff, su error info: 0xd75f95ff033efdfb,0xf7cffdf55800beff, mte error info: 0x8ef345e20007ffbe, vec error info: 0xf657abbe007591de, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 9, error code = 263, dump info: pc start: 0x120db30c8800, current: 0x120db30d0264, sc error info: 0xffffffffffff, su error info: 0xba6fd7e63df2408d,0xd5ffffc5a8005cff, mte error info: 0x6de7fd480007393e, vec error info: 0xfdb5fb5f003ddffd, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(263) errorStr: The address for scalar to use is unaligned or out of bounds The GM address exceeds 48 bits, or the on-chip buffer address exceeds the size of the buffer. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 0, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d100c, sc error info: 0xffffffffffff, su error info: 0xdfc9dbff085e5b7b,0x6c0cffff98004efb, mte error info: 0xe85ef36f0002dcd5, vec error info: 0xb44d1dc400312c5f, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 1, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d100c, sc error info: 0xffffffffffff, su error info: 0xcadffe7f1dfa8b3e,0x6ffe7bf6f8007dae, mte error info: 0x7ebf193e0002fbf6, vec error info: 0xffb3fff5007cffde, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 2, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d100c, sc error info: 0xffffffffffff, su error info: 0x7e7ffef13ffeffd3,0x3fcffbf79000cdd4, mte error info: 0xfafdff9f0005dc3f, vec error info: 0xcff39f66003e1fdf, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 3, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d100c, sc error info: 0xffffffffffff, su error info: 0xfe7d9119188c39cb,0xe4446ff56800937f, mte error info: 0x5e34a6530003fffe, vec error info: 0xfdbde1df004def0e, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 10, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d100c, sc error info: 0xffffffffffff, su error info: 0xeef7ca6f3dfe9fff,0xf0ec7e59e000dfab, mte error info: 0xddfcf7ef0007fd5e, vec error info: 0xffacffdf003ecbdf, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 11, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d100c, sc error info: 0xffffffffffff, su error info: 0xfffdaf3f2fecfebe,0xf7ff5ff908005f6a, mte error info: 0xdffd9c1e00067fe9, vec error info: 0x3dffdbfc007b37ff, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 12, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d100c, sc error info: 0xffffffffffff, su error info: 0xfffbd67e3d3e44d0,0xfc25dea7f0002e7b, mte error info: 0xdddb27bf00024dff, vec error info: 0x7fb9fffd0077eff9, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 13, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d100c, sc error info: 0xffffffffffff, su error info: 0xafbbd6af2dfc6925,0xffb7d7ff7800beb8, mte error info: 0xff3f4f0f0005ff6f, vec error info: 0x7377fbfd001d079d, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 14, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d100c, sc error info: 0xffffffffffff, su error info: 0xbad5fedf0890ffd3,0xf83fd5f7f800fed4, mte error info: 0xffbcf3750004ebef, vec error info: 0xbbfd3e9d006cd7df, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 15, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d100c, sc error info: 0xffffffffffff, su error info: 0xfff7ecb63f8c11d3,0x6c7fe3e458001017, mte error info: 0x2fd37866000755fc, vec error info: 0xf7f7d9fe0057e2ff, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 16, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d100c, sc error info: 0xffffffffffff, su error info: 0xe5a7fb136ef7bf,0x75ef62f7e000b3df, mte error info: 0xdfffffef0006fffb, vec error info: 0xf7bf82fc004ec59d, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 17, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d100c, sc error info: 0xffffffffffff, su error info: 0xffffdeff3f8ea965,0x76bb0f18f0006fff, mte error info: 0xffe5fc7e0002ffff, vec error info: 0xd7ff3bd7005cfdfd, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 18, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d100c, sc error info: 0xffffffffffff, su error info: 0x86eef12f3f66ffbf,0xcbf4fef91800a10c, mte error info: 0x31f1d9100007fdfb, vec error info: 0x3f7bb5fe0025bffe, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 19, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d100c, sc error info: 0xffffffffffff, su error info: 0xfd37a3da1ffeb739,0x68c57c973000f95a, mte error info: 0xfeef3fba00057e73, vec error info: 0xe7459efd003e4ffe, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 22, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d100c, sc error info: 0xffffffffffff, su error info: 0x7aba75fd1efeffef,0xafeeff6ef800e59f, mte error info: 0xbebebf7f0007fddf, vec error info: 0x9e7e377f007eff1d, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 23, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d100c, sc error info: 0xffffffffffff, su error info: 0x3fae3efa37deec9b,0x6bfe5e9e9800b396, mte error info: 0xfed3dc5f0007fdfa, vec error info: 0xaf3dddf6007ffbff, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 24, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d100c, sc error info: 0xffffffffffff, su error info: 0x7fded5f23dfeb2bf,0xdbfff0fbf8007dbd, mte error info: 0x7f7ddbad00054bf7, vec error info: 0xf9fffcbf0036edff, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 25, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d100c, sc error info: 0xffffffffffff, su error info: 0xbfc9d4cf1fbafe9b,0xdcd0b5def800df7f, mte error info: 0xee77fe7900069f97, vec error info: 0xbdd95dff007fffbf, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(Worker_DP5_EP5 pid=391613) ERROR 09-24 16:43:13 [multiproc_executor.py:991]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 26, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d100c, sc error info: 0xffffffffffff, su error info: 0xe6ef98c726c48dbf,0xf86fff1fd800ccfe, mte error info: 0xc64df84d0007b87c, vec error info: 0xfffcffff007ffffb, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
