@@ -1,0 +1,500 @@
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:45 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(Worker_DP2_EP2 pid=391612) WARNING 09-24 16:39:45 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:45 [ascend_config.py:252] Dynamic EPLB is False
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:45 [ascend_config.py:253] The number of redundant experts is 0
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:45 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:45 [llm_base_proposer.py:367] [spec_decode/base] Loading draft model: method=mtp, load_format=None, model=/mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:45 [weight_utils.py:829] Prefetching checkpoint files: 10% (1/10)
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:45 [weight_utils.py:829] Prefetching checkpoint files: 20% (2/10)
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:46 [weight_utils.py:829] Prefetching checkpoint files: 30% (3/10)
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:46 [weight_utils.py:829] Prefetching checkpoint files: 40% (4/10)
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:46 [weight_utils.py:829] Prefetching checkpoint files: 50% (5/10)
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:46 [weight_utils.py:829] Prefetching checkpoint files: 60% (6/10)
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:46 [weight_utils.py:829] Prefetching checkpoint files: 70% (7/10)
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:46 [weight_utils.py:829] Prefetching checkpoint files: 80% (8/10)
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:46 [default_loader.py:430] Loading weights took 51.70 seconds
+(Worker_DP2_EP2 pid=391612) WARNING 09-24 16:39:46 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:46 [weight_utils.py:895] Filesystem type for checkpoints: NFS. Checkpoint size: 314.87 GiB. Available RAM: 1409.01 GiB.
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:46 [weight_utils.py:857] Prefetching checkpoint files into page cache started (in background, num_threads=8, block_size=16777216 bytes)
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:46 [default_loader.py:430] Loading weights took 51.72 seconds
+Loading safetensors checkpoint shards: 100% Completed | 79/79 [00:51<00:00,  2.11s/it]
+Loading safetensors checkpoint shards: 100% Completed | 79/79 [00:51<00:00,  1.52it/s]
+(Worker_DP0_EP0 pid=391715)
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:46 [weight_utils.py:829] Prefetching checkpoint files: 10% (1/10)
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:46 [model_runner_v1.py:4387] Loading drafter model...
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:46 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:46 [model_runner_v1.py:4387] Loading drafter model...
+(Worker_DP7_EP7 pid=391614) WARNING 09-24 16:39:46 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:46 [ascend_config.py:252] Dynamic EPLB is False
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:46 [ascend_config.py:253] The number of redundant experts is 0
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:46 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:46 [default_loader.py:430] Loading weights took 51.23 seconds
+(Worker_DP5_EP5 pid=391613) WARNING 09-24 16:39:46 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:46 [ascend_config.py:252] Dynamic EPLB is False
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:46 [ascend_config.py:253] The number of redundant experts is 0
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:46 [weight_utils.py:829] Prefetching checkpoint files: 20% (2/10)
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:46 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:46 [llm_base_proposer.py:367] [spec_decode/base] Loading draft model: method=mtp, load_format=None, model=/mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:46 [weight_utils.py:829] Prefetching checkpoint files: 30% (3/10)
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:46 [weight_utils.py:829] Prefetching checkpoint files: 40% (4/10)
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:46 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:46 [llm_base_proposer.py:367] [spec_decode/base] Loading draft model: method=mtp, load_format=None, model=/mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:46 [weight_utils.py:829] Prefetching checkpoint files: 50% (5/10)
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:46 [weight_utils.py:829] Prefetching checkpoint files: 60% (6/10)
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:46 [default_loader.py:430] Loading weights took 52.19 seconds
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:46 [weight_utils.py:829] Prefetching checkpoint files: 70% (7/10)
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:46 [model_runner_v1.py:4387] Loading drafter model...
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:46 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(Worker_DP4_EP4 pid=391714) WARNING 09-24 16:39:46 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:46 [ascend_config.py:252] Dynamic EPLB is False
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:46 [ascend_config.py:253] The number of redundant experts is 0
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:46 [weight_utils.py:829] Prefetching checkpoint files: 80% (8/10)
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:46 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:46 [llm_base_proposer.py:367] [spec_decode/base] Loading draft model: method=mtp, load_format=None, model=/mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918
+(Worker_DP7_EP7 pid=391614) WARNING 09-24 16:39:46 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:46 [weight_utils.py:895] Filesystem type for checkpoints: NFS. Checkpoint size: 314.87 GiB. Available RAM: 1414.09 GiB.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:46 [weight_utils.py:857] Prefetching checkpoint files into page cache started (in background, num_threads=8, block_size=16777216 bytes)
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:46 [model_runner_v1.py:4387] Loading drafter model...
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:46 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(Worker_DP0_EP0 pid=391715) WARNING 09-24 16:39:46 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:46 [ascend_config.py:252] Dynamic EPLB is False
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:46 [ascend_config.py:253] The number of redundant experts is 0
+(Worker_DP5_EP5 pid=391613) WARNING 09-24 16:39:46 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:46 [weight_utils.py:895] Filesystem type for checkpoints: NFS. Checkpoint size: 314.87 GiB. Available RAM: 1414.00 GiB.
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:46 [weight_utils.py:857] Prefetching checkpoint files into page cache started (in background, num_threads=8, block_size=16777216 bytes)
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:46 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:46 [llm_base_proposer.py:367] [spec_decode/base] Loading draft model: method=mtp, load_format=None, model=/mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:46 [weight_utils.py:829] Prefetching checkpoint files: 90% (9/10)
+(Worker_DP4_EP4 pid=391714) WARNING 09-24 16:39:46 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:46 [weight_utils.py:895] Filesystem type for checkpoints: NFS. Checkpoint size: 314.87 GiB. Available RAM: 1413.73 GiB.
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:46 [weight_utils.py:857] Prefetching checkpoint files into page cache started (in background, num_threads=8, block_size=16777216 bytes)
+(Worker_DP0_EP0 pid=391715) WARNING 09-24 16:39:46 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:46 [weight_utils.py:895] Filesystem type for checkpoints: NFS. Checkpoint size: 314.87 GiB. Available RAM: 1413.53 GiB.
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:46 [weight_utils.py:857] Prefetching checkpoint files into page cache started (in background, num_threads=8, block_size=16777216 bytes)
+Loading safetensors checkpoint shards:   0% Completed | 0/79 [00:00<?, ?it/s]
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:46 [weight_utils.py:829] Prefetching checkpoint files: 90% (9/10)
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:47 [weight_utils.py:829] Prefetching checkpoint files: 100% (10/10)
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:47 [weight_utils.py:852] Prefetching checkpoint files into page cache finished in 1.85s
+Loading safetensors checkpoint shards:   1% Completed | 1/79 [00:00<00:10,  7.74it/s]
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:47 [weight_utils.py:829] Prefetching checkpoint files: 10% (1/10)
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:47 [weight_utils.py:829] Prefetching checkpoint files: 20% (2/10)
+Loading safetensors checkpoint shards:   3% Completed | 2/79 [00:00<00:09,  8.04it/s]
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:47 [weight_utils.py:829] Prefetching checkpoint files: 30% (3/10)
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:47 [weight_utils.py:829] Prefetching checkpoint files: 40% (4/10)
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:47 [weight_utils.py:829] Prefetching checkpoint files: 50% (5/10)
+Loading safetensors checkpoint shards:   5% Completed | 4/79 [00:00<00:11,  6.73it/s]
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:47 [default_loader.py:430] Loading weights took 53.19 seconds
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:47 [weight_utils.py:829] Prefetching checkpoint files: 60% (6/10)
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:47 [weight_utils.py:829] Prefetching checkpoint files: 10% (1/9)
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:47 [weight_utils.py:829] Prefetching checkpoint files: 20% (2/9)
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:47 [model_runner_v1.py:4387] Loading drafter model...
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:47 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(Worker_DP3_EP3 pid=391615) WARNING 09-24 16:39:47 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:47 [ascend_config.py:252] Dynamic EPLB is False
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:47 [ascend_config.py:253] The number of redundant experts is 0
+Loading safetensors checkpoint shards:   6% Completed | 5/79 [00:00<00:13,  5.43it/s]
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:47 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:47 [llm_base_proposer.py:367] [spec_decode/base] Loading draft model: method=mtp, load_format=None, model=/mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918
+Loading safetensors checkpoint shards:   8% Completed | 6/79 [00:01<00:13,  5.36it/s]
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:48 [weight_utils.py:829] Prefetching checkpoint files: 70% (7/10)
+(Worker_DP3_EP3 pid=391615) WARNING 09-24 16:39:48 [vllm.py:3328] `torch.compile` is turned on, but the model /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918 does not support it. Please open an issue on GitHub if you want it to be supported.
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:48 [weight_utils.py:895] Filesystem type for checkpoints: NFS. Checkpoint size: 314.87 GiB. Available RAM: 1416.54 GiB.
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:48 [weight_utils.py:857] Prefetching checkpoint files into page cache started (in background, num_threads=8, block_size=16777216 bytes)
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:48 [weight_utils.py:829] Prefetching checkpoint files: 80% (8/10)
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:48 [weight_utils.py:829] Prefetching checkpoint files: 10% (1/10)
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:48 [weight_utils.py:829] Prefetching checkpoint files: 10% (1/10)
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:48 [weight_utils.py:829] Prefetching checkpoint files: 100% (10/10)
+Loading safetensors checkpoint shards:   9% Completed | 7/79 [00:01<00:14,  5.10it/s]
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:48 [weight_utils.py:852] Prefetching checkpoint files into page cache finished in 2.75s
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:48 [weight_utils.py:829] Prefetching checkpoint files: 30% (3/9)
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:48 [weight_utils.py:829] Prefetching checkpoint files: 10% (1/10)
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:48 [weight_utils.py:829] Prefetching checkpoint files: 40% (4/9)
+Loading safetensors checkpoint shards:  10% Completed | 8/79 [00:01<00:12,  5.57it/s]
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:48 [weight_utils.py:829] Prefetching checkpoint files: 90% (9/10)
+Loading safetensors checkpoint shards:  11% Completed | 9/79 [00:01<00:12,  5.43it/s]
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:48 [weight_utils.py:829] Prefetching checkpoint files: 50% (5/9)
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:48 [weight_utils.py:829] Prefetching checkpoint files: 60% (6/9)
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:48 [weight_utils.py:829] Prefetching checkpoint files: 20% (2/10)
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:48 [weight_utils.py:829] Prefetching checkpoint files: 30% (3/10)
+Loading safetensors checkpoint shards:  13% Completed | 10/79 [00:01<00:11,  5.84it/s]
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:48 [weight_utils.py:829] Prefetching checkpoint files: 20% (2/10)
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:48 [weight_utils.py:829] Prefetching checkpoint files: 40% (4/10)
+Loading safetensors checkpoint shards:  15% Completed | 12/79 [00:01<00:08,  8.31it/s]
+Loading safetensors checkpoint shards:  18% Completed | 14/79 [00:01<00:06, 10.56it/s]
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:48 [weight_utils.py:829] Prefetching checkpoint files: 30% (3/10)
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:48 [weight_utils.py:829] Prefetching checkpoint files: 50% (5/10)
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:48 [weight_utils.py:829] Prefetching checkpoint files: 70% (7/9)
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:48 [weight_utils.py:829] Prefetching checkpoint files: 60% (6/10)
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:48 [weight_utils.py:829] Prefetching checkpoint files: 40% (4/10)
+Loading safetensors checkpoint shards:  20% Completed | 16/79 [00:02<00:05, 12.59it/s]
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 80% (8/9)
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 70% (7/10)
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 80% (8/10)
+Loading safetensors checkpoint shards:  23% Completed | 18/79 [00:02<00:04, 14.20it/s]
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 50% (5/10)
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 20% (2/10)
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 60% (6/10)
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 30% (3/10)
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 40% (4/10)
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 70% (7/10)
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 80% (8/10)
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 50% (5/10)
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 60% (6/10)
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 70% (7/10)
+Loading safetensors checkpoint shards:  25% Completed | 20/79 [00:02<00:03, 15.35it/s]
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 10% (1/10)
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 100% (10/10)
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:49 [weight_utils.py:852] Prefetching checkpoint files into page cache finished in 3.14s
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 20% (2/10)
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 80% (8/10)
+Loading safetensors checkpoint shards:  28% Completed | 22/79 [00:02<00:03, 16.42it/s]
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 90% (9/9)
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:49 [weight_utils.py:852] Prefetching checkpoint files into page cache finished in 2.76s
+Loading safetensors checkpoint shards:  30% Completed | 24/79 [00:02<00:03, 17.32it/s]
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 30% (3/10)
+Loading safetensors checkpoint shards:  33% Completed | 26/79 [00:02<00:02, 17.96it/s]
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 40% (4/10)
+Loading safetensors checkpoint shards:  35% Completed | 28/79 [00:02<00:02, 18.48it/s]
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 50% (5/10)
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 60% (6/10)
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 90% (9/10)
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 70% (7/10)
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 90% (9/10)
+Loading safetensors checkpoint shards:  39% Completed | 31/79 [00:02<00:02, 19.28it/s]
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 80% (8/10)
+Loading safetensors checkpoint shards:  43% Completed | 34/79 [00:02<00:02, 19.78it/s]
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:49 [weight_utils.py:829] Prefetching checkpoint files: 100% (10/10)
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:49 [weight_utils.py:852] Prefetching checkpoint files into page cache finished in 3.09s
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:50 [weight_utils.py:829] Prefetching checkpoint files: 90% (9/10)
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:50 [weight_utils.py:829] Prefetching checkpoint files: 100% (10/10)
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:50 [weight_utils.py:852] Prefetching checkpoint files into page cache finished in 3.39s
+Loading safetensors checkpoint shards:  47% Completed | 37/79 [00:03<00:02, 20.16it/s]
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:50 [default_loader.py:430] Loading weights took 4.94 seconds
+(Worker_DP1_EP1 pid=391610) WARNING 09-24 16:39:50 [llm_base_proposer.py:399] Draft model does not support multimodal inputs, falling back to text-only mode
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:50 [llm_base_proposer.py:564] [spec_decode/base] Detected MTP model. Sharing target model embedding weights with the draft model.
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:50 [llm_base_proposer.py:651] [spec_decode/base] Wrapping draft model with ACLGraphWrapper: runtime_mode=FULL, use_eagle=True, enable_enpu=False
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:50 [weight_utils.py:829] Prefetching checkpoint files: 90% (9/10)
+Loading safetensors checkpoint shards:  51% Completed | 40/79 [00:03<00:01, 20.54it/s]
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:50 [weight_utils.py:829] Prefetching checkpoint files: 100% (10/10)
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:50 [weight_utils.py:852] Prefetching checkpoint files into page cache finished in 2.26s
+Loading safetensors checkpoint shards:  54% Completed | 43/79 [00:03<00:01, 20.78it/s]
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:50 [weight_utils.py:829] Prefetching checkpoint files: 100% (10/10)
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:50 [weight_utils.py:852] Prefetching checkpoint files into page cache finished in 3.48s
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:50 [default_loader.py:430] Loading weights took 4.99 seconds
+(Worker_DP6_EP6 pid=391611) WARNING 09-24 16:39:50 [llm_base_proposer.py:399] Draft model does not support multimodal inputs, falling back to text-only mode
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:50 [llm_base_proposer.py:564] [spec_decode/base] Detected MTP model. Sharing target model embedding weights with the draft model.
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:50 [llm_base_proposer.py:651] [spec_decode/base] Wrapping draft model with ACLGraphWrapper: runtime_mode=FULL, use_eagle=True, enable_enpu=False
+Loading safetensors checkpoint shards:  58% Completed | 46/79 [00:03<00:01, 20.92it/s]
+Loading safetensors checkpoint shards:  62% Completed | 49/79 [00:03<00:01, 21.08it/s]
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:50 [model_runner_v1.py:4449] Loading model weights took 53.3064 GB
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:50 [model_runner_v1.py:4518] Model runner load_model total time: 60.06 seconds
+(EngineCore_DP1 pid=386907) INFO 09-24 16:39:50 [torch_utils.py:287] Reducing Torch threads from 48 to 1 for serving. Set OMP_NUM_THREADS in the external environment to override.
+(EngineCore_DP1 pid=386907) INFO 09-24 16:39:50 [utils.py:320] Using LBNHC KV cache layout.
+Loading safetensors checkpoint shards:  66% Completed | 52/79 [00:03<00:01, 21.13it/s]
+Loading safetensors checkpoint shards:  70% Completed | 55/79 [00:03<00:01, 21.16it/s]
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:51 [model_runner_v1.py:4449] Loading model weights took 53.3064 GB
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:51 [model_runner_v1.py:4518] Model runner load_model total time: 60.47 seconds
+Loading safetensors checkpoint shards:  73% Completed | 58/79 [00:04<00:01, 20.87it/s]
+(EngineCore_DP6 pid=388361) INFO 09-24 16:39:51 [torch_utils.py:287] Reducing Torch threads from 48 to 1 for serving. Set OMP_NUM_THREADS in the external environment to override.
+(EngineCore_DP6 pid=388361) INFO 09-24 16:39:51 [utils.py:320] Using LBNHC KV cache layout.
+Loading safetensors checkpoint shards:  77% Completed | 61/79 [00:04<00:00, 21.04it/s]
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:51 [default_loader.py:430] Loading weights took 5.18 seconds
+Loading safetensors checkpoint shards:  81% Completed | 64/79 [00:04<00:00, 21.17it/s]
+(Worker_DP2_EP2 pid=391612) WARNING 09-24 16:39:51 [llm_base_proposer.py:399] Draft model does not support multimodal inputs, falling back to text-only mode
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:51 [llm_base_proposer.py:564] [spec_decode/base] Detected MTP model. Sharing target model embedding weights with the draft model.
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:51 [llm_base_proposer.py:651] [spec_decode/base] Wrapping draft model with ACLGraphWrapper: runtime_mode=FULL, use_eagle=True, enable_enpu=False
+Loading safetensors checkpoint shards:  85% Completed | 67/79 [00:04<00:00, 21.15it/s]
+Loading safetensors checkpoint shards:  89% Completed | 70/79 [00:04<00:00, 20.19it/s]
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:51 [model_runner_v1.py:4449] Loading model weights took 53.3064 GB
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:51 [model_runner_v1.py:4518] Model runner load_model total time: 61.37 seconds
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:51 [default_loader.py:430] Loading weights took 5.07 seconds
+(Worker_DP4_EP4 pid=391714) WARNING 09-24 16:39:51 [llm_base_proposer.py:399] Draft model does not support multimodal inputs, falling back to text-only mode
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:51 [llm_base_proposer.py:564] [spec_decode/base] Detected MTP model. Sharing target model embedding weights with the draft model.
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:51 [llm_base_proposer.py:651] [spec_decode/base] Wrapping draft model with ACLGraphWrapper: runtime_mode=FULL, use_eagle=True, enable_enpu=False
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:51 [default_loader.py:430] Loading weights took 5.34 seconds
+(EngineCore_DP2 pid=387199) INFO 09-24 16:39:51 [torch_utils.py:287] Reducing Torch threads from 48 to 1 for serving. Set OMP_NUM_THREADS in the external environment to override.
+(EngineCore_DP2 pid=387199) INFO 09-24 16:39:51 [utils.py:320] Using LBNHC KV cache layout.
+(Worker_DP7_EP7 pid=391614) WARNING 09-24 16:39:51 [llm_base_proposer.py:399] Draft model does not support multimodal inputs, falling back to text-only mode
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:51 [llm_base_proposer.py:564] [spec_decode/base] Detected MTP model. Sharing target model embedding weights with the draft model.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:51 [llm_base_proposer.py:651] [spec_decode/base] Wrapping draft model with ACLGraphWrapper: runtime_mode=FULL, use_eagle=True, enable_enpu=False
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:52 [default_loader.py:430] Loading weights took 5.34 seconds
+(Worker_DP5_EP5 pid=391613) WARNING 09-24 16:39:52 [llm_base_proposer.py:399] Draft model does not support multimodal inputs, falling back to text-only mode
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:52 [llm_base_proposer.py:564] [spec_decode/base] Detected MTP model. Sharing target model embedding weights with the draft model.
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:52 [llm_base_proposer.py:651] [spec_decode/base] Wrapping draft model with ACLGraphWrapper: runtime_mode=FULL, use_eagle=True, enable_enpu=False
+Loading safetensors checkpoint shards:  92% Completed | 73/79 [00:05<00:00, 12.95it/s]
+Loading safetensors checkpoint shards:  96% Completed | 76/79 [00:05<00:00, 14.88it/s]
+Loading safetensors checkpoint shards:  99% Completed | 78/79 [00:05<00:00, 14.93it/s]
+Loading safetensors checkpoint shards: 100% Completed | 79/79 [00:05<00:00, 14.59it/s]
+(Worker_DP0_EP0 pid=391715)
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:52 [default_loader.py:430] Loading weights took 5.42 seconds
+(Worker_DP0_EP0 pid=391715) WARNING 09-24 16:39:52 [llm_base_proposer.py:399] Draft model does not support multimodal inputs, falling back to text-only mode
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:52 [llm_base_proposer.py:564] [spec_decode/base] Detected MTP model. Sharing target model embedding weights with the draft model.
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:52 [llm_base_proposer.py:651] [spec_decode/base] Wrapping draft model with ACLGraphWrapper: runtime_mode=FULL, use_eagle=True, enable_enpu=False
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:52 [model_runner_v1.py:4449] Loading model weights took 53.3064 GB
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:52 [model_runner_v1.py:4518] Model runner load_model total time: 61.74 seconds
+(EngineCore_DP4 pid=387781) INFO 09-24 16:39:52 [torch_utils.py:287] Reducing Torch threads from 48 to 1 for serving. Set OMP_NUM_THREADS in the external environment to override.
+(EngineCore_DP4 pid=387781) INFO 09-24 16:39:52 [utils.py:320] Using LBNHC KV cache layout.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:52 [model_runner_v1.py:4449] Loading model weights took 53.3064 GB
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:52 [model_runner_v1.py:4518] Model runner load_model total time: 61.79 seconds
+(EngineCore_DP7 pid=388653) INFO 09-24 16:39:52 [torch_utils.py:287] Reducing Torch threads from 48 to 1 for serving. Set OMP_NUM_THREADS in the external environment to override.
+(EngineCore_DP7 pid=388653) INFO 09-24 16:39:52 [utils.py:320] Using LBNHC KV cache layout.
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:52 [model_runner_v1.py:4449] Loading model weights took 53.3064 GB
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:52 [model_runner_v1.py:4518] Model runner load_model total time: 62.33 seconds
+(EngineCore_DP0 pid=386619) INFO 09-24 16:39:52 [torch_utils.py:287] Reducing Torch threads from 48 to 1 for serving. Set OMP_NUM_THREADS in the external environment to override.
+(EngineCore_DP0 pid=386619) INFO 09-24 16:39:52 [utils.py:320] Using LBNHC KV cache layout.
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:52 [default_loader.py:430] Loading weights took 4.96 seconds
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:52 [model_runner_v1.py:4449] Loading model weights took 53.3064 GB
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:52 [model_runner_v1.py:4518] Model runner load_model total time: 62.38 seconds
+(Worker_DP3_EP3 pid=391615) WARNING 09-24 16:39:53 [llm_base_proposer.py:399] Draft model does not support multimodal inputs, falling back to text-only mode
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:53 [llm_base_proposer.py:564] [spec_decode/base] Detected MTP model. Sharing target model embedding weights with the draft model.
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:53 [llm_base_proposer.py:651] [spec_decode/base] Wrapping draft model with ACLGraphWrapper: runtime_mode=FULL, use_eagle=True, enable_enpu=False
+(EngineCore_DP5 pid=388071) INFO 09-24 16:39:53 [torch_utils.py:287] Reducing Torch threads from 48 to 1 for serving. Set OMP_NUM_THREADS in the external environment to override.
+(EngineCore_DP5 pid=388071) INFO 09-24 16:39:53 [utils.py:320] Using LBNHC KV cache layout.
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:53 [model_runner_v1.py:4449] Loading model weights took 53.3064 GB
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:53 [model_runner_v1.py:4518] Model runner load_model total time: 62.94 seconds
+(EngineCore_DP3 pid=387489) INFO 09-24 16:39:53 [torch_utils.py:287] Reducing Torch threads from 48 to 1 for serving. Set OMP_NUM_THREADS in the external environment to override.
+(EngineCore_DP3 pid=387489) INFO 09-24 16:39:53 [utils.py:320] Using LBNHC KV cache layout.
+[rank2]:[W924 16:39:54.410803710 TensorFactories.cpp:423] Warning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (function operator())
+[rank0]:[W924 16:39:54.419079470 TensorFactories.cpp:423] Warning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (function operator())
+[rank7]:[W924 16:39:54.419687330 TensorFactories.cpp:423] Warning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (function operator())
+[rank3]:[W924 16:39:54.420029160 TensorFactories.cpp:423] Warning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (function operator())
+[rank1]:[W924 16:39:54.423154350 TensorFactories.cpp:423] Warning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (function operator())
+[rank4]:[W924 16:39:54.424307740 TensorFactories.cpp:423] Warning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (function operator())
+[rank6]:[W924 16:39:54.431211950 TensorFactories.cpp:423] Warning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (function operator())
+[rank5]:[W924 16:39:54.486968280 TensorFactories.cpp:423] Warning: Cannot create tensor with interal format while allow_internel_format=False, tensor will be created with base format. (function operator())
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:54 [gpu_model_runner.py:6496] Encoder cache will be initialized with a budget of 8192 tokens, and profiled with 1 image items of the maximum feature size.
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:39:54 [gpu_model_runner.py:6496] Encoder cache will be initialized with a budget of 8192 tokens, and profiled with 1 image items of the maximum feature size.
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:54 [gpu_model_runner.py:6496] Encoder cache will be initialized with a budget of 8192 tokens, and profiled with 1 image items of the maximum feature size.
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:54 [gpu_model_runner.py:6496] Encoder cache will be initialized with a budget of 8192 tokens, and profiled with 1 image items of the maximum feature size.
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:54 [gpu_model_runner.py:6496] Encoder cache will be initialized with a budget of 8192 tokens, and profiled with 1 image items of the maximum feature size.
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:39:54 [gpu_model_runner.py:6496] Encoder cache will be initialized with a budget of 8192 tokens, and profiled with 1 image items of the maximum feature size.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:54 [gpu_model_runner.py:6496] Encoder cache will be initialized with a budget of 8192 tokens, and profiled with 1 image items of the maximum feature size.
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:39:54 [gpu_model_runner.py:6496] Encoder cache will be initialized with a budget of 8192 tokens, and profiled with 1 image items of the maximum feature size.
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:39:59 [worker.py:649] Available KV cache memory: 20.03 GiB
+(EngineCore_DP2 pid=387199) INFO 09-24 16:39:59 [kv_cache_utils.py:2395] NPU KV cache size: 499,200 tokens, Maximum concurrency for 133,120 tokens per request: 3.75x
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:39:59 [worker.py:649] Available KV cache memory: 20.03 GiB
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:39:59 [worker.py:649] Available KV cache memory: 20.03 GiB
+(EngineCore_DP4 pid=387781) INFO 09-24 16:39:59 [kv_cache_utils.py:2395] NPU KV cache size: 499,200 tokens, Maximum concurrency for 133,120 tokens per request: 3.75x
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:39:59 [worker.py:649] Available KV cache memory: 20.03 GiB
+(EngineCore_DP3 pid=387489) INFO 09-24 16:39:59 [kv_cache_utils.py:2395] NPU KV cache size: 499,200 tokens, Maximum concurrency for 133,120 tokens per request: 3.75x
+(EngineCore_DP0 pid=386619) INFO 09-24 16:39:59 [kv_cache_utils.py:2395] NPU KV cache size: 499,200 tokens, Maximum concurrency for 133,120 tokens per request: 3.75x
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:39:59 [worker.py:649] Available KV cache memory: 20.03 GiB
+(EngineCore_DP7 pid=388653) INFO 09-24 16:39:59 [kv_cache_utils.py:2395] NPU KV cache size: 499,200 tokens, Maximum concurrency for 133,120 tokens per request: 3.75x
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:40:00 [worker.py:649] Available KV cache memory: 20.03 GiB
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:40:00 [worker.py:649] Available KV cache memory: 20.03 GiB
+(EngineCore_DP1 pid=386907) INFO 09-24 16:40:00 [kv_cache_utils.py:2395] NPU KV cache size: 499,200 tokens, Maximum concurrency for 133,120 tokens per request: 3.75x
+(EngineCore_DP6 pid=388361) INFO 09-24 16:40:00 [kv_cache_utils.py:2395] NPU KV cache size: 499,200 tokens, Maximum concurrency for 133,120 tokens per request: 3.75x
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:40:00 [worker.py:649] Available KV cache memory: 20.03 GiB
+(EngineCore_DP5 pid=388071) INFO 09-24 16:40:00 [kv_cache_utils.py:2395] NPU KV cache size: 499,200 tokens, Maximum concurrency for 133,120 tokens per request: 3.75x
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:40:00 [multi_kv_cache_group_proposer.py:158] Initialized GLM5-Next drafting attention groups for KV cache group ids [0, 1]; primary group id is 0
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:40:00 [kernel_warmup.py:44] Starting Triton kernel warmup.
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:40:00 [kernel_warmup.py:36] rejection_sampler Triton warmup complete in 0.049s.
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:40:00 [kernel_warmup.py:36] penalties Triton warmup complete in 0.024s.
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:40:00 [kernel_warmup.py:36] rms Triton warmup complete in 0.000s.
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:40:00 [kernel_warmup.py:36] indexer Triton warmup complete in 0.000s.
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:40:00 [kernel_warmup.py:53] Triton kernel warmup finished in 0.074s.
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:40:00 [gpu_model_runner.py:6883] Rank 0: Torch profiler disabled for CUDA graph capture
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:40:00 [multi_kv_cache_group_proposer.py:158] Initialized GLM5-Next drafting attention groups for KV cache group ids [0, 1]; primary group id is 0
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:40:00 [kernel_warmup.py:44] Starting Triton kernel warmup.
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:40:00 [kernel_warmup.py:36] rejection_sampler Triton warmup complete in 0.049s.
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:40:00 [kernel_warmup.py:36] penalties Triton warmup complete in 0.023s.
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:40:00 [kernel_warmup.py:36] rms Triton warmup complete in 0.000s.
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:40:00 [kernel_warmup.py:36] indexer Triton warmup complete in 0.000s.
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:40:00 [kernel_warmup.py:53] Triton kernel warmup finished in 0.073s.
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:40:00 [gpu_model_runner.py:6883] Rank 0: Torch profiler disabled for CUDA graph capture
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:40:00 [multi_kv_cache_group_proposer.py:158] Initialized GLM5-Next drafting attention groups for KV cache group ids [0, 1]; primary group id is 0
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:40:00 [kernel_warmup.py:44] Starting Triton kernel warmup.
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:40:00 [multi_kv_cache_group_proposer.py:158] Initialized GLM5-Next drafting attention groups for KV cache group ids [0, 1]; primary group id is 0
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:40:00 [kernel_warmup.py:44] Starting Triton kernel warmup.
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:40:00 [multi_kv_cache_group_proposer.py:158] Initialized GLM5-Next drafting attention groups for KV cache group ids [0, 1]; primary group id is 0
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:40:00 [kernel_warmup.py:44] Starting Triton kernel warmup.
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:40:00 [kernel_warmup.py:36] rejection_sampler Triton warmup complete in 0.045s.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:40:00 [kernel_warmup.py:36] rejection_sampler Triton warmup complete in 0.049s.
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:40:00 [kernel_warmup.py:36] rejection_sampler Triton warmup complete in 0.045s.
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:40:00 [multi_kv_cache_group_proposer.py:158] Initialized GLM5-Next drafting attention groups for KV cache group ids [0, 1]; primary group id is 0
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:40:00 [kernel_warmup.py:44] Starting Triton kernel warmup.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:40:00 [kernel_warmup.py:36] penalties Triton warmup complete in 0.023s.
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:40:00 [kernel_warmup.py:36] penalties Triton warmup complete in 0.023s.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:40:00 [kernel_warmup.py:36] rms Triton warmup complete in 0.000s.
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:40:00 [kernel_warmup.py:36] rms Triton warmup complete in 0.000s.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:40:00 [kernel_warmup.py:36] indexer Triton warmup complete in 0.000s.
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:40:00 [kernel_warmup.py:36] indexer Triton warmup complete in 0.000s.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:40:00 [kernel_warmup.py:53] Triton kernel warmup finished in 0.073s.
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:40:00 [kernel_warmup.py:53] Triton kernel warmup finished in 0.069s.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:40:00 [gpu_model_runner.py:6883] Rank 0: Torch profiler disabled for CUDA graph capture
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:40:00 [gpu_model_runner.py:6883] Rank 0: Torch profiler disabled for CUDA graph capture
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:40:00 [kernel_warmup.py:36] penalties Triton warmup complete in 0.024s.
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:40:00 [kernel_warmup.py:36] rms Triton warmup complete in 0.000s.
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:40:00 [kernel_warmup.py:36] indexer Triton warmup complete in 0.000s.
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:40:00 [kernel_warmup.py:53] Triton kernel warmup finished in 0.070s.
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:40:00 [gpu_model_runner.py:6883] Rank 0: Torch profiler disabled for CUDA graph capture
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:40:00 [multi_kv_cache_group_proposer.py:158] Initialized GLM5-Next drafting attention groups for KV cache group ids [0, 1]; primary group id is 0
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:40:00 [kernel_warmup.py:44] Starting Triton kernel warmup.
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:40:00 [kernel_warmup.py:36] rejection_sampler Triton warmup complete in 0.046s.
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:40:00 [kernel_warmup.py:36] penalties Triton warmup complete in 0.024s.
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:40:00 [kernel_warmup.py:36] rms Triton warmup complete in 0.000s.
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:40:00 [kernel_warmup.py:36] indexer Triton warmup complete in 0.000s.
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:40:00 [kernel_warmup.py:53] Triton kernel warmup finished in 0.071s.
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:40:00 [gpu_model_runner.py:6883] Rank 0: Torch profiler disabled for CUDA graph capture
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:40:00 [kernel_warmup.py:36] rejection_sampler Triton warmup complete in 0.048s.
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:40:00 [kernel_warmup.py:36] penalties Triton warmup complete in 0.027s.
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:40:00 [kernel_warmup.py:36] rms Triton warmup complete in 0.000s.
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:40:00 [kernel_warmup.py:36] indexer Triton warmup complete in 0.000s.
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:40:00 [kernel_warmup.py:53] Triton kernel warmup finished in 0.076s.
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:40:00 [gpu_model_runner.py:6883] Rank 0: Torch profiler disabled for CUDA graph capture
+Capturing CUDA graphs (decode, FULL):   0%|                                                                                          | 0/6 [00:00<?, ?it/s](Worker_DP5_EP5 pid=391613) INFO 09-24 16:40:01 [multi_kv_cache_group_proposer.py:158] Initialized GLM5-Next drafting attention groups for KV cache group ids [0, 1]; primary group id is 0
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:40:01 [kernel_warmup.py:44] Starting Triton kernel warmup.
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:40:01 [kernel_warmup.py:36] rejection_sampler Triton warmup complete in 0.051s.
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:40:01 [kernel_warmup.py:36] penalties Triton warmup complete in 0.025s.
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:40:01 [kernel_warmup.py:36] rms Triton warmup complete in 0.000s.
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:40:01 [kernel_warmup.py:36] indexer Triton warmup complete in 0.000s.
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:40:01 [kernel_warmup.py:53] Triton kernel warmup finished in 0.076s.
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:40:01 [gpu_model_runner.py:6883] Rank 0: Torch profiler disabled for CUDA graph capture
+ninja: no work to do.
+ninja: no work to do.
+ninja: no work to do.
+ninja: no work to do.
+ninja: no work to do.
+ninja: no work to do.
+ninja: no work to do.
+ninja: no work to do.
+ninja: no work to do.
+ninja: no work to do.
+ninja: no work to do.
+ninja: no work to do.
+ninja: no work to do.
+ninja: no work to do.
+ninja: no work to do.
+ninja: no work to do.
+ninja: no work to do.
+ninja: no work to do.
+ninja: no work to do.
+ninja: no work to do.
+ninja: no work to do.
+Capturing CUDA graphs (decode, FULL): 100%|██████████████████████████████████████████████████████████████████████████████████| 6/6 [00:06<00:00,  1.09s/it]
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:40:07 [gpu_model_runner.py:6929] Graph capturing finished in 7 secs, took 0.25 GiB
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:40:07 [worker.py:928] Free memory on device (91.05/91.75 GiB) on startup. Desired GPU memory utilization is (0.9, 82.58 GiB). Actual usage: 53.31 GiB for weights, 6.45 GiB for peak activation, 2.79 GiB for non-torch memory, 0.25 GiB for NPU graph memory. Replace gpu_memory_utilization with `--kv-cache-memory=21074312908` (19.63 GiB) to fit into requested memory, or `--kv-cache-memory=30171087360` (28.1 GiB) to fully utilize NPU free memory. Current KV cache memory: 20.03 GiB. After warmup: torch reserved memory 74.02 GiB, torch allocated memory 73.78 GiB.
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:40:07 [gpu_model_runner.py:6929] Graph capturing finished in 7 secs, took 0.25 GiB
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:40:07 [worker.py:928] Free memory on device (91.05/91.75 GiB) on startup. Desired GPU memory utilization is (0.9, 82.58 GiB). Actual usage: 53.31 GiB for weights, 6.45 GiB for peak activation, 2.79 GiB for non-torch memory, 0.25 GiB for NPU graph memory. Replace gpu_memory_utilization with `--kv-cache-memory=21072416460` (19.63 GiB) to fit into requested memory, or `--kv-cache-memory=30171730432` (28.1 GiB) to fully utilize NPU free memory. Current KV cache memory: 20.03 GiB. After warmup: torch reserved memory 74.02 GiB, torch allocated memory 73.78 GiB.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:40:07 [gpu_model_runner.py:6929] Graph capturing finished in 7 secs, took 0.25 GiB
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:40:07 [worker.py:928] Free memory on device (91.05/91.75 GiB) on startup. Desired GPU memory utilization is (0.9, 82.58 GiB). Actual usage: 53.31 GiB for weights, 6.45 GiB for peak activation, 2.79 GiB for non-torch memory, 0.25 GiB for NPU graph memory. Replace gpu_memory_utilization with `--kv-cache-memory=21074607820` (19.63 GiB) to fit into requested memory, or `--kv-cache-memory=30171578880` (28.1 GiB) to fully utilize NPU free memory. Current KV cache memory: 20.03 GiB. After warmup: torch reserved memory 74.02 GiB, torch allocated memory 73.78 GiB.
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:40:07 [gpu_model_runner.py:6929] Graph capturing finished in 7 secs, took 0.25 GiB
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:40:07 [worker.py:928] Free memory on device (91.05/91.75 GiB) on startup. Desired GPU memory utilization is (0.9, 82.58 GiB). Actual usage: 53.31 GiB for weights, 6.45 GiB for peak activation, 2.79 GiB for non-torch memory, 0.25 GiB for NPU graph memory. Replace gpu_memory_utilization with `--kv-cache-memory=21071609548` (19.62 GiB) to fit into requested memory, or `--kv-cache-memory=30172205568` (28.1 GiB) to fully utilize NPU free memory. Current KV cache memory: 20.03 GiB. After warmup: torch reserved memory 74.02 GiB, torch allocated memory 73.78 GiB.
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:40:07 [gpu_model_runner.py:6929] Graph capturing finished in 7 secs, took 0.25 GiB
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:40:07 [worker.py:928] Free memory on device (91.05/91.75 GiB) on startup. Desired GPU memory utilization is (0.9, 82.58 GiB). Actual usage: 53.31 GiB for weights, 6.45 GiB for peak activation, 2.79 GiB for non-torch memory, 0.25 GiB for NPU graph memory. Replace gpu_memory_utilization with `--kv-cache-memory=21072047820` (19.62 GiB) to fit into requested memory, or `--kv-cache-memory=30171664896` (28.1 GiB) to fully utilize NPU free memory. Current KV cache memory: 20.03 GiB. After warmup: torch reserved memory 74.02 GiB, torch allocated memory 73.78 GiB.
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:40:07 [gpu_model_runner.py:6929] Graph capturing finished in 7 secs, took 0.25 GiB
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:40:07 [worker.py:928] Free memory on device (91.05/91.75 GiB) on startup. Desired GPU memory utilization is (0.9, 82.58 GiB). Actual usage: 53.31 GiB for weights, 6.45 GiB for peak activation, 2.79 GiB for non-torch memory, 0.25 GiB for NPU graph memory. Replace gpu_memory_utilization with `--kv-cache-memory=21072436940` (19.63 GiB) to fit into requested memory, or `--kv-cache-memory=30171906560` (28.1 GiB) to fully utilize NPU free memory. Current KV cache memory: 20.03 GiB. After warmup: torch reserved memory 74.02 GiB, torch allocated memory 73.78 GiB.
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:40:08 [gpu_model_runner.py:6929] Graph capturing finished in 7 secs, took 0.25 GiB
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:40:08 [worker.py:928] Free memory on device (91.05/91.75 GiB) on startup. Desired GPU memory utilization is (0.9, 82.58 GiB). Actual usage: 53.31 GiB for weights, 6.45 GiB for peak activation, 2.79 GiB for non-torch memory, 0.25 GiB for NPU graph memory. Replace gpu_memory_utilization with `--kv-cache-memory=21072539340` (19.63 GiB) to fit into requested memory, or `--kv-cache-memory=30171423232` (28.1 GiB) to fully utilize NPU free memory. Current KV cache memory: 20.03 GiB. After warmup: torch reserved memory 74.02 GiB, torch allocated memory 73.78 GiB.
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:40:08 [gpu_model_runner.py:6929] Graph capturing finished in 7 secs, took 0.25 GiB
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:40:08 [worker.py:928] Free memory on device (91.05/91.75 GiB) on startup. Desired GPU memory utilization is (0.9, 82.58 GiB). Actual usage: 53.31 GiB for weights, 6.45 GiB for peak activation, 2.79 GiB for non-torch memory, 0.25 GiB for NPU graph memory. Replace gpu_memory_utilization with `--kv-cache-memory=21072125644` (19.62 GiB) to fit into requested memory, or `--kv-cache-memory=30172033536` (28.1 GiB) to fully utilize NPU free memory. Current KV cache memory: 20.03 GiB. After warmup: torch reserved memory 74.02 GiB, torch allocated memory 73.78 GiB.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:40:11 [cpu_binding.py:539] [cpu_bind_mode] mode=topo_affinity rank=0 visible_npus=[0, 1, 2, 3, 4, 5, 6, 7]
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:40:12 [cpu_binding.py:539] [cpu_bind_mode] mode=topo_affinity rank=0 visible_npus=[0, 1, 2, 3, 4, 5, 6, 7]
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:40:12 [cpu_binding.py:539] [cpu_bind_mode] mode=topo_affinity rank=0 visible_npus=[0, 1, 2, 3, 4, 5, 6, 7]
+(Worker_DP7_EP7 pid=391614) WARNING 09-24 16:40:12 [cpu_binding.py:347] [cpu_bind_ascend_950] uvb_poll_window_thread not found. If running in Docker, start the container with '--pid=host'.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:40:12 [cpu_binding.py:623] The CPU allocation plan is as follows:
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:40:12 [cpu_binding.py:631] Ascend 950 NPU7: worker=[144 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159]
+(Worker_DP1_EP1 pid=391610) WARNING 09-24 16:40:12 [cpu_binding.py:347] [cpu_bind_ascend_950] uvb_poll_window_thread not found. If running in Docker, start the container with '--pid=host'.
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:40:12 [cpu_binding.py:663] [migrate] NPU:7 -> NUMA [1]
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:40:12 [cpu_binding.py:539] [cpu_bind_mode] mode=topo_affinity rank=0 visible_npus=[0, 1, 2, 3, 4, 5, 6, 7]
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:40:12 [cpu_binding.py:539] [cpu_bind_mode] mode=topo_affinity rank=0 visible_npus=[0, 1, 2, 3, 4, 5, 6, 7]
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:40:12 [cpu_binding.py:539] [cpu_bind_mode] mode=topo_affinity rank=0 visible_npus=[0, 1, 2, 3, 4, 5, 6, 7]
+(Worker_DP0_EP0 pid=391715) WARNING 09-24 16:40:12 [cpu_binding.py:347] [cpu_bind_ascend_950] uvb_poll_window_thread not found. If running in Docker, start the container with '--pid=host'.
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:40:12 [cpu_binding.py:623] The CPU allocation plan is as follows:
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:40:12 [cpu_binding.py:631] Ascend 950 NPU1: worker=[304 305 306 307 308 309 310 311 312 313 314 315 316 317 318 319]
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:40:12 [cpu_binding.py:663] [migrate] NPU:1 -> NUMA [3]
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:40:12 [cpu_binding.py:623] The CPU allocation plan is as follows:
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:40:12 [cpu_binding.py:631] Ascend 950 NPU0: worker=[288 289 290 291 292 293 294 295 296 297 298 299 300 301 302 303]
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:40:12 [cpu_binding.py:663] [migrate] NPU:0 -> NUMA [3]
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:40:13 [cpu_binding.py:539] [cpu_bind_mode] mode=topo_affinity rank=0 visible_npus=[0, 1, 2, 3, 4, 5, 6, 7]
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:40:13 [cpu_binding.py:539] [cpu_bind_mode] mode=topo_affinity rank=0 visible_npus=[0, 1, 2, 3, 4, 5, 6, 7]
+(Worker_DP5_EP5 pid=391613) WARNING 09-24 16:40:13 [cpu_binding.py:347] [cpu_bind_ascend_950] uvb_poll_window_thread not found. If running in Docker, start the container with '--pid=host'.
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:40:13 [cpu_binding.py:623] The CPU allocation plan is as follows:
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:40:13 [cpu_binding.py:631] Ascend 950 NPU5: worker=[112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127]
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:40:13 [cpu_binding.py:663] [migrate] NPU:5 -> NUMA [1]
+(Worker_DP3_EP3 pid=391615) WARNING 09-24 16:40:13 [cpu_binding.py:347] [cpu_bind_ascend_950] uvb_poll_window_thread not found. If running in Docker, start the container with '--pid=host'.
+(Worker_DP6_EP6 pid=391611) WARNING 09-24 16:40:13 [cpu_binding.py:347] [cpu_bind_ascend_950] uvb_poll_window_thread not found. If running in Docker, start the container with '--pid=host'.
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:40:13 [cpu_binding.py:623] The CPU allocation plan is as follows:
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:40:13 [cpu_binding.py:631] Ascend 950 NPU3: worker=[336 337 338 339 340 341 342 343 344 345 346 347 348 349 350 351]
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:40:13 [cpu_binding.py:623] The CPU allocation plan is as follows:
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:40:13 [cpu_binding.py:631] Ascend 950 NPU6: worker=[128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143]
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:40:13 [cpu_binding.py:663] [migrate] NPU:3 -> NUMA [3]
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:40:13 [cpu_binding.py:663] [migrate] NPU:6 -> NUMA [1]
+(Worker_DP3_EP3 pid=391615) INFO 09-24 16:40:13 [cpu_binding.py:695] [irq] IRQ binding skipped on Ascend 950.
+(EngineCore_DP3 pid=387489) INFO 09-24 16:40:13 [core.py:379] init engine (profile, create kv cache, warmup model) took 20.12 s
+(Worker_DP2_EP2 pid=391612) WARNING 09-24 16:40:13 [cpu_binding.py:347] [cpu_bind_ascend_950] uvb_poll_window_thread not found. If running in Docker, start the container with '--pid=host'.
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:40:13 [cpu_binding.py:623] The CPU allocation plan is as follows:
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:40:13 [cpu_binding.py:631] Ascend 950 NPU2: worker=[320 321 322 323 324 325 326 327 328 329 330 331 332 333 334 335]
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:40:13 [cpu_binding.py:663] [migrate] NPU:2 -> NUMA [3]
+(Worker_DP4_EP4 pid=391714) WARNING 09-24 16:40:13 [cpu_binding.py:347] [cpu_bind_ascend_950] uvb_poll_window_thread not found. If running in Docker, start the container with '--pid=host'.
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:40:13 [cpu_binding.py:623] The CPU allocation plan is as follows:
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:40:13 [cpu_binding.py:631] Ascend 950 NPU4: worker=[96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111]
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:40:13 [cpu_binding.py:663] [migrate] NPU:4 -> NUMA [1]
+(Worker_DP2_EP2 pid=391612) INFO 09-24 16:40:14 [cpu_binding.py:695] [irq] IRQ binding skipped on Ascend 950.
+(EngineCore_DP2 pid=387199) INFO 09-24 16:40:14 [core.py:379] init engine (profile, create kv cache, warmup model) took 22.54 s
+(EngineCore_DP3 pid=387489) INFO 09-24 16:40:15 [kv_cache_utils.py:748] kv cache group sizes [4480, 4480, 4480, 4480]
+(EngineCore_DP3 pid=387489) INFO 09-24 16:40:15 [kv_cache_utils.py:749] kv lcm block sizes 4480
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:40:16 [cpu_binding.py:695] [irq] IRQ binding skipped on Ascend 950.
+(EngineCore_DP5 pid=388071) INFO 09-24 16:40:16 [core.py:379] init engine (profile, create kv cache, warmup model) took 23.28 s
+(Worker_DP0_EP0 pid=391715) INFO 09-24 16:40:16 [cpu_binding.py:695] [irq] IRQ binding skipped on Ascend 950.
+(EngineCore_DP0 pid=386619) INFO 09-24 16:40:16 [core.py:379] init engine (profile, create kv cache, warmup model) took 23.56 s
+(Worker_DP6_EP6 pid=391611) INFO 09-24 16:40:16 [cpu_binding.py:695] [irq] IRQ binding skipped on Ascend 950.
+(EngineCore_DP6 pid=388361) INFO 09-24 16:40:16 [core.py:379] init engine (profile, create kv cache, warmup model) took 25.46 s
+(Worker_DP1_EP1 pid=391610) INFO 09-24 16:40:16 [cpu_binding.py:695] [irq] IRQ binding skipped on Ascend 950.
+(EngineCore_DP2 pid=387199) INFO 09-24 16:40:16 [kv_cache_utils.py:748] kv cache group sizes [4480, 4480, 4480, 4480]
+(EngineCore_DP2 pid=387199) INFO 09-24 16:40:16 [kv_cache_utils.py:749] kv lcm block sizes 4480
+(EngineCore_DP1 pid=386907) INFO 09-24 16:40:16 [core.py:379] init engine (profile, create kv cache, warmup model) took 25.94 s
+(Worker_DP4_EP4 pid=391714) INFO 09-24 16:40:16 [cpu_binding.py:695] [irq] IRQ binding skipped on Ascend 950.
+(EngineCore_DP4 pid=387781) INFO 09-24 16:40:16 [core.py:379] init engine (profile, create kv cache, warmup model) took 24.25 s
+(Worker_DP7_EP7 pid=391614) INFO 09-24 16:40:18 [cpu_binding.py:695] [irq] IRQ binding skipped on Ascend 950.
+(EngineCore_DP7 pid=388653) INFO 09-24 16:40:18 [core.py:379] init engine (profile, create kv cache, warmup model) took 25.36 s
+(EngineCore_DP5 pid=388071) INFO 09-24 16:40:18 [kv_cache_utils.py:748] kv cache group sizes [4480, 4480, 4480, 4480]
+(EngineCore_DP5 pid=388071) INFO 09-24 16:40:18 [kv_cache_utils.py:749] kv lcm block sizes 4480
+(EngineCore_DP0 pid=386619) INFO 09-24 16:40:18 [kv_cache_utils.py:748] kv cache group sizes [4480, 4480, 4480, 4480]
+(EngineCore_DP0 pid=386619) INFO 09-24 16:40:18 [kv_cache_utils.py:749] kv lcm block sizes 4480
+(EngineCore_DP6 pid=388361) INFO 09-24 16:40:18 [kv_cache_utils.py:748] kv cache group sizes [4480, 4480, 4480, 4480]
+(EngineCore_DP6 pid=388361) INFO 09-24 16:40:18 [kv_cache_utils.py:749] kv lcm block sizes 4480
+(EngineCore_DP1 pid=386907) INFO 09-24 16:40:18 [kv_cache_utils.py:748] kv cache group sizes [4480, 4480, 4480, 4480]
+(EngineCore_DP1 pid=386907) INFO 09-24 16:40:18 [kv_cache_utils.py:749] kv lcm block sizes 4480
+(EngineCore_DP4 pid=387781) INFO 09-24 16:40:18 [kv_cache_utils.py:748] kv cache group sizes [4480, 4480, 4480, 4480]
+(EngineCore_DP4 pid=387781) INFO 09-24 16:40:18 [kv_cache_utils.py:749] kv lcm block sizes 4480
+(EngineCore_DP7 pid=388653) INFO 09-24 16:40:19 [kv_cache_utils.py:748] kv cache group sizes [4480, 4480, 4480, 4480]
+(EngineCore_DP7 pid=388653) INFO 09-24 16:40:19 [kv_cache_utils.py:749] kv lcm block sizes 4480
+INFO 09-24 16:40:22 [coordinator.py:250] All engine subscriptions received by DP coordinator
+(EngineCore_DP0 pid=386619) WARNING 09-24 16:40:22 [vllm.py:1508] Disabling cascade attention (not yet compatible with async speculative decoding).
+(EngineCore_DP1 pid=386907) WARNING 09-24 16:40:22 [vllm.py:1508] Disabling cascade attention (not yet compatible with async speculative decoding).
+(EngineCore_DP4 pid=387781) WARNING 09-24 16:40:22 [vllm.py:1508] Disabling cascade attention (not yet compatible with async speculative decoding).
+(EngineCore_DP3 pid=387489) WARNING 09-24 16:40:22 [vllm.py:1508] Disabling cascade attention (not yet compatible with async speculative decoding).
+(EngineCore_DP5 pid=388071) WARNING 09-24 16:40:22 [vllm.py:1508] Disabling cascade attention (not yet compatible with async speculative decoding).
+(EngineCore_DP2 pid=387199) WARNING 09-24 16:40:22 [vllm.py:1508] Disabling cascade attention (not yet compatible with async speculative decoding).
+(EngineCore_DP6 pid=388361) WARNING 09-24 16:40:22 [vllm.py:1508] Disabling cascade attention (not yet compatible with async speculative decoding).
+(EngineCore_DP0 pid=386619) INFO 09-24 16:40:22 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(EngineCore_DP1 pid=386907) INFO 09-24 16:40:22 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(EngineCore_DP7 pid=388653) WARNING 09-24 16:40:22 [vllm.py:1508] Disabling cascade attention (not yet compatible with async speculative decoding).
+(EngineCore_DP4 pid=387781) INFO 09-24 16:40:22 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(EngineCore_DP3 pid=387489) INFO 09-24 16:40:22 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(EngineCore_DP5 pid=388071) INFO 09-24 16:40:22 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(EngineCore_DP2 pid=387199) INFO 09-24 16:40:22 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(EngineCore_DP6 pid=388361) INFO 09-24 16:40:22 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(ApiServer_2 pid=388945) WARNING 09-24 16:40:22 [loggers.py:1233] AsyncLLM created with api_server_count more than 1; disabling stats logging to avoid incomplete stats.
+(ApiServer_0 pid=388943) WARNING 09-24 16:40:22 [loggers.py:1233] AsyncLLM created with api_server_count more than 1; disabling stats logging to avoid incomplete stats.
+(ApiServer_7 pid=388950) WARNING 09-24 16:40:22 [loggers.py:1233] AsyncLLM created with api_server_count more than 1; disabling stats logging to avoid incomplete stats.
+(ApiServer_1 pid=388944) WARNING 09-24 16:40:22 [loggers.py:1233] AsyncLLM created with api_server_count more than 1; disabling stats logging to avoid incomplete stats.
+(ApiServer_4 pid=388947) WARNING 09-24 16:40:22 [loggers.py:1233] AsyncLLM created with api_server_count more than 1; disabling stats logging to avoid incomplete stats.
+(ApiServer_5 pid=388948) WARNING 09-24 16:40:22 [loggers.py:1233] AsyncLLM created with api_server_count more than 1; disabling stats logging to avoid incomplete stats.
+(ApiServer_6 pid=388949) WARNING 09-24 16:40:22 [loggers.py:1233] AsyncLLM created with api_server_count more than 1; disabling stats logging to avoid incomplete stats.
+(ApiServer_3 pid=388946) WARNING 09-24 16:40:22 [loggers.py:1233] AsyncLLM created with api_server_count more than 1; disabling stats logging to avoid incomplete stats.
+(EngineCore_DP0 pid=386619) WARNING 09-24 16:40:22 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(EngineCore_DP7 pid=388653) INFO 09-24 16:40:22 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(EngineCore_DP0 pid=386619) INFO 09-24 16:40:22 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+(EngineCore_DP1 pid=386907) WARNING 09-24 16:40:22 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(EngineCore_DP4 pid=387781) WARNING 09-24 16:40:22 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(EngineCore_DP3 pid=387489) WARNING 09-24 16:40:22 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(EngineCore_DP1 pid=386907) INFO 09-24 16:40:22 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+INFO 09-24 16:40:22 [utils.py:556] Waiting for API servers to complete ...
+(EngineCore_DP5 pid=388071) WARNING 09-24 16:40:22 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(EngineCore_DP4 pid=387781) INFO 09-24 16:40:22 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+(EngineCore_DP2 pid=387199) WARNING 09-24 16:40:22 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(EngineCore_DP3 pid=387489) INFO 09-24 16:40:22 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+(EngineCore_DP6 pid=388361) WARNING 09-24 16:40:22 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(EngineCore_DP5 pid=388071) INFO 09-24 16:40:22 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
