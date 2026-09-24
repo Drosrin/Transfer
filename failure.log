@@ -1,0 +1,192 @@
+[root@localhost j00950773]# bash run.sh
+INFO 09-24 16:35:31 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:35:31 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:35:31 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:35:31 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:35:31 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:35:36 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:35:36 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+INFO 09-24 16:35:36 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+INFO 09-24 16:35:36 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+WARNING 09-24 16:35:37 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+INFO 09-24 16:35:37 [serve.py:125] Defaulting api_server_count to data_parallel_size (8).
+INFO 09-24 16:35:37 [api_utils.py:347]
+INFO 09-24 16:35:37 [api_utils.py:347]        █     █     █▄   ▄█
+INFO 09-24 16:35:37 [api_utils.py:347]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.30.0
+INFO 09-24 16:35:37 [api_utils.py:347]   █▄█▀ █     █     █     █  model   /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918
+INFO 09-24 16:35:37 [api_utils.py:347]    ▀▀  ▀▀▀▀▀ ▀▀▀▀▀ ▀     ▀
+INFO 09-24 16:35:37 [api_utils.py:347]
+INFO 09-24 16:35:37 [api_utils.py:286] non-default args: {'model_tag': '/mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918', 'api_server_count': 8, 'host': '0.0.0.0', 'port': 8017, 'model': '/mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918', 'trust_remote_code': True, 'seed': 1024, 'max_model_len': 133120, 'quantization': 'ascend', 'served_model_name': ['glm'], 'data_parallel_size': 8, 'enable_expert_parallel': True, 'gpu_memory_utilization': 0.9, 'limit_mm_per_prompt': {'image': 1, 'video': 0}, 'max_num_batched_tokens': 8192, 'max_num_seqs': 32, 'speculative_config': {'num_speculative_tokens': 5, 'method': 'mtp'}, 'compilation_config': {'mode': None, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'vllm_ascend.compilation.compiler_interface.AscendCompiler', 'custom_ops': [], 'ir_enable_torch_wrap': None, 'splitting_ops': None, 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': None, 'compile_ranges_endpoints': None, 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'size_asserts': False, 'alignment_asserts': False, 'scalar_asserts': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.FULL_DECODE_ONLY: (2, 0)>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [1, 2, 4, 8, 16, 32, 64, 96, 128], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': None, 'pass_config': {}, 'max_cudagraph_capture_size': None, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': None, 'static_all_moe_layers': []}}
+WARNING 09-24 16:35:37 [system_utils.py:299] Found ulimit of 1024 and failed to automatically increase with error current limit exceeds maximum limit. This can cause fd limit errors like `OSError: [Errno 24] Too many open files`. Consider increasing with ulimit -n
+WARNING 09-24 16:35:37 [envs.py:2248] Unknown vLLM environment variable detected: VLLM_VERSION
+INFO 09-24 16:35:37 [model.py:692] Resolved architecture: Glm5NextForConditionalGeneration
+INFO 09-24 16:35:37 [model.py:2030] Using max model len 133120
+INFO 09-24 16:35:39 [model.py:692] Resolved architecture: Glm5NextMTPModel
+INFO 09-24 16:35:39 [model.py:2030] Using max model len 1048576
+WARNING 09-24 16:35:39 [speculative.py:1361] Enabling num_speculative_tokens > 1 will run multiple times of forward on same MTP layer,which may result in lower acceptance rate
+INFO 09-24 16:35:39 [speculative.py:1651] Overriding draft model max model len from 1048576 to 133120
+INFO 09-24 16:35:39 [scheduler.py:288] Chunked prefill is enabled with max_num_batched_tokens=8192.
+INFO 09-24 16:35:39 [config.py:625] Mamba cache mode is set to 'align' for Glm5NextForConditionalGeneration by default when prefix caching is enabled
+INFO 09-24 16:35:39 [patch_mamba_config.py:121] Setting attention block size to 4480 tokens to align MLA, recurrent-state, and compressed indexer cache pages.
+INFO 09-24 16:35:39 [patch_mamba_config.py:158] Padding mamba page size by 0.00% to ensure that mamba page size and attention page size are exactly equal.
+INFO 09-24 16:35:39 [vllm.py:1494] Disabling NCCL for DP synchronization when using async scheduling.
+INFO 09-24 16:35:39 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+WARNING 09-24 16:35:39 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+WARNING 09-24 16:35:39 [platform.py:712] Speculative quantization is set but Ascend automatically uses the main model's quantization method. parameter=quantization, action: resetting to None.
+INFO 09-24 16:35:39 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+INFO 09-24 16:35:39 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:35:39 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:35:39 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+INFO 09-24 16:35:39 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+INFO 09-24 16:35:39 [compilation.py:336] Enabled custom fusions: norm_quant, act_quant
+INFO 09-24 16:35:48 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:35:48 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:35:48 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:35:48 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:35:48 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:35:51 [utils.py:1151] Started DP Coordinator process (PID: 386333)
+INFO 09-24 16:36:01 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:36:01 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:36:01 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:36:01 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:36:01 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:36:07 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:36:07 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+WARNING 09-24 16:36:07 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+INFO 09-24 16:36:07 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:36:07 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:36:07 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+INFO 09-24 16:36:22 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:36:22 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:36:22 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:36:22 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:36:22 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:36:27 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:36:27 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+WARNING 09-24 16:36:28 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+INFO 09-24 16:36:28 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:36:28 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:36:28 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+INFO 09-24 16:36:40 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:36:40 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:36:40 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:36:40 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:36:40 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:36:46 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:36:46 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+WARNING 09-24 16:36:46 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+INFO 09-24 16:36:46 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:36:46 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:36:46 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+INFO 09-24 16:36:55 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:36:55 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:36:55 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:36:55 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:36:55 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:37:01 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:37:01 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+WARNING 09-24 16:37:01 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+INFO 09-24 16:37:01 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:37:01 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:37:01 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+INFO 09-24 16:37:10 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:37:10 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:37:10 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:37:10 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:37:10 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:37:16 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:37:16 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+WARNING 09-24 16:37:16 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+INFO 09-24 16:37:16 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:37:16 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:37:16 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+INFO 09-24 16:37:25 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:37:25 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:37:25 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:37:25 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:37:25 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:37:31 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:37:31 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+WARNING 09-24 16:37:31 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+INFO 09-24 16:37:31 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:37:31 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:37:31 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+INFO 09-24 16:37:43 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:37:43 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:37:43 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:37:44 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:37:44 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:37:49 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:37:49 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+WARNING 09-24 16:37:49 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+INFO 09-24 16:37:50 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:37:50 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:37:50 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+INFO 09-24 16:37:58 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:37:58 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:37:58 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:37:58 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:37:58 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:04 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:38:04 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+INFO 09-24 16:38:04 [utils.py:253] Started 8 API server processes
+WARNING 09-24 16:38:04 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+INFO 09-24 16:38:04 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:38:04 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:38:04 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+INFO 09-24 16:38:13 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:13 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:13 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:13 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:13 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:13 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:13 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:13 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:13 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:13 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:13 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:13 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:13 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:13 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:13 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:13 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:13 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:13 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:13 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:13 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:14 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:14 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:14 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:14 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:14 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:14 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:14 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:14 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:14 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:14 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:14 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:14 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:14 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:14 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:14 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:14 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:14 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:14 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:14 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:14 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+(ApiServer_5 pid=388948) INFO 09-24 16:38:18 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+(ApiServer_5 pid=388948) INFO 09-24 16:38:18 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+(ApiServer_5 pid=388948) INFO 09-24 16:38:18 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+(ApiServer_5 pid=388948) INFO 09-24 16:38:18 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+(ApiServer_5 pid=388948) WARNING 09-24 16:38:18 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+(ApiServer_5 pid=388948) WARNING 09-24 16:38:19 [envs.py:2248] Unknown vLLM environment variable detected: VLLM_VERSION
+(ApiServer_7 pid=388950) INFO 09-24 16:38:19 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+(ApiServer_5 pid=388948) INFO 09-24 16:38:19 [model.py:692] Resolved architecture: Glm5NextForConditionalGeneration
+(ApiServer_7 pid=388950) INFO 09-24 16:38:19 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+(ApiServer_5 pid=388948) INFO 09-24 16:38:19 [model.py:2030] Using max model len 133120
+(ApiServer_2 pid=388945) INFO 09-24 16:38:19 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+(ApiServer_2 pid=388945) INFO 09-24 16:38:19 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+(ApiServer_7 pid=388950) INFO 09-24 16:38:19 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+(ApiServer_2 pid=388945) INFO 09-24 16:38:19 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+(ApiServer_7 pid=388950) INFO 09-24 16:38:19 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+(ApiServer_2 pid=388945) INFO 09-24 16:38:19 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
