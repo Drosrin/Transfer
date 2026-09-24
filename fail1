@@ -1,0 +1,500 @@
+[root@localhost j00950773]# bash run.sh
+INFO 09-24 16:35:31 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:35:31 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:35:31 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:35:31 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:35:31 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:35:36 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:35:36 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+INFO 09-24 16:35:36 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+INFO 09-24 16:35:36 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+WARNING 09-24 16:35:37 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+INFO 09-24 16:35:37 [serve.py:125] Defaulting api_server_count to data_parallel_size (8).
+INFO 09-24 16:35:37 [api_utils.py:347]
+INFO 09-24 16:35:37 [api_utils.py:347]        █     █     █▄   ▄█
+INFO 09-24 16:35:37 [api_utils.py:347]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.30.0
+INFO 09-24 16:35:37 [api_utils.py:347]   █▄█▀ █     █     █     █  model   /mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918
+INFO 09-24 16:35:37 [api_utils.py:347]    ▀▀  ▀▀▀▀▀ ▀▀▀▀▀ ▀     ▀
+INFO 09-24 16:35:37 [api_utils.py:347]
+INFO 09-24 16:35:37 [api_utils.py:286] non-default args: {'model_tag': '/mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918', 'api_server_count': 8, 'host': '0.0.0.0', 'port': 8017, 'model': '/mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918', 'trust_remote_code': True, 'seed': 1024, 'max_model_len': 133120, 'quantization': 'ascend', 'served_model_name': ['glm'], 'data_parallel_size': 8, 'enable_expert_parallel': True, 'gpu_memory_utilization': 0.9, 'limit_mm_per_prompt': {'image': 1, 'video': 0}, 'max_num_batched_tokens': 8192, 'max_num_seqs': 32, 'speculative_config': {'num_speculative_tokens': 5, 'method': 'mtp'}, 'compilation_config': {'mode': None, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'vllm_ascend.compilation.compiler_interface.AscendCompiler', 'custom_ops': [], 'ir_enable_torch_wrap': None, 'splitting_ops': None, 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': None, 'compile_ranges_endpoints': None, 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'size_asserts': False, 'alignment_asserts': False, 'scalar_asserts': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.FULL_DECODE_ONLY: (2, 0)>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [1, 2, 4, 8, 16, 32, 64, 96, 128], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': None, 'pass_config': {}, 'max_cudagraph_capture_size': None, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': None, 'static_all_moe_layers': []}}
+WARNING 09-24 16:35:37 [system_utils.py:299] Found ulimit of 1024 and failed to automatically increase with error current limit exceeds maximum limit. This can cause fd limit errors like `OSError: [Errno 24] Too many open files`. Consider increasing with ulimit -n
+WARNING 09-24 16:35:37 [envs.py:2248] Unknown vLLM environment variable detected: VLLM_VERSION
+INFO 09-24 16:35:37 [model.py:692] Resolved architecture: Glm5NextForConditionalGeneration
+INFO 09-24 16:35:37 [model.py:2030] Using max model len 133120
+INFO 09-24 16:35:39 [model.py:692] Resolved architecture: Glm5NextMTPModel
+INFO 09-24 16:35:39 [model.py:2030] Using max model len 1048576
+WARNING 09-24 16:35:39 [speculative.py:1361] Enabling num_speculative_tokens > 1 will run multiple times of forward on same MTP layer,which may result in lower acceptance rate
+INFO 09-24 16:35:39 [speculative.py:1651] Overriding draft model max model len from 1048576 to 133120
+INFO 09-24 16:35:39 [scheduler.py:288] Chunked prefill is enabled with max_num_batched_tokens=8192.
+INFO 09-24 16:35:39 [config.py:625] Mamba cache mode is set to 'align' for Glm5NextForConditionalGeneration by default when prefix caching is enabled
+INFO 09-24 16:35:39 [patch_mamba_config.py:121] Setting attention block size to 4480 tokens to align MLA, recurrent-state, and compressed indexer cache pages.
+INFO 09-24 16:35:39 [patch_mamba_config.py:158] Padding mamba page size by 0.00% to ensure that mamba page size and attention page size are exactly equal.
+INFO 09-24 16:35:39 [vllm.py:1494] Disabling NCCL for DP synchronization when using async scheduling.
+INFO 09-24 16:35:39 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+WARNING 09-24 16:35:39 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+WARNING 09-24 16:35:39 [platform.py:712] Speculative quantization is set but Ascend automatically uses the main model's quantization method. parameter=quantization, action: resetting to None.
+INFO 09-24 16:35:39 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+INFO 09-24 16:35:39 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:35:39 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:35:39 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+INFO 09-24 16:35:39 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+INFO 09-24 16:35:39 [compilation.py:336] Enabled custom fusions: norm_quant, act_quant
+INFO 09-24 16:35:48 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:35:48 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:35:48 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:35:48 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:35:48 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:35:51 [utils.py:1151] Started DP Coordinator process (PID: 386333)
+INFO 09-24 16:36:01 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:36:01 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:36:01 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:36:01 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:36:01 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:36:07 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:36:07 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+WARNING 09-24 16:36:07 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+INFO 09-24 16:36:07 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:36:07 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:36:07 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+INFO 09-24 16:36:22 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:36:22 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:36:22 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:36:22 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:36:22 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:36:27 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:36:27 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+WARNING 09-24 16:36:28 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+INFO 09-24 16:36:28 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:36:28 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:36:28 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+INFO 09-24 16:36:40 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:36:40 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:36:40 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:36:40 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:36:40 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:36:46 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:36:46 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+WARNING 09-24 16:36:46 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+INFO 09-24 16:36:46 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:36:46 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:36:46 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+INFO 09-24 16:36:55 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:36:55 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:36:55 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:36:55 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:36:55 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:37:01 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:37:01 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+WARNING 09-24 16:37:01 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+INFO 09-24 16:37:01 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:37:01 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:37:01 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+INFO 09-24 16:37:10 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:37:10 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:37:10 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:37:10 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:37:10 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:37:16 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:37:16 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+WARNING 09-24 16:37:16 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+INFO 09-24 16:37:16 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:37:16 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:37:16 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+INFO 09-24 16:37:25 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:37:25 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:37:25 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:37:25 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:37:25 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:37:31 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:37:31 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+WARNING 09-24 16:37:31 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+INFO 09-24 16:37:31 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:37:31 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:37:31 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+INFO 09-24 16:37:43 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:37:43 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:37:43 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:37:44 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:37:44 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:37:49 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:37:49 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+WARNING 09-24 16:37:49 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+INFO 09-24 16:37:50 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:37:50 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:37:50 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+INFO 09-24 16:37:58 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:37:58 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:37:58 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:37:58 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:37:58 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:04 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:38:04 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+INFO 09-24 16:38:04 [utils.py:253] Started 8 API server processes
+WARNING 09-24 16:38:04 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+INFO 09-24 16:38:04 [ascend_config.py:252] Dynamic EPLB is False
+INFO 09-24 16:38:04 [ascend_config.py:253] The number of redundant experts is 0
+INFO 09-24 16:38:04 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+INFO 09-24 16:38:13 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:13 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:13 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:13 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:13 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:13 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:13 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:13 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:13 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:13 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:13 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:13 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:13 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:13 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:13 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:13 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:13 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:13 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:13 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:13 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:14 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:14 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:14 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:14 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:14 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:14 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:14 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:14 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:14 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:14 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:14 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:14 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:14 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:14 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:14 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:14 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:14 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:14 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:14 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:14 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+(ApiServer_5 pid=388948) INFO 09-24 16:38:18 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+(ApiServer_5 pid=388948) INFO 09-24 16:38:18 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+(ApiServer_5 pid=388948) INFO 09-24 16:38:18 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+(ApiServer_5 pid=388948) INFO 09-24 16:38:18 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+(ApiServer_5 pid=388948) WARNING 09-24 16:38:18 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+(ApiServer_5 pid=388948) WARNING 09-24 16:38:19 [envs.py:2248] Unknown vLLM environment variable detected: VLLM_VERSION
+(ApiServer_7 pid=388950) INFO 09-24 16:38:19 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+(ApiServer_5 pid=388948) INFO 09-24 16:38:19 [model.py:692] Resolved architecture: Glm5NextForConditionalGeneration
+(ApiServer_7 pid=388950) INFO 09-24 16:38:19 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+(ApiServer_5 pid=388948) INFO 09-24 16:38:19 [model.py:2030] Using max model len 133120
+(ApiServer_2 pid=388945) INFO 09-24 16:38:19 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+(ApiServer_2 pid=388945) INFO 09-24 16:38:19 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+(ApiServer_7 pid=388950) INFO 09-24 16:38:19 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+(ApiServer_2 pid=388945) INFO 09-24 16:38:19 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+(ApiServer_7 pid=388950) INFO 09-24 16:38:19 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+(ApiServer_2 pid=388945) INFO 09-24 16:38:19 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+(ApiServer_7 pid=388950) WARNING 09-24 16:38:19 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+(ApiServer_2 pid=388945) WARNING 09-24 16:38:19 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+(ApiServer_0 pid=388943) INFO 09-24 16:38:19 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+(ApiServer_0 pid=388943) INFO 09-24 16:38:19 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+(ApiServer_7 pid=388950) WARNING 09-24 16:38:19 [envs.py:2248] Unknown vLLM environment variable detected: VLLM_VERSION
+(ApiServer_0 pid=388943) INFO 09-24 16:38:19 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+(ApiServer_2 pid=388945) WARNING 09-24 16:38:19 [envs.py:2248] Unknown vLLM environment variable detected: VLLM_VERSION
+(ApiServer_7 pid=388950) INFO 09-24 16:38:19 [model.py:692] Resolved architecture: Glm5NextForConditionalGeneration
+(ApiServer_7 pid=388950) INFO 09-24 16:38:19 [model.py:2030] Using max model len 133120
+(ApiServer_0 pid=388943) INFO 09-24 16:38:19 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+(ApiServer_2 pid=388945) INFO 09-24 16:38:19 [model.py:692] Resolved architecture: Glm5NextForConditionalGeneration
+(ApiServer_2 pid=388945) INFO 09-24 16:38:19 [model.py:2030] Using max model len 133120
+(ApiServer_3 pid=388946) INFO 09-24 16:38:19 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+(ApiServer_3 pid=388946) INFO 09-24 16:38:19 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+(ApiServer_0 pid=388943) WARNING 09-24 16:38:19 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+(ApiServer_3 pid=388946) INFO 09-24 16:38:19 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+(ApiServer_1 pid=388944) INFO 09-24 16:38:19 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+(ApiServer_3 pid=388946) INFO 09-24 16:38:19 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+(ApiServer_1 pid=388944) INFO 09-24 16:38:19 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+(ApiServer_1 pid=388944) INFO 09-24 16:38:19 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+(ApiServer_1 pid=388944) INFO 09-24 16:38:19 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+(ApiServer_0 pid=388943) WARNING 09-24 16:38:19 [envs.py:2248] Unknown vLLM environment variable detected: VLLM_VERSION
+(ApiServer_0 pid=388943) INFO 09-24 16:38:19 [model.py:692] Resolved architecture: Glm5NextForConditionalGeneration
+(ApiServer_0 pid=388943) INFO 09-24 16:38:19 [model.py:2030] Using max model len 133120
+(ApiServer_3 pid=388946) WARNING 09-24 16:38:19 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+(ApiServer_1 pid=388944) WARNING 09-24 16:38:19 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+(ApiServer_3 pid=388946) WARNING 09-24 16:38:19 [envs.py:2248] Unknown vLLM environment variable detected: VLLM_VERSION
+(ApiServer_3 pid=388946) INFO 09-24 16:38:19 [model.py:692] Resolved architecture: Glm5NextForConditionalGeneration
+(ApiServer_3 pid=388946) INFO 09-24 16:38:19 [model.py:2030] Using max model len 133120
+(ApiServer_1 pid=388944) WARNING 09-24 16:38:19 [envs.py:2248] Unknown vLLM environment variable detected: VLLM_VERSION
+(ApiServer_1 pid=388944) INFO 09-24 16:38:19 [model.py:692] Resolved architecture: Glm5NextForConditionalGeneration
+(ApiServer_1 pid=388944) INFO 09-24 16:38:19 [model.py:2030] Using max model len 133120
+(ApiServer_6 pid=388949) INFO 09-24 16:38:19 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+(ApiServer_6 pid=388949) INFO 09-24 16:38:19 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+(ApiServer_6 pid=388949) INFO 09-24 16:38:19 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+(ApiServer_6 pid=388949) INFO 09-24 16:38:19 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+(ApiServer_4 pid=388947) INFO 09-24 16:38:20 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+(ApiServer_4 pid=388947) INFO 09-24 16:38:20 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+(ApiServer_4 pid=388947) INFO 09-24 16:38:20 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+(ApiServer_4 pid=388947) INFO 09-24 16:38:20 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+(ApiServer_6 pid=388949) WARNING 09-24 16:38:20 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+(ApiServer_4 pid=388947) WARNING 09-24 16:38:20 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+(ApiServer_6 pid=388949) WARNING 09-24 16:38:20 [envs.py:2248] Unknown vLLM environment variable detected: VLLM_VERSION
+(ApiServer_6 pid=388949) INFO 09-24 16:38:20 [model.py:692] Resolved architecture: Glm5NextForConditionalGeneration
+(ApiServer_6 pid=388949) INFO 09-24 16:38:20 [model.py:2030] Using max model len 133120
+(ApiServer_4 pid=388947) WARNING 09-24 16:38:20 [envs.py:2248] Unknown vLLM environment variable detected: VLLM_VERSION
+(ApiServer_4 pid=388947) INFO 09-24 16:38:20 [model.py:692] Resolved architecture: Glm5NextForConditionalGeneration
+(ApiServer_4 pid=388947) INFO 09-24 16:38:20 [model.py:2030] Using max model len 133120
+(ApiServer_5 pid=388948) INFO 09-24 16:38:20 [model.py:692] Resolved architecture: Glm5NextMTPModel
+(ApiServer_5 pid=388948) INFO 09-24 16:38:20 [model.py:2030] Using max model len 1048576
+(ApiServer_5 pid=388948) WARNING 09-24 16:38:20 [speculative.py:1361] Enabling num_speculative_tokens > 1 will run multiple times of forward on same MTP layer,which may result in lower acceptance rate
+(ApiServer_5 pid=388948) INFO 09-24 16:38:20 [speculative.py:1651] Overriding draft model max model len from 1048576 to 133120
+(ApiServer_5 pid=388948) INFO 09-24 16:38:20 [scheduler.py:288] Chunked prefill is enabled with max_num_batched_tokens=8192.
+(ApiServer_5 pid=388948) INFO 09-24 16:38:20 [config.py:625] Mamba cache mode is set to 'align' for Glm5NextForConditionalGeneration by default when prefix caching is enabled
+(ApiServer_5 pid=388948) INFO 09-24 16:38:20 [patch_mamba_config.py:121] Setting attention block size to 4480 tokens to align MLA, recurrent-state, and compressed indexer cache pages.
+(ApiServer_5 pid=388948) INFO 09-24 16:38:20 [patch_mamba_config.py:158] Padding mamba page size by 0.00% to ensure that mamba page size and attention page size are exactly equal.
+(ApiServer_5 pid=388948) INFO 09-24 16:38:21 [vllm.py:1494] Disabling NCCL for DP synchronization when using async scheduling.
+(ApiServer_5 pid=388948) INFO 09-24 16:38:21 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(ApiServer_5 pid=388948) WARNING 09-24 16:38:21 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(ApiServer_5 pid=388948) WARNING 09-24 16:38:21 [platform.py:712] Speculative quantization is set but Ascend automatically uses the main model's quantization method. parameter=quantization, action: resetting to None.
+(ApiServer_5 pid=388948) INFO 09-24 16:38:21 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+(ApiServer_5 pid=388948) INFO 09-24 16:38:21 [ascend_config.py:252] Dynamic EPLB is False
+(ApiServer_5 pid=388948) INFO 09-24 16:38:21 [ascend_config.py:253] The number of redundant experts is 0
+(ApiServer_5 pid=388948) INFO 09-24 16:38:21 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+(ApiServer_5 pid=388948) INFO 09-24 16:38:21 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(ApiServer_5 pid=388948) INFO 09-24 16:38:21 [compilation.py:336] Enabled custom fusions: norm_quant, act_quant
+(ApiServer_2 pid=388945) INFO 09-24 16:38:21 [model.py:692] Resolved architecture: Glm5NextMTPModel
+(ApiServer_2 pid=388945) INFO 09-24 16:38:21 [model.py:2030] Using max model len 1048576
+(ApiServer_2 pid=388945) WARNING 09-24 16:38:21 [speculative.py:1361] Enabling num_speculative_tokens > 1 will run multiple times of forward on same MTP layer,which may result in lower acceptance rate
+(ApiServer_2 pid=388945) INFO 09-24 16:38:21 [speculative.py:1651] Overriding draft model max model len from 1048576 to 133120
+(ApiServer_2 pid=388945) INFO 09-24 16:38:21 [scheduler.py:288] Chunked prefill is enabled with max_num_batched_tokens=8192.
+(ApiServer_2 pid=388945) INFO 09-24 16:38:21 [config.py:625] Mamba cache mode is set to 'align' for Glm5NextForConditionalGeneration by default when prefix caching is enabled
+(ApiServer_2 pid=388945) INFO 09-24 16:38:21 [patch_mamba_config.py:121] Setting attention block size to 4480 tokens to align MLA, recurrent-state, and compressed indexer cache pages.
+(ApiServer_2 pid=388945) INFO 09-24 16:38:21 [patch_mamba_config.py:158] Padding mamba page size by 0.00% to ensure that mamba page size and attention page size are exactly equal.
+(ApiServer_7 pid=388950) INFO 09-24 16:38:21 [model.py:692] Resolved architecture: Glm5NextMTPModel
+(ApiServer_7 pid=388950) INFO 09-24 16:38:21 [model.py:2030] Using max model len 1048576
+(ApiServer_7 pid=388950) WARNING 09-24 16:38:21 [speculative.py:1361] Enabling num_speculative_tokens > 1 will run multiple times of forward on same MTP layer,which may result in lower acceptance rate
+(ApiServer_7 pid=388950) INFO 09-24 16:38:21 [speculative.py:1651] Overriding draft model max model len from 1048576 to 133120
+(ApiServer_7 pid=388950) INFO 09-24 16:38:21 [scheduler.py:288] Chunked prefill is enabled with max_num_batched_tokens=8192.
+(ApiServer_7 pid=388950) INFO 09-24 16:38:21 [config.py:625] Mamba cache mode is set to 'align' for Glm5NextForConditionalGeneration by default when prefix caching is enabled
+(ApiServer_7 pid=388950) INFO 09-24 16:38:21 [patch_mamba_config.py:121] Setting attention block size to 4480 tokens to align MLA, recurrent-state, and compressed indexer cache pages.
+(ApiServer_7 pid=388950) INFO 09-24 16:38:21 [patch_mamba_config.py:158] Padding mamba page size by 0.00% to ensure that mamba page size and attention page size are exactly equal.
+(ApiServer_2 pid=388945) INFO 09-24 16:38:21 [vllm.py:1494] Disabling NCCL for DP synchronization when using async scheduling.
+(ApiServer_2 pid=388945) INFO 09-24 16:38:21 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(ApiServer_2 pid=388945) WARNING 09-24 16:38:21 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(ApiServer_2 pid=388945) WARNING 09-24 16:38:21 [platform.py:712] Speculative quantization is set but Ascend automatically uses the main model's quantization method. parameter=quantization, action: resetting to None.
+(ApiServer_2 pid=388945) INFO 09-24 16:38:21 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+(ApiServer_2 pid=388945) INFO 09-24 16:38:21 [ascend_config.py:252] Dynamic EPLB is False
+(ApiServer_2 pid=388945) INFO 09-24 16:38:21 [ascend_config.py:253] The number of redundant experts is 0
+(ApiServer_2 pid=388945) INFO 09-24 16:38:21 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+(ApiServer_7 pid=388950) INFO 09-24 16:38:21 [vllm.py:1494] Disabling NCCL for DP synchronization when using async scheduling.
+(ApiServer_7 pid=388950) INFO 09-24 16:38:21 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(ApiServer_7 pid=388950) WARNING 09-24 16:38:21 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(ApiServer_7 pid=388950) WARNING 09-24 16:38:21 [platform.py:712] Speculative quantization is set but Ascend automatically uses the main model's quantization method. parameter=quantization, action: resetting to None.
+(ApiServer_7 pid=388950) INFO 09-24 16:38:21 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+(ApiServer_7 pid=388950) INFO 09-24 16:38:21 [ascend_config.py:252] Dynamic EPLB is False
+(ApiServer_7 pid=388950) INFO 09-24 16:38:21 [ascend_config.py:253] The number of redundant experts is 0
+(ApiServer_7 pid=388950) INFO 09-24 16:38:21 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+(ApiServer_2 pid=388945) INFO 09-24 16:38:21 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(ApiServer_2 pid=388945) INFO 09-24 16:38:21 [compilation.py:336] Enabled custom fusions: norm_quant, act_quant
+(ApiServer_7 pid=388950) INFO 09-24 16:38:21 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(ApiServer_7 pid=388950) INFO 09-24 16:38:21 [compilation.py:336] Enabled custom fusions: norm_quant, act_quant
+(ApiServer_0 pid=388943) INFO 09-24 16:38:21 [model.py:692] Resolved architecture: Glm5NextMTPModel
+(ApiServer_0 pid=388943) INFO 09-24 16:38:21 [model.py:2030] Using max model len 1048576
+(ApiServer_0 pid=388943) WARNING 09-24 16:38:21 [speculative.py:1361] Enabling num_speculative_tokens > 1 will run multiple times of forward on same MTP layer,which may result in lower acceptance rate
+(ApiServer_0 pid=388943) INFO 09-24 16:38:21 [speculative.py:1651] Overriding draft model max model len from 1048576 to 133120
+(ApiServer_0 pid=388943) INFO 09-24 16:38:21 [scheduler.py:288] Chunked prefill is enabled with max_num_batched_tokens=8192.
+(ApiServer_0 pid=388943) INFO 09-24 16:38:21 [config.py:625] Mamba cache mode is set to 'align' for Glm5NextForConditionalGeneration by default when prefix caching is enabled
+(ApiServer_0 pid=388943) INFO 09-24 16:38:21 [patch_mamba_config.py:121] Setting attention block size to 4480 tokens to align MLA, recurrent-state, and compressed indexer cache pages.
+(ApiServer_0 pid=388943) INFO 09-24 16:38:21 [patch_mamba_config.py:158] Padding mamba page size by 0.00% to ensure that mamba page size and attention page size are exactly equal.
+(ApiServer_0 pid=388943) INFO 09-24 16:38:21 [vllm.py:1494] Disabling NCCL for DP synchronization when using async scheduling.
+(ApiServer_0 pid=388943) INFO 09-24 16:38:21 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(ApiServer_0 pid=388943) WARNING 09-24 16:38:21 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(ApiServer_0 pid=388943) WARNING 09-24 16:38:21 [platform.py:712] Speculative quantization is set but Ascend automatically uses the main model's quantization method. parameter=quantization, action: resetting to None.
+(ApiServer_0 pid=388943) INFO 09-24 16:38:21 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+(ApiServer_0 pid=388943) INFO 09-24 16:38:21 [ascend_config.py:252] Dynamic EPLB is False
+(ApiServer_0 pid=388943) INFO 09-24 16:38:21 [ascend_config.py:253] The number of redundant experts is 0
+(ApiServer_0 pid=388943) INFO 09-24 16:38:21 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+(ApiServer_1 pid=388944) INFO 09-24 16:38:21 [model.py:692] Resolved architecture: Glm5NextMTPModel
+(ApiServer_1 pid=388944) INFO 09-24 16:38:21 [model.py:2030] Using max model len 1048576
+(ApiServer_1 pid=388944) WARNING 09-24 16:38:21 [speculative.py:1361] Enabling num_speculative_tokens > 1 will run multiple times of forward on same MTP layer,which may result in lower acceptance rate
+(ApiServer_1 pid=388944) INFO 09-24 16:38:21 [speculative.py:1651] Overriding draft model max model len from 1048576 to 133120
+(ApiServer_1 pid=388944) INFO 09-24 16:38:21 [scheduler.py:288] Chunked prefill is enabled with max_num_batched_tokens=8192.
+(ApiServer_1 pid=388944) INFO 09-24 16:38:21 [config.py:625] Mamba cache mode is set to 'align' for Glm5NextForConditionalGeneration by default when prefix caching is enabled
+(ApiServer_1 pid=388944) INFO 09-24 16:38:21 [patch_mamba_config.py:121] Setting attention block size to 4480 tokens to align MLA, recurrent-state, and compressed indexer cache pages.
+(ApiServer_1 pid=388944) INFO 09-24 16:38:21 [patch_mamba_config.py:158] Padding mamba page size by 0.00% to ensure that mamba page size and attention page size are exactly equal.
+(ApiServer_0 pid=388943) INFO 09-24 16:38:21 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(ApiServer_0 pid=388943) INFO 09-24 16:38:21 [compilation.py:336] Enabled custom fusions: norm_quant, act_quant
+(ApiServer_3 pid=388946) INFO 09-24 16:38:21 [model.py:692] Resolved architecture: Glm5NextMTPModel
+(ApiServer_3 pid=388946) INFO 09-24 16:38:21 [model.py:2030] Using max model len 1048576
+(ApiServer_3 pid=388946) WARNING 09-24 16:38:21 [speculative.py:1361] Enabling num_speculative_tokens > 1 will run multiple times of forward on same MTP layer,which may result in lower acceptance rate
+(ApiServer_3 pid=388946) INFO 09-24 16:38:21 [speculative.py:1651] Overriding draft model max model len from 1048576 to 133120
+(ApiServer_3 pid=388946) INFO 09-24 16:38:21 [scheduler.py:288] Chunked prefill is enabled with max_num_batched_tokens=8192.
+(ApiServer_3 pid=388946) INFO 09-24 16:38:21 [config.py:625] Mamba cache mode is set to 'align' for Glm5NextForConditionalGeneration by default when prefix caching is enabled
+(ApiServer_3 pid=388946) INFO 09-24 16:38:21 [patch_mamba_config.py:121] Setting attention block size to 4480 tokens to align MLA, recurrent-state, and compressed indexer cache pages.
+(ApiServer_3 pid=388946) INFO 09-24 16:38:21 [patch_mamba_config.py:158] Padding mamba page size by 0.00% to ensure that mamba page size and attention page size are exactly equal.
+(ApiServer_1 pid=388944) INFO 09-24 16:38:21 [vllm.py:1494] Disabling NCCL for DP synchronization when using async scheduling.
+(ApiServer_1 pid=388944) INFO 09-24 16:38:21 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(ApiServer_1 pid=388944) WARNING 09-24 16:38:21 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(ApiServer_1 pid=388944) WARNING 09-24 16:38:21 [platform.py:712] Speculative quantization is set but Ascend automatically uses the main model's quantization method. parameter=quantization, action: resetting to None.
+(ApiServer_1 pid=388944) INFO 09-24 16:38:21 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+(ApiServer_1 pid=388944) INFO 09-24 16:38:21 [ascend_config.py:252] Dynamic EPLB is False
+(ApiServer_1 pid=388944) INFO 09-24 16:38:21 [ascend_config.py:253] The number of redundant experts is 0
+(ApiServer_1 pid=388944) INFO 09-24 16:38:21 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+(ApiServer_1 pid=388944) INFO 09-24 16:38:21 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(ApiServer_1 pid=388944) INFO 09-24 16:38:21 [compilation.py:336] Enabled custom fusions: norm_quant, act_quant
+(ApiServer_3 pid=388946) INFO 09-24 16:38:21 [vllm.py:1494] Disabling NCCL for DP synchronization when using async scheduling.
+(ApiServer_3 pid=388946) INFO 09-24 16:38:21 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(ApiServer_3 pid=388946) WARNING 09-24 16:38:21 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(ApiServer_3 pid=388946) WARNING 09-24 16:38:21 [platform.py:712] Speculative quantization is set but Ascend automatically uses the main model's quantization method. parameter=quantization, action: resetting to None.
+(ApiServer_3 pid=388946) INFO 09-24 16:38:21 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+(ApiServer_3 pid=388946) INFO 09-24 16:38:21 [ascend_config.py:252] Dynamic EPLB is False
+(ApiServer_3 pid=388946) INFO 09-24 16:38:21 [ascend_config.py:253] The number of redundant experts is 0
+(ApiServer_3 pid=388946) INFO 09-24 16:38:21 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+(ApiServer_3 pid=388946) INFO 09-24 16:38:21 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(ApiServer_3 pid=388946) INFO 09-24 16:38:21 [compilation.py:336] Enabled custom fusions: norm_quant, act_quant
+(ApiServer_6 pid=388949) INFO 09-24 16:38:22 [model.py:692] Resolved architecture: Glm5NextMTPModel
+(ApiServer_6 pid=388949) INFO 09-24 16:38:22 [model.py:2030] Using max model len 1048576
+(ApiServer_6 pid=388949) WARNING 09-24 16:38:22 [speculative.py:1361] Enabling num_speculative_tokens > 1 will run multiple times of forward on same MTP layer,which may result in lower acceptance rate
+(ApiServer_6 pid=388949) INFO 09-24 16:38:22 [speculative.py:1651] Overriding draft model max model len from 1048576 to 133120
+(ApiServer_6 pid=388949) INFO 09-24 16:38:22 [scheduler.py:288] Chunked prefill is enabled with max_num_batched_tokens=8192.
+(ApiServer_6 pid=388949) INFO 09-24 16:38:22 [config.py:625] Mamba cache mode is set to 'align' for Glm5NextForConditionalGeneration by default when prefix caching is enabled
+(ApiServer_6 pid=388949) INFO 09-24 16:38:22 [patch_mamba_config.py:121] Setting attention block size to 4480 tokens to align MLA, recurrent-state, and compressed indexer cache pages.
+(ApiServer_6 pid=388949) INFO 09-24 16:38:22 [patch_mamba_config.py:158] Padding mamba page size by 0.00% to ensure that mamba page size and attention page size are exactly equal.
+(ApiServer_4 pid=388947) INFO 09-24 16:38:22 [model.py:692] Resolved architecture: Glm5NextMTPModel
+(ApiServer_4 pid=388947) INFO 09-24 16:38:22 [model.py:2030] Using max model len 1048576
+(ApiServer_4 pid=388947) WARNING 09-24 16:38:22 [speculative.py:1361] Enabling num_speculative_tokens > 1 will run multiple times of forward on same MTP layer,which may result in lower acceptance rate
+(ApiServer_4 pid=388947) INFO 09-24 16:38:22 [speculative.py:1651] Overriding draft model max model len from 1048576 to 133120
+(ApiServer_4 pid=388947) INFO 09-24 16:38:22 [scheduler.py:288] Chunked prefill is enabled with max_num_batched_tokens=8192.
+(ApiServer_4 pid=388947) INFO 09-24 16:38:22 [config.py:625] Mamba cache mode is set to 'align' for Glm5NextForConditionalGeneration by default when prefix caching is enabled
+(ApiServer_4 pid=388947) INFO 09-24 16:38:22 [patch_mamba_config.py:121] Setting attention block size to 4480 tokens to align MLA, recurrent-state, and compressed indexer cache pages.
+(ApiServer_4 pid=388947) INFO 09-24 16:38:22 [patch_mamba_config.py:158] Padding mamba page size by 0.00% to ensure that mamba page size and attention page size are exactly equal.
+(ApiServer_6 pid=388949) INFO 09-24 16:38:22 [vllm.py:1494] Disabling NCCL for DP synchronization when using async scheduling.
+(ApiServer_6 pid=388949) INFO 09-24 16:38:22 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(ApiServer_6 pid=388949) WARNING 09-24 16:38:22 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(ApiServer_6 pid=388949) WARNING 09-24 16:38:22 [platform.py:712] Speculative quantization is set but Ascend automatically uses the main model's quantization method. parameter=quantization, action: resetting to None.
+(ApiServer_6 pid=388949) INFO 09-24 16:38:22 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+(ApiServer_6 pid=388949) INFO 09-24 16:38:22 [ascend_config.py:252] Dynamic EPLB is False
+(ApiServer_6 pid=388949) INFO 09-24 16:38:22 [ascend_config.py:253] The number of redundant experts is 0
+(ApiServer_6 pid=388949) INFO 09-24 16:38:22 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+(ApiServer_6 pid=388949) INFO 09-24 16:38:22 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(ApiServer_6 pid=388949) INFO 09-24 16:38:22 [compilation.py:336] Enabled custom fusions: norm_quant, act_quant
+(ApiServer_4 pid=388947) INFO 09-24 16:38:22 [vllm.py:1494] Disabling NCCL for DP synchronization when using async scheduling.
+(ApiServer_4 pid=388947) INFO 09-24 16:38:22 [kernel.py:416] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(ApiServer_4 pid=388947) WARNING 09-24 16:38:22 [platform.py:655] GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.
+(ApiServer_4 pid=388947) WARNING 09-24 16:38:22 [platform.py:712] Speculative quantization is set but Ascend automatically uses the main model's quantization method. parameter=quantization, action: resetting to None.
+(ApiServer_4 pid=388947) INFO 09-24 16:38:22 [platform.py:867] The timeout interval of the HCCL operator is 1836s. Timeout in seconds for execute_model RPC calls in multiprocessing must be greater than 1836s, Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000
+(ApiServer_4 pid=388947) INFO 09-24 16:38:22 [ascend_config.py:252] Dynamic EPLB is False
+(ApiServer_4 pid=388947) INFO 09-24 16:38:22 [ascend_config.py:253] The number of redundant experts is 0
+(ApiServer_4 pid=388947) INFO 09-24 16:38:22 [ascend_config.py:655] FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.
+(ApiServer_4 pid=388947) INFO 09-24 16:38:22 [platform.py:1358] Set PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+(ApiServer_4 pid=388947) INFO 09-24 16:38:22 [compilation.py:336] Enabled custom fusions: norm_quant, act_quant
+(ApiServer_5 pid=388948) [transformers] The following generation flags are not valid and may be ignored: ['top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+(ApiServer_2 pid=388945) [transformers] The following generation flags are not valid and may be ignored: ['top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+(ApiServer_7 pid=388950) [transformers] The following generation flags are not valid and may be ignored: ['top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+(ApiServer_0 pid=388943) [transformers] The following generation flags are not valid and may be ignored: ['top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+(ApiServer_1 pid=388944) [transformers] The following generation flags are not valid and may be ignored: ['top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+(ApiServer_3 pid=388946) [transformers] The following generation flags are not valid and may be ignored: ['top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+(ApiServer_6 pid=388949) [transformers] The following generation flags are not valid and may be ignored: ['top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+(ApiServer_4 pid=388947) [transformers] The following generation flags are not valid and may be ignored: ['top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+(EngineCore_DP1 pid=386907) INFO 09-24 16:38:26 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+(EngineCore_DP5 pid=388071) INFO 09-24 16:38:26 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+(EngineCore_DP2 pid=387199) INFO 09-24 16:38:26 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+(EngineCore_DP7 pid=388653) INFO 09-24 16:38:26 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+(EngineCore_DP6 pid=388361) INFO 09-24 16:38:26 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+(EngineCore_DP3 pid=387489) INFO 09-24 16:38:26 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+(EngineCore_DP1 pid=386907) INFO 09-24 16:38:26 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+(EngineCore_DP5 pid=388071) INFO 09-24 16:38:26 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+(EngineCore_DP2 pid=387199) INFO 09-24 16:38:26 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+(EngineCore_DP1 pid=386907) INFO 09-24 16:38:26 [multiproc_executor.py:153] DP group leader: node_rank=0, node_rank_within_dp=0, master_addr=127.0.0.1, mq_connect_ip=141.61.133.104 (local), world_size=1, local_world_size=1
+(EngineCore_DP6 pid=388361) INFO 09-24 16:38:26 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+(EngineCore_DP7 pid=388653) INFO 09-24 16:38:26 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+(EngineCore_DP2 pid=387199) INFO 09-24 16:38:26 [multiproc_executor.py:153] DP group leader: node_rank=0, node_rank_within_dp=0, master_addr=127.0.0.1, mq_connect_ip=141.61.133.104 (local), world_size=1, local_world_size=1
+(EngineCore_DP5 pid=388071) INFO 09-24 16:38:26 [multiproc_executor.py:153] DP group leader: node_rank=0, node_rank_within_dp=0, master_addr=127.0.0.1, mq_connect_ip=141.61.133.104 (local), world_size=1, local_world_size=1
+(EngineCore_DP6 pid=388361) INFO 09-24 16:38:26 [multiproc_executor.py:153] DP group leader: node_rank=0, node_rank_within_dp=0, master_addr=127.0.0.1, mq_connect_ip=141.61.133.104 (local), world_size=1, local_world_size=1
+(EngineCore_DP7 pid=388653) INFO 09-24 16:38:26 [multiproc_executor.py:153] DP group leader: node_rank=0, node_rank_within_dp=0, master_addr=127.0.0.1, mq_connect_ip=141.61.133.104 (local), world_size=1, local_world_size=1
+(EngineCore_DP3 pid=387489) INFO 09-24 16:38:26 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+(EngineCore_DP0 pid=386619) INFO 09-24 16:38:26 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+(EngineCore_DP3 pid=387489) INFO 09-24 16:38:26 [multiproc_executor.py:153] DP group leader: node_rank=0, node_rank_within_dp=0, master_addr=127.0.0.1, mq_connect_ip=141.61.133.104 (local), world_size=1, local_world_size=1
+(EngineCore_DP4 pid=387781) INFO 09-24 16:38:26 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+(EngineCore_DP0 pid=386619) INFO 09-24 16:38:26 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+(EngineCore_DP0 pid=386619) INFO 09-24 16:38:26 [core.py:123] Initializing a V1 LLM engine (v0.30.0) with config: model='/mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918', speculative_config=SpeculativeConfig(method='mtp', model='/mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918', num_spec_tokens=5), tokenizer='/mnt/share/w00936111/GLM-5.3-Flash-W8A8-MXFP8-0918/GLM-5.3-Flash-W8A8-MXFP8-0918', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=133120, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=8, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=True, quantization=ascend, quantization_config=None, enforce_eager=False, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=npu, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, per_request_spec_decode_metrics='none', kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False, jit_monitor_mode='warn', jit_monitor_verbose=False), seed=1024, served_model_name=glm, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.VLLM_COMPILE: 3>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'vllm_ascend.compilation.compiler_interface.AscendCompiler', 'custom_ops': ['all'], 'ir_enable_torch_wrap': False, 'splitting_ops': [], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [8192], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'size_asserts': False, 'alignment_asserts': False, 'scalar_asserts': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.FULL_DECODE_ONLY: (2, 0)>, 'cudagraph_num_of_warmups': 1, 'cudagraph_capture_sizes': [1, 2, 4, 8, 16, 32, 64, 96, 128], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False, 'enable_qk_norm_rope_fusion': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False, 'fuse_qk_norm_rope_kvcache': False}, 'max_cudagraph_capture_size': 128, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native']), enable_flashinfer_autotune=True, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)
+(EngineCore_DP0 pid=386619) INFO 09-24 16:38:26 [multiproc_executor.py:153] DP group leader: node_rank=0, node_rank_within_dp=0, master_addr=127.0.0.1, mq_connect_ip=141.61.133.104 (local), world_size=1, local_world_size=1
+(EngineCore_DP4 pid=387781) INFO 09-24 16:38:26 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+(EngineCore_DP4 pid=387781) INFO 09-24 16:38:26 [multiproc_executor.py:153] DP group leader: node_rank=0, node_rank_within_dp=0, master_addr=127.0.0.1, mq_connect_ip=141.61.133.104 (local), world_size=1, local_world_size=1
+(ApiServer_5 pid=388948) INFO 09-24 16:38:26 [base.py:261] Multi-modal warmup completed in 1.936s
+(ApiServer_2 pid=388945) INFO 09-24 16:38:27 [base.py:261] Multi-modal warmup completed in 1.938s
+(ApiServer_7 pid=388950) INFO 09-24 16:38:27 [base.py:261] Multi-modal warmup completed in 1.959s
+(ApiServer_0 pid=388943) INFO 09-24 16:38:27 [base.py:261] Multi-modal warmup completed in 1.979s
+(ApiServer_1 pid=388944) INFO 09-24 16:38:27 [base.py:261] Multi-modal warmup completed in 1.926s
+(ApiServer_3 pid=388946) INFO 09-24 16:38:28 [base.py:261] Multi-modal warmup completed in 1.972s
+(ApiServer_6 pid=388949) INFO 09-24 16:38:28 [base.py:261] Multi-modal warmup completed in 1.941s
+(ApiServer_4 pid=388947) INFO 09-24 16:38:28 [base.py:261] Multi-modal warmup completed in 2.032s
+(ApiServer_5 pid=388948) INFO 09-24 16:38:29 [base.py:261] Readonly multi-modal warmup completed in 2.157s
+(ApiServer_2 pid=388945) INFO 09-24 16:38:29 [base.py:261] Readonly multi-modal warmup completed in 1.964s
+(ApiServer_7 pid=388950) INFO 09-24 16:38:29 [base.py:261] Readonly multi-modal warmup completed in 2.059s
+(ApiServer_1 pid=388944) INFO 09-24 16:38:29 [base.py:261] Readonly multi-modal warmup completed in 2.007s
+(ApiServer_0 pid=388943) INFO 09-24 16:38:30 [base.py:261] Readonly multi-modal warmup completed in 2.579s
+(ApiServer_6 pid=388949) INFO 09-24 16:38:30 [base.py:261] Readonly multi-modal warmup completed in 2.057s
+(ApiServer_4 pid=388947) INFO 09-24 16:38:30 [base.py:261] Readonly multi-modal warmup completed in 2.036s
+(ApiServer_3 pid=388946) INFO 09-24 16:38:30 [base.py:261] Readonly multi-modal warmup completed in 2.494s
+INFO 09-24 16:38:35 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:35 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:35 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:35 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:35 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:35 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:35 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:35 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:35 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:35 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:36 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:36 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:36 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:36 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:36 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:36 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:36 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:36 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:36 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:36 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:36 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:36 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:36 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:36 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:36 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:36 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:36 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:36 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:36 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:36 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:36 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:36 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:36 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:36 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:36 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:36 [__init__.py:52] Available plugins for group vllm.platform_plugins:
+INFO 09-24 16:38:36 [__init__.py:54] - ascend -> vllm_ascend:register
+INFO 09-24 16:38:36 [__init__.py:57] All plugins in this group will be loaded. Set `VLLM_PLUGINS` to control which plugins to load.
+INFO 09-24 16:38:36 [__init__.py:272] Platform plugin ascend is activated
+INFO 09-24 16:38:36 [platform.py:71] Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.
+INFO 09-24 16:38:40 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:38:40 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+INFO 09-24 16:38:41 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:38:41 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+WARNING 09-24 16:38:41 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+WARNING 09-24 16:38:41 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+INFO 09-24 16:38:41 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:38:41 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+INFO 09-24 16:38:41 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+INFO 09-24 16:38:41 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+INFO 09-24 16:38:41 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:38:41 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+WARNING 09-24 16:38:41 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+INFO 09-24 16:38:41 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+INFO 09-24 16:38:41 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+WARNING 09-24 16:38:41 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
+INFO 09-24 16:38:41 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+INFO 09-24 16:38:41 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:38:41 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+INFO 09-24 16:38:41 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+INFO 09-24 16:38:41 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:38:41 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+INFO 09-24 16:38:41 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.netloader.netloader.ModelNetLoaderElastic'>` with load format `netloader`
+INFO 09-24 16:38:41 [patch_indexer_kv_dtype.py:102] Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).
+INFO 09-24 16:38:41 [patch_kv_cache_dtype.py:115] Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).
+INFO 09-24 16:38:41 [__init__.py:112] Registered model loader `<class 'vllm_ascend.model_loader.rfork.rfork_loader.RForkModelLoader'>` with load format `rfork`
+WARNING 09-24 16:38:41 [indexer_topk.py:29] Failed to import the DeepSelect extension (vllm._deepselect_C): No module named 'vllm._deepselect_C'
