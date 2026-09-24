@@ -1,0 +1,284 @@
+(EngineCore_DP5 pid=388071) ERROR 09-24 16:43:13 [core.py:1368]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 70, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d100c, sc error info: 0xffffffffffff, su error info: 0xc24f8568105e3f09,0xd90efdf8580009df, mte error info: 0xe6bc74df0007adf8, vec error info: 0xece786dc002e8c91, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(EngineCore_DP5 pid=388071) ERROR 09-24 16:43:13 [core.py:1368] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(EngineCore_DP5 pid=388071) ERROR 09-24 16:43:13 [core.py:1368] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(EngineCore_DP5 pid=388071) ERROR 09-24 16:43:13 [core.py:1368]        An error occurs on the device(chipId:0, dieId:0), the serial number is 18, the error is aivec error, core id is 71, error code = 0, dump info: pc start: 0x120db30c8800, current: 0x120db30d100c, sc error info: 0xffffffffffff, su error info: 0xe7c0f77077eada4,0x3ffbffd3b0009fb5, mte error info: 0xddef6ff70007eff7, vec error info: 0xb6c3bdfe007db9be, cube error info: 0, l1 error info: 0, aic error mask: 0x395856, para base: 0x12083fc20000, mte error: 0, aic cond: 0.
+(EngineCore_DP5 pid=388071) ERROR 09-24 16:43:13 [core.py:1368] The extend info: errcode:(0) errorStr: timeout or trap error. subErrType: 0x4.
+(EngineCore_DP5 pid=388071) ERROR 09-24 16:43:13 [core.py:1368] For details, see the troubleshooting document on the Ascend official website. Search for the keyword "AI Core Error".[FUNC:PrintDavidCoreInfo][FILE:device_error_proc_c.cc][LINE:701]
+(EngineCore_DP5 pid=388071) ERROR 09-24 16:43:13 [core.py:1368]        rtEventSynchronize execution failed, reason=the model stream execute failed[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:72]
+(EngineCore_DP5 pid=388071) ERROR 09-24 16:43:13 [core.py:1368] ', please check the stack trace above for the root cause
+(Worker_DP5_EP5 pid=391613) INFO 09-24 16:43:13 [multiproc_executor.py:836] Parent process exited, terminating worker queues
+(EngineCore_DP5 pid=388071) INFO 09-24 16:43:13 [multiproc_executor.py:472] [shutdown] Executor: waiting for worker exit count=1
+(ApiServer_7 pid=388950) ERROR 09-24 16:43:13 [async_llm.py:843] AsyncLLM output_handler failed.
+(ApiServer_7 pid=388950) ERROR 09-24 16:43:13 [async_llm.py:843] Traceback (most recent call last):
+(ApiServer_7 pid=388950) ERROR 09-24 16:43:13 [async_llm.py:843]   File "/home/j00950773/code/0924/vllm/vllm/v1/engine/async_llm.py", line 789, in output_handler
+(ApiServer_2 pid=388945) ERROR 09-24 16:43:13 [async_llm.py:843] AsyncLLM output_handler failed.
+(ApiServer_7 pid=388950) ERROR 09-24 16:43:13 [async_llm.py:843]     outputs = await engine_core.get_output_async()
+(ApiServer_2 pid=388945) ERROR 09-24 16:43:13 [async_llm.py:843] Traceback (most recent call last):
+(ApiServer_7 pid=388950) ERROR 09-24 16:43:13 [async_llm.py:843]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(ApiServer_2 pid=388945) ERROR 09-24 16:43:13 [async_llm.py:843]   File "/home/j00950773/code/0924/vllm/vllm/v1/engine/async_llm.py", line 789, in output_handler
+(ApiServer_7 pid=388950) ERROR 09-24 16:43:13 [async_llm.py:843]   File "/home/j00950773/code/0924/vllm/vllm/v1/engine/core_client.py", line 1175, in get_output_async
+(ApiServer_2 pid=388945) ERROR 09-24 16:43:13 [async_llm.py:843]     outputs = await engine_core.get_output_async()
+(ApiServer_7 pid=388950) ERROR 09-24 16:43:13 [async_llm.py:843]     raise self._format_exception(outputs) from None
+(ApiServer_2 pid=388945) ERROR 09-24 16:43:13 [async_llm.py:843]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(ApiServer_7 pid=388950) ERROR 09-24 16:43:13 [async_llm.py:843] vllm.v1.engine.exceptions.EngineDeadError: EngineCore encountered an issue. See stack trace (above) for the root cause.
+(ApiServer_2 pid=388945) ERROR 09-24 16:43:13 [async_llm.py:843]   File "/home/j00950773/code/0924/vllm/vllm/v1/engine/core_client.py", line 1175, in get_output_async
+(ApiServer_2 pid=388945) ERROR 09-24 16:43:13 [async_llm.py:843]     raise self._format_exception(outputs) from None
+(ApiServer_2 pid=388945) ERROR 09-24 16:43:13 [async_llm.py:843] vllm.v1.engine.exceptions.EngineDeadError: EngineCore encountered an issue. See stack trace (above) for the root cause.
+(ApiServer_0 pid=388943) ERROR 09-24 16:43:13 [async_llm.py:843] AsyncLLM output_handler failed.
+(Worker_DP5_EP5 pid=391613) Process VllmWorker-0:
+(ApiServer_0 pid=388943) ERROR 09-24 16:43:13 [async_llm.py:843] Traceback (most recent call last):
+(ApiServer_0 pid=388943) ERROR 09-24 16:43:13 [async_llm.py:843]   File "/home/j00950773/code/0924/vllm/vllm/v1/engine/async_llm.py", line 789, in output_handler
+(ApiServer_0 pid=388943) ERROR 09-24 16:43:13 [async_llm.py:843]     outputs = await engine_core.get_output_async()
+(ApiServer_0 pid=388943) ERROR 09-24 16:43:13 [async_llm.py:843]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(ApiServer_4 pid=388947) ERROR 09-24 16:43:13 [async_llm.py:843] AsyncLLM output_handler failed.
+(ApiServer_0 pid=388943) ERROR 09-24 16:43:13 [async_llm.py:843]   File "/home/j00950773/code/0924/vllm/vllm/v1/engine/core_client.py", line 1175, in get_output_async
+(ApiServer_4 pid=388947) ERROR 09-24 16:43:13 [async_llm.py:843] Traceback (most recent call last):
+(ApiServer_0 pid=388943) ERROR 09-24 16:43:13 [async_llm.py:843]     raise self._format_exception(outputs) from None
+(ApiServer_4 pid=388947) ERROR 09-24 16:43:13 [async_llm.py:843]   File "/home/j00950773/code/0924/vllm/vllm/v1/engine/async_llm.py", line 789, in output_handler
+(ApiServer_0 pid=388943) ERROR 09-24 16:43:13 [async_llm.py:843] vllm.v1.engine.exceptions.EngineDeadError: EngineCore encountered an issue. See stack trace (above) for the root cause.
+(ApiServer_6 pid=388949) ERROR 09-24 16:43:13 [async_llm.py:843] AsyncLLM output_handler failed.
+(ApiServer_4 pid=388947) ERROR 09-24 16:43:13 [async_llm.py:843]     outputs = await engine_core.get_output_async()
+(ApiServer_5 pid=388948) ERROR 09-24 16:43:13 [async_llm.py:843] AsyncLLM output_handler failed.
+(ApiServer_6 pid=388949) ERROR 09-24 16:43:13 [async_llm.py:843] Traceback (most recent call last):
+(ApiServer_4 pid=388947) ERROR 09-24 16:43:13 [async_llm.py:843]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(ApiServer_5 pid=388948) ERROR 09-24 16:43:13 [async_llm.py:843] Traceback (most recent call last):
+(ApiServer_1 pid=388944) ERROR 09-24 16:43:13 [async_llm.py:843] AsyncLLM output_handler failed.
+(ApiServer_6 pid=388949) ERROR 09-24 16:43:13 [async_llm.py:843]   File "/home/j00950773/code/0924/vllm/vllm/v1/engine/async_llm.py", line 789, in output_handler
+(ApiServer_4 pid=388947) ERROR 09-24 16:43:13 [async_llm.py:843]   File "/home/j00950773/code/0924/vllm/vllm/v1/engine/core_client.py", line 1175, in get_output_async
+(ApiServer_5 pid=388948) ERROR 09-24 16:43:13 [async_llm.py:843]   File "/home/j00950773/code/0924/vllm/vllm/v1/engine/async_llm.py", line 789, in output_handler
+(ApiServer_1 pid=388944) ERROR 09-24 16:43:13 [async_llm.py:843] Traceback (most recent call last):
+(ApiServer_6 pid=388949) ERROR 09-24 16:43:13 [async_llm.py:843]     outputs = await engine_core.get_output_async()
+(ApiServer_3 pid=388946) ERROR 09-24 16:43:13 [async_llm.py:843] AsyncLLM output_handler failed.
+(ApiServer_4 pid=388947) ERROR 09-24 16:43:13 [async_llm.py:843]     raise self._format_exception(outputs) from None
+(ApiServer_5 pid=388948) ERROR 09-24 16:43:13 [async_llm.py:843]     outputs = await engine_core.get_output_async()
+(ApiServer_1 pid=388944) ERROR 09-24 16:43:13 [async_llm.py:843]   File "/home/j00950773/code/0924/vllm/vllm/v1/engine/async_llm.py", line 789, in output_handler
+(ApiServer_6 pid=388949) ERROR 09-24 16:43:13 [async_llm.py:843]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(ApiServer_3 pid=388946) ERROR 09-24 16:43:13 [async_llm.py:843] Traceback (most recent call last):
+(ApiServer_4 pid=388947) ERROR 09-24 16:43:13 [async_llm.py:843] vllm.v1.engine.exceptions.EngineDeadError: EngineCore encountered an issue. See stack trace (above) for the root cause.
+(ApiServer_5 pid=388948) ERROR 09-24 16:43:13 [async_llm.py:843]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(ApiServer_1 pid=388944) ERROR 09-24 16:43:13 [async_llm.py:843]     outputs = await engine_core.get_output_async()
+(ApiServer_6 pid=388949) ERROR 09-24 16:43:13 [async_llm.py:843]   File "/home/j00950773/code/0924/vllm/vllm/v1/engine/core_client.py", line 1175, in get_output_async
+(ApiServer_3 pid=388946) ERROR 09-24 16:43:13 [async_llm.py:843]   File "/home/j00950773/code/0924/vllm/vllm/v1/engine/async_llm.py", line 789, in output_handler
+(ApiServer_5 pid=388948) ERROR 09-24 16:43:13 [async_llm.py:843]   File "/home/j00950773/code/0924/vllm/vllm/v1/engine/core_client.py", line 1175, in get_output_async
+(ApiServer_1 pid=388944) ERROR 09-24 16:43:13 [async_llm.py:843]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(ApiServer_6 pid=388949) ERROR 09-24 16:43:13 [async_llm.py:843]     raise self._format_exception(outputs) from None
+(ApiServer_3 pid=388946) ERROR 09-24 16:43:13 [async_llm.py:843]     outputs = await engine_core.get_output_async()
+(ApiServer_5 pid=388948) ERROR 09-24 16:43:13 [async_llm.py:843]     raise self._format_exception(outputs) from None
+(ApiServer_1 pid=388944) ERROR 09-24 16:43:13 [async_llm.py:843]   File "/home/j00950773/code/0924/vllm/vllm/v1/engine/core_client.py", line 1175, in get_output_async
+(ApiServer_6 pid=388949) ERROR 09-24 16:43:13 [async_llm.py:843] vllm.v1.engine.exceptions.EngineDeadError: EngineCore encountered an issue. See stack trace (above) for the root cause.
+(ApiServer_3 pid=388946) ERROR 09-24 16:43:13 [async_llm.py:843]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(ApiServer_5 pid=388948) ERROR 09-24 16:43:13 [async_llm.py:843] vllm.v1.engine.exceptions.EngineDeadError: EngineCore encountered an issue. See stack trace (above) for the root cause.
+(ApiServer_1 pid=388944) ERROR 09-24 16:43:13 [async_llm.py:843]     raise self._format_exception(outputs) from None
+(ApiServer_3 pid=388946) ERROR 09-24 16:43:13 [async_llm.py:843]   File "/home/j00950773/code/0924/vllm/vllm/v1/engine/core_client.py", line 1175, in get_output_async
+(ApiServer_1 pid=388944) ERROR 09-24 16:43:13 [async_llm.py:843] vllm.v1.engine.exceptions.EngineDeadError: EngineCore encountered an issue. See stack trace (above) for the root cause.
+(Worker_DP5_EP5 pid=391613) Traceback (most recent call last):
+(ApiServer_3 pid=388946) ERROR 09-24 16:43:13 [async_llm.py:843]     raise self._format_exception(outputs) from None
+(ApiServer_3 pid=388946) ERROR 09-24 16:43:13 [async_llm.py:843] vllm.v1.engine.exceptions.EngineDeadError: EngineCore encountered an issue. See stack trace (above) for the root cause.
+(Worker_DP5_EP5 pid=391613)   File "/usr/local/python3.11.10/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+(Worker_DP5_EP5 pid=391613)     self.run()
+(Worker_DP5_EP5 pid=391613)   File "/usr/local/python3.11.10/lib/python3.11/multiprocessing/process.py", line 108, in run
+(Worker_DP5_EP5 pid=391613)     self._target(*self._args, **self._kwargs)
+(Worker_DP5_EP5 pid=391613)   File "/home/j00950773/code/0924/vllm/vllm/v1/executor/multiproc_executor.py", line 976, in worker_main
+(Worker_DP5_EP5 pid=391613)     worker.shutdown()
+(Worker_DP5_EP5 pid=391613)   File "/home/j00950773/code/0924/vllm/vllm/v1/executor/multiproc_executor.py", line 821, in shutdown
+(Worker_DP5_EP5 pid=391613)     self.worker.shutdown()
+(Worker_DP5_EP5 pid=391613)   File "/home/j00950773/code/0924/vllm/vllm/v1/worker/worker_base.py", line 244, in shutdown
+(Worker_DP5_EP5 pid=391613)     self.worker.shutdown()
+(Worker_DP5_EP5 pid=391613)   File "/home/j00950773/code/0924/vllm-ascend/vllm_ascend/worker/worker.py", line 377, in shutdown
+(Worker_DP5_EP5 pid=391613)     shutdown_fn()
+(Worker_DP5_EP5 pid=391613)   File "/home/j00950773/code/0924/vllm/vllm/v1/worker/gpu_model_runner.py", line 6576, in shutdown
+(Worker_DP5_EP5 pid=391613)     self._cleanup_profiling_kv_cache()
+(Worker_DP5_EP5 pid=391613)   File "/home/j00950773/code/0924/vllm/vllm/v1/worker/gpu_model_runner.py", line 6594, in _cleanup_profiling_kv_cache
+(Worker_DP5_EP5 pid=391613)     torch.accelerator.synchronize()
+(Worker_DP5_EP5 pid=391613)   File "/usr/local/python3.11.10/lib/python3.11/site-packages/torch/accelerator/__init__.py", line 262, in synchronize
+(Worker_DP5_EP5 pid=391613)     torch._C._accelerator_synchronizeDevice(device_index)
+(Worker_DP5_EP5 pid=391613) RuntimeError: npuSynchronizeDevice:../torch_npu/csrc/core/npu/NPUStream.cpp:703 NPU function error: device error type 3, error code is 507011
+(Worker_DP5_EP5 pid=391613) [ERROR] 2026-09-24-16:43:13 (PID:391613, Device:5, RankID:-1) ERR00100 PTA call acl api failed
+(ApiServer_5 pid=388948) INFO:     127.0.0.1:35464 - "POST /v1/chat/completions HTTP/1.1" 500 Internal Server Error
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.810000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] Failed to shutdown process group during NPU exit.
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.810000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] Traceback (most recent call last):
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.810000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500]   File "/usr/local/python3.11.10/lib/python3.11/site-packages/torch_npu/distributed/distributed_c10d.py", line 498, in _destructor_process_group
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.810000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500]     pg_to_shutdown.shutdown()
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.810000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] RuntimeError: synchronize:../torch_npu/csrc/core/npu/NPUStream.cpp:414 NPU function error: device error type 3, error code is 507011
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.810000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] [ERROR] 2026-09-24-16:43:13 (PID:391613, Device:5, RankID:-1) ERR00100 PTA call acl api failed
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.810000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] [Error]: Model execution failed.
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.810000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500]         Rectify the fault based on the error information in the ascend log.
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.810000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] EE9999: Internal error!
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.810000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] EE9999[PID: 391613] 2026-09-24-16:43:13.793.187 (EE9999):  rtDeviceSynchronizeWithTimeout execution failed, reason=the model stream execute failed[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:72]
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.810000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] TraceBack (most recent call last):
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.810000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500]        rtStreamSynchronizeWithTimeout execution failed, reason=the model stream execute failed[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:72]
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.810000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500]
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.811000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] Failed to shutdown process group during NPU exit.
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.811000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] Traceback (most recent call last):
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.811000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500]   File "/usr/local/python3.11.10/lib/python3.11/site-packages/torch_npu/distributed/distributed_c10d.py", line 498, in _destructor_process_group
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.811000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500]     pg_to_shutdown.shutdown()
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.811000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] RuntimeError: synchronize:../torch_npu/csrc/core/npu/NPUStream.cpp:414 NPU function error: device error type 3, error code is 507011
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.811000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] [ERROR] 2026-09-24-16:43:13 (PID:391613, Device:5, RankID:-1) ERR00100 PTA call acl api failed
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.811000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] [Error]: Model execution failed.
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.811000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500]         Rectify the fault based on the error information in the ascend log.
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.811000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] EE9999: Internal error!
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.811000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] EE9999[PID: 391613] 2026-09-24-16:43:13.811.627 (EE9999):  rtStreamSynchronizeWithTimeout execution failed, reason=the model stream execute failed[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:72]
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.811000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] TraceBack (most recent call last):
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.811000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500]
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.812000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] Failed to shutdown process group during NPU exit.
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.812000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] Traceback (most recent call last):
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.812000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500]   File "/usr/local/python3.11.10/lib/python3.11/site-packages/torch_npu/distributed/distributed_c10d.py", line 498, in _destructor_process_group
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.812000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500]     pg_to_shutdown.shutdown()
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.812000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] RuntimeError: synchronize:../torch_npu/csrc/core/npu/NPUStream.cpp:414 NPU function error: device error type 3, error code is 507011
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.812000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] [ERROR] 2026-09-24-16:43:13 (PID:391613, Device:5, RankID:-1) ERR00100 PTA call acl api failed
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.812000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] [Error]: Model execution failed.
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.812000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500]         Rectify the fault based on the error information in the ascend log.
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.812000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] EE9999: Internal error!
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.812000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] EE9999[PID: 391613] 2026-09-24-16:43:13.812.250 (EE9999):  rtStreamSynchronizeWithTimeout execution failed, reason=the model stream execute failed[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:72]
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.812000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500] TraceBack (most recent call last):
+(Worker_DP5_EP5 pid=391613) [rank5]:W0924 16:43:13.812000 391613 site-packages/torch_npu/distributed/distributed_c10d.py:500]
+(ApiServer_5 pid=388948) INFO:     Shutting down
+(ApiServer_5 pid=388948) INFO:     Waiting for application shutdown.
+(ApiServer_5 pid=388948) INFO:     Application shutdown complete.
+(ApiServer_5 pid=388948) INFO:     Finished server process [388948]
+(ApiServer_5 pid=388948) INFO 09-24 16:43:13 [core_client.py:744] [shutdown] MPClient: start timeout=0s
+(ApiServer_5 pid=388948) INFO 09-24 16:43:13 [core_client.py:749] [shutdown] MPClient: cleaning up background resources
+(ApiServer_5 pid=388948) INFO 09-24 16:43:13 [core_client.py:751] [shutdown] MPClient: complete
+ERROR 09-24 16:43:14 [utils.py:604] Exception occurred while running API servers: Process ApiServer_5 (PID: 388948) died with exit code None
+ERROR 09-24 16:43:14 [utils.py:604] Traceback (most recent call last):
+ERROR 09-24 16:43:14 [utils.py:604]   File "/home/j00950773/code/0924/vllm/vllm/v1/utils.py", line 591, in wait_for_completion_or_failure
+ERROR 09-24 16:43:14 [utils.py:604]     raise RuntimeError(
+ERROR 09-24 16:43:14 [utils.py:604] RuntimeError: Process ApiServer_5 (PID: 388948) died with exit code None
+INFO 09-24 16:43:14 [utils.py:632] [shutdown] Process manager: send sigterm to process ApiServer_0
+INFO 09-24 16:43:14 [utils.py:632] [shutdown] Process manager: send sigterm to process ApiServer_1
+INFO 09-24 16:43:14 [utils.py:632] [shutdown] Process manager: send sigterm to process ApiServer_2
+INFO 09-24 16:43:14 [utils.py:632] [shutdown] Process manager: send sigterm to process ApiServer_3
+INFO 09-24 16:43:14 [utils.py:632] [shutdown] Process manager: send sigterm to process ApiServer_4
+(ApiServer_0 pid=388943) INFO 09-24 16:43:14 [launcher.py:129] [shutdown] API server: shutdown triggered
+(ApiServer_1 pid=388944) INFO 09-24 16:43:14 [launcher.py:129] [shutdown] API server: shutdown triggered
+(ApiServer_2 pid=388945) INFO 09-24 16:43:14 [launcher.py:129] [shutdown] API server: shutdown triggered
+INFO 09-24 16:43:14 [utils.py:632] [shutdown] Process manager: send sigterm to process ApiServer_6
+(ApiServer_3 pid=388946) INFO 09-24 16:43:14 [launcher.py:129] [shutdown] API server: shutdown triggered
+INFO 09-24 16:43:14 [utils.py:632] [shutdown] Process manager: send sigterm to process ApiServer_7
+(ApiServer_0 pid=388943) INFO 09-24 16:43:14 [launcher.py:145] [shutdown] API server: stopping engine client mode=abort timeout=0s
+(ApiServer_1 pid=388944) INFO 09-24 16:43:14 [launcher.py:145] [shutdown] API server: stopping engine client mode=abort timeout=0s
+(ApiServer_2 pid=388945) INFO 09-24 16:43:14 [launcher.py:145] [shutdown] API server: stopping engine client mode=abort timeout=0s
+(ApiServer_4 pid=388947) INFO 09-24 16:43:14 [launcher.py:129] [shutdown] API server: shutdown triggered
+(ApiServer_3 pid=388946) INFO 09-24 16:43:14 [launcher.py:145] [shutdown] API server: stopping engine client mode=abort timeout=0s
+(ApiServer_6 pid=388949) INFO 09-24 16:43:14 [launcher.py:129] [shutdown] API server: shutdown triggered
+(ApiServer_7 pid=388950) INFO 09-24 16:43:14 [launcher.py:129] [shutdown] API server: shutdown triggered
+(ApiServer_4 pid=388947) INFO 09-24 16:43:14 [launcher.py:145] [shutdown] API server: stopping engine client mode=abort timeout=0s
+(ApiServer_7 pid=388950) INFO 09-24 16:43:14 [launcher.py:145] [shutdown] API server: stopping engine client mode=abort timeout=0s
+(ApiServer_6 pid=388949) INFO 09-24 16:43:14 [launcher.py:145] [shutdown] API server: stopping engine client mode=abort timeout=0s
+(ApiServer_2 pid=388945) INFO 09-24 16:43:14 [core_client.py:744] [shutdown] MPClient: start timeout=0s
+(ApiServer_0 pid=388943) INFO 09-24 16:43:14 [core_client.py:744] [shutdown] MPClient: start timeout=0s
+(ApiServer_3 pid=388946) INFO 09-24 16:43:14 [core_client.py:744] [shutdown] MPClient: start timeout=0s
+(ApiServer_1 pid=388944) INFO 09-24 16:43:14 [core_client.py:744] [shutdown] MPClient: start timeout=0s
+(ApiServer_2 pid=388945) INFO 09-24 16:43:14 [core_client.py:749] [shutdown] MPClient: cleaning up background resources
+(ApiServer_4 pid=388947) INFO 09-24 16:43:14 [core_client.py:744] [shutdown] MPClient: start timeout=0s
+(ApiServer_2 pid=388945) INFO 09-24 16:43:14 [core_client.py:751] [shutdown] MPClient: complete
+(ApiServer_3 pid=388946) INFO 09-24 16:43:14 [core_client.py:749] [shutdown] MPClient: cleaning up background resources
+(ApiServer_0 pid=388943) INFO 09-24 16:43:14 [core_client.py:749] [shutdown] MPClient: cleaning up background resources
+(ApiServer_1 pid=388944) INFO 09-24 16:43:14 [core_client.py:749] [shutdown] MPClient: cleaning up background resources
+(ApiServer_6 pid=388949) INFO 09-24 16:43:14 [core_client.py:744] [shutdown] MPClient: start timeout=0s
+(ApiServer_3 pid=388946) INFO 09-24 16:43:14 [core_client.py:751] [shutdown] MPClient: complete
+(ApiServer_0 pid=388943) INFO 09-24 16:43:14 [core_client.py:751] [shutdown] MPClient: complete
+(ApiServer_4 pid=388947) INFO 09-24 16:43:14 [core_client.py:749] [shutdown] MPClient: cleaning up background resources
+(ApiServer_1 pid=388944) INFO 09-24 16:43:14 [core_client.py:751] [shutdown] MPClient: complete
+(ApiServer_6 pid=388949) INFO 09-24 16:43:14 [core_client.py:749] [shutdown] MPClient: cleaning up background resources
+(ApiServer_4 pid=388947) INFO 09-24 16:43:14 [core_client.py:751] [shutdown] MPClient: complete
+(ApiServer_7 pid=388950) INFO 09-24 16:43:14 [core_client.py:744] [shutdown] MPClient: start timeout=0s
+(ApiServer_6 pid=388949) INFO 09-24 16:43:14 [core_client.py:751] [shutdown] MPClient: complete
+(ApiServer_2 pid=388945) INFO 09-24 16:43:14 [launcher.py:154] [shutdown] API server: engine client stopped
+(ApiServer_2 pid=388945) INFO 09-24 16:43:14 [launcher.py:157] [shutdown] API server: signalling HTTP server shutdown
+(ApiServer_4 pid=388947) INFO 09-24 16:43:14 [launcher.py:154] [shutdown] API server: engine client stopped
+(ApiServer_7 pid=388950) INFO 09-24 16:43:14 [core_client.py:749] [shutdown] MPClient: cleaning up background resources
+(ApiServer_0 pid=388943) INFO 09-24 16:43:14 [launcher.py:154] [shutdown] API server: engine client stopped
+(ApiServer_4 pid=388947) INFO 09-24 16:43:14 [launcher.py:157] [shutdown] API server: signalling HTTP server shutdown
+(ApiServer_6 pid=388949) INFO 09-24 16:43:14 [launcher.py:154] [shutdown] API server: engine client stopped
+(ApiServer_3 pid=388946) INFO 09-24 16:43:14 [launcher.py:154] [shutdown] API server: engine client stopped
+(ApiServer_1 pid=388944) INFO 09-24 16:43:14 [launcher.py:154] [shutdown] API server: engine client stopped
+(ApiServer_0 pid=388943) INFO 09-24 16:43:14 [launcher.py:157] [shutdown] API server: signalling HTTP server shutdown
+(ApiServer_6 pid=388949) INFO 09-24 16:43:14 [launcher.py:157] [shutdown] API server: signalling HTTP server shutdown
+(ApiServer_3 pid=388946) INFO 09-24 16:43:14 [launcher.py:157] [shutdown] API server: signalling HTTP server shutdown
+(ApiServer_7 pid=388950) INFO 09-24 16:43:14 [core_client.py:751] [shutdown] MPClient: complete
+(ApiServer_1 pid=388944) INFO 09-24 16:43:14 [launcher.py:157] [shutdown] API server: signalling HTTP server shutdown
+(ApiServer_7 pid=388950) INFO 09-24 16:43:14 [launcher.py:154] [shutdown] API server: engine client stopped
+(ApiServer_7 pid=388950) INFO 09-24 16:43:14 [launcher.py:157] [shutdown] API server: signalling HTTP server shutdown
+(ApiServer_7 pid=388950) INFO 09-24 16:43:14 [launcher.py:179] [shutdown] API server: shutting down FastAPI HTTP server
+(ApiServer_7 pid=388950) INFO:     Shutting down
+(ApiServer_1 pid=388944) WARNING 09-24 16:43:14 [launcher.py:173] port 8017 is used by process psutil.Process(pid=388950, name='VLLM::APIServer_7', status='sleeping', started='16:38:03') launched with command:
+(ApiServer_2 pid=388945) WARNING 09-24 16:43:14 [launcher.py:173] port 8017 is used by process psutil.Process(pid=388950, name='VLLM::APIServer_7', status='sleeping', started='16:38:03') launched with command:
+(ApiServer_1 pid=388944) WARNING 09-24 16:43:14 [launcher.py:173] VLLM::APIServer_7                                                                         
+(ApiServer_3 pid=388946) WARNING 09-24 16:43:14 [launcher.py:173] port 8017 is used by process psutil.Process(pid=388950, name='VLLM::APIServer_7', status='sleeping', started='16:38:03') launched with command:
+(ApiServer_2 pid=388945) WARNING 09-24 16:43:14 [launcher.py:173] VLLM::APIServer_7                                                                         
+(ApiServer_3 pid=388946) WARNING 09-24 16:43:14 [launcher.py:173] VLLM::APIServer_7                                                                         
+(ApiServer_2 pid=388945) INFO 09-24 16:43:14 [launcher.py:179] [shutdown] API server: shutting down FastAPI HTTP server
+(ApiServer_1 pid=388944) INFO 09-24 16:43:14 [launcher.py:179] [shutdown] API server: shutting down FastAPI HTTP server
+(ApiServer_3 pid=388946) INFO 09-24 16:43:14 [launcher.py:179] [shutdown] API server: shutting down FastAPI HTTP server
+(ApiServer_4 pid=388947) WARNING 09-24 16:43:14 [launcher.py:173] port 8017 is used by process psutil.Process(pid=388950, name='VLLM::APIServer_7', status='sleeping', started='16:38:03') launched with command:
+(ApiServer_6 pid=388949) WARNING 09-24 16:43:14 [launcher.py:173] port 8017 is used by process psutil.Process(pid=388950, name='VLLM::APIServer_7', status='sleeping', started='16:38:03') launched with command:
+(ApiServer_4 pid=388947) WARNING 09-24 16:43:14 [launcher.py:173] VLLM::APIServer_7                                                                         
+(ApiServer_6 pid=388949) WARNING 09-24 16:43:14 [launcher.py:173] VLLM::APIServer_7                                                                         
+(ApiServer_2 pid=388945) INFO:     Shutting down
+(ApiServer_3 pid=388946) INFO:     Shutting down
+(ApiServer_1 pid=388944) INFO:     Shutting down
+(ApiServer_0 pid=388943) WARNING 09-24 16:43:14 [launcher.py:173] port 8017 is used by process psutil.Process(pid=388950, name='VLLM::APIServer_7', status='sleeping', started='16:38:03') launched with command:
+(ApiServer_0 pid=388943) WARNING 09-24 16:43:14 [launcher.py:173] VLLM::APIServer_7                                                                         
+(ApiServer_6 pid=388949) INFO 09-24 16:43:14 [launcher.py:179] [shutdown] API server: shutting down FastAPI HTTP server
+(ApiServer_4 pid=388947) INFO 09-24 16:43:14 [launcher.py:179] [shutdown] API server: shutting down FastAPI HTTP server
+(ApiServer_0 pid=388943) INFO 09-24 16:43:14 [launcher.py:179] [shutdown] API server: shutting down FastAPI HTTP server
+(ApiServer_6 pid=388949) INFO:     Shutting down
+(ApiServer_4 pid=388947) INFO:     Shutting down
+(ApiServer_0 pid=388943) INFO:     Shutting down
+(ApiServer_7 pid=388950) INFO:     Waiting for application shutdown.
+(ApiServer_7 pid=388950) INFO:     Application shutdown complete.
+(ApiServer_2 pid=388945) INFO:     Waiting for application shutdown.
+(ApiServer_1 pid=388944) INFO:     Waiting for application shutdown.
+(ApiServer_3 pid=388946) INFO:     Waiting for application shutdown.
+(ApiServer_2 pid=388945) INFO:     Application shutdown complete.
+(ApiServer_1 pid=388944) INFO:     Application shutdown complete.
+(ApiServer_3 pid=388946) INFO:     Application shutdown complete.
+(ApiServer_4 pid=388947) INFO:     Waiting for application shutdown.
+(ApiServer_6 pid=388949) INFO:     Waiting for application shutdown.
+(ApiServer_0 pid=388943) INFO:     Waiting for application shutdown.
+(ApiServer_4 pid=388947) INFO:     Application shutdown complete.
+(ApiServer_6 pid=388949) INFO:     Application shutdown complete.
+(ApiServer_0 pid=388943) INFO:     Application shutdown complete.
+INFO 09-24 16:43:15 [utils.py:632] [shutdown] Process manager: send sigterm to process EngineCore_DP0
+INFO 09-24 16:43:15 [utils.py:632] [shutdown] Process manager: send sigterm to process EngineCore_DP1
+INFO 09-24 16:43:15 [utils.py:632] [shutdown] Process manager: send sigterm to process EngineCore_DP2
+INFO 09-24 16:43:15 [utils.py:632] [shutdown] Process manager: send sigterm to process EngineCore_DP3
+INFO 09-24 16:43:15 [utils.py:632] [shutdown] Process manager: send sigterm to process EngineCore_DP4
+(EngineCore_DP0 pid=386619) INFO 09-24 16:43:15 [core.py:1342] [shutdown] EngineCore: trigger received signal=SIGTERM
+INFO 09-24 16:43:15 [utils.py:632] [shutdown] Process manager: send sigterm to process EngineCore_DP5
+(EngineCore_DP1 pid=386907) INFO 09-24 16:43:15 [core.py:1342] [shutdown] EngineCore: trigger received signal=SIGTERM
+(EngineCore_DP2 pid=387199) INFO 09-24 16:43:15 [core.py:1342] [shutdown] EngineCore: trigger received signal=SIGTERM
+(EngineCore_DP3 pid=387489) INFO 09-24 16:43:15 [core.py:1342] [shutdown] EngineCore: trigger received signal=SIGTERM
+(EngineCore_DP4 pid=387781) INFO 09-24 16:43:15 [core.py:1342] [shutdown] EngineCore: trigger received signal=SIGTERM
+INFO 09-24 16:43:15 [utils.py:632] [shutdown] Process manager: send sigterm to process EngineCore_DP6
+INFO 09-24 16:43:15 [utils.py:632] [shutdown] Process manager: send sigterm to process EngineCore_DP7
+(EngineCore_DP7 pid=388653) INFO 09-24 16:43:15 [core.py:1342] [shutdown] EngineCore: trigger received signal=SIGTERM
+(EngineCore_DP6 pid=388361) INFO 09-24 16:43:15 [core.py:1342] [shutdown] EngineCore: trigger received signal=SIGTERM
+WARNING 09-24 16:43:20 [utils.py:652] [shutdown] Process manager: force killing remaining processes count=7
+WARNING 09-24 16:43:20 [utils.py:657] [shutdown] Process manager: force killing remaining process EngineCore_DP0 pid 386619
+WARNING 09-24 16:43:20 [utils.py:657] [shutdown] Process manager: force killing remaining process EngineCore_DP1 pid 386907
+WARNING 09-24 16:43:20 [utils.py:657] [shutdown] Process manager: force killing remaining process EngineCore_DP2 pid 387199
+WARNING 09-24 16:43:20 [utils.py:657] [shutdown] Process manager: force killing remaining process EngineCore_DP3 pid 387489
+WARNING 09-24 16:43:20 [utils.py:657] [shutdown] Process manager: force killing remaining process EngineCore_DP4 pid 387781
+WARNING 09-24 16:43:20 [utils.py:657] [shutdown] Process manager: force killing remaining process EngineCore_DP6 pid 388361
+WARNING 09-24 16:43:20 [utils.py:657] [shutdown] Process manager: force killing remaining process EngineCore_DP7 pid 388653
+INFO 09-24 16:43:20 [utils.py:632] [shutdown] Process manager: send sigterm to process VLLM_DP_Coordinator
+Traceback (most recent call last):
+  File "/usr/local/python3.11.10/bin/vllm", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/j00950773/code/0924/vllm/vllm/entrypoints/cli/main.py", line 106, in main
+    args.dispatch_function(args)
+  File "/home/j00950773/code/0924/vllm/vllm/entrypoints/cli/serve.py", line 150, in cmd
+    run_multi_api_server(args)
+  File "/home/j00950773/code/0924/vllm/vllm/entrypoints/cli/serve.py", line 393, in run_multi_api_server
+    wait_for_completion_or_failure(
+  File "/home/j00950773/code/0924/vllm/vllm/v1/utils.py", line 591, in wait_for_completion_or_failure
+    raise RuntimeError(
+RuntimeError: Process ApiServer_5 (PID: 388948) died with exit code None
+[ERROR] 2026-09-24-16:43:21 (PID:386042, Device:-1, RankID:-1) ERR99999 UNKNOWN applicaiton exception
+[root@localhost j00950773]# /usr/local/python3.11.10/lib/python3.11/multiprocessing/resource_tracker.py:254: UserWarning: resource_tracker: There appear to be 7 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+/usr/local/python3.11.10/lib/python3.11/multiprocessing/resource_tracker.py:254: UserWarning: resource_tracker: There appear to be 16 leaked shared_memory objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
