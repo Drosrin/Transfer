@@ -417,7 +417,7 @@ gantt
 - 高并发时，调度器每一步都能凑出一个新 batch（decode step），相邻的 step 天然独立，可以错开下发给不同 stage；
 - 长文本 prefill 被切块（chunked prefill）后，多个 chunk 也是天然独立的 micro-batch。
 
-为此 vLLM V1 引擎维护了一个 **batch queue（in-flight micro-batching）**：调度器可以连续发送多个 batch 而不必等上一个 batch 走完全程，让不同 stage 同时处理不同 batch。队列深度自动推导：普通 PP 取 `pp_size`，MRV2 + 异步调度取 `pp_size + 1`——**这就是 vLLM 里消除 PP 气泡的机制**（详见代码走读 2.5 节）。
+为此 vLLM V1 引擎维护了一个 **batch queue（in-flight micro-batching）**：调度器可以连续发送多个 batch 而不必等上一个 batch 走完全程，让不同 stage 同时处理不同 batch。队列深度自动推导：普通 PP 取 `pp_size`，MRV2 + 异步调度取 `pp_size + 1`——**这就是 vLLM 里消除 PP 气泡的机制**（详见代码走读 2.4 节）。
 
 ```mermaid
 gantt

@@ -12,24 +12,25 @@
 ## 目录
 
 - [0. 全景代码地图](#0-全景代码地图)
-- [1. PP 走读：从参数到执行](#1-pp-走读从参数到执行)
-  - [1.1 配置与并行组初始化](#11-配置与并行组初始化)
-  - [1.2 层划分：每个 rank 拿哪些层](#12-层划分每个-rank-拿哪些层)
-  - [1.3 模型构建：切开的模型长什么样](#13-模型构建切开的模型长什么样)
-  - [1.4 执行链路（V1）：一次 step 的完整旅程](#14-执行链路v1一次-step-的完整旅程)
-  - [1.5 Ascend 侧的 worker 与 model runner](#15-ascend-侧的-worker-与-model-runner)
-  - [1.6 MRV2：PPHandler 与 pp_transport](#16-mrv2pphandler-与-pp_transport)
-  - [1.7 Ascend 特有的 PP 细节](#17-ascend-特有的-pp-细节)
-- [2. SP 走读：从开关到算子](#2-sp-走读从开关到算子)
-  - [2.1 开关链路：enable_flashcomm1 到底打开了什么](#21-开关链路enable_flashcomm1-到底打开了什么)
-  - [2.2 基础算子：上游标准 SP 算子与 Ascend 封装](#22-基础算子上游标准-sp-算子与-ascend-封装)
-  - [2.3 Token 对齐：padding 的三条防线](#23-token-对齐padding-的三条防线)
-  - [2.4 模型层接入：DeepSeek-V4 与 Kimi K3](#24-模型层接入deepseek-v4-与-kimi-k3)
-  - [2.5 MoE 层：SP 的主战场](#25-moe-层sp-的主战场)
-  - [2.6 图模式兼容](#26-图模式兼容)
-- [3. PP × SP 组合走读](#3-pp--sp-组合走读)
-- [4. 测试索引](#4-测试索引)
-- [5. 总结：一次 forward 的全景](#5-总结一次-forward-的全景)
+- [1. 整体架构与模块划分](#1-整体架构与模块划分)
+  - [1.1 分层架构](#11-分层架构)
+  - [1.2 核心类与重要接口](#12-核心类与重要接口)
+- [2. PP 走读：从参数到执行](#2-pp-走读从参数到执行)
+  - [2.1 配置与并行组初始化](#21-配置与并行组初始化)
+  - [2.2 层划分：每个 rank 拿哪些层](#22-层划分每个-rank-拿哪些层)
+  - [2.3 模型构建：切开的模型长什么样](#23-模型构建切开的模型长什么样)
+  - [2.4 执行链路（V1）：一次 step 的完整旅程](#24-执行链路v1一次-step-的完整旅程)
+  - [2.5 Ascend 侧的 worker 与 model runner](#25-ascend-侧的-worker-与-model-runner)
+  - [2.6 MRV2：PPHandler 与 pp_transport](#26-mrv2pphandler-与-pp_transport)
+  - [2.7 Ascend 特有的 PP 细节](#27-ascend-特有的-pp-细节)
+- [3. SP 走读：从开关到算子](#3-sp-走读从开关到算子)
+  - [3.1 开关链路：enable_flashcomm1 到底打开了什么](#31-开关链路enable_flashcomm1-到底打开了什么)
+  - [3.2 基础算子：上游标准 SP 算子与 Ascend 封装](#32-基础算子上游标准-sp-算子与-ascend-封装)
+  - [3.3 Token 对齐：padding 的三条防线](#33-token-对齐padding-的三条防线)
+  - [3.4 模型层接入：DeepSeek-V4 与 Kimi K3](#34-模型层接入deepseek-v4-与-kimi-k3)
+  - [3.5 MoE 层：SP 的主战场](#35-moe-层sp-的主战场)
+  - [3.6 图模式兼容](#36-图模式兼容)
+- [4. 总结：一次 forward 的全景](#4-总结一次-forward-的全景)
 
 ---
 
@@ -55,7 +56,7 @@ flowchart TB
         direction TB
         AC["ascend_config.py<br/>enable_flashcomm1 开关"]
         PATCH["patch/platform/patch_parallel_config.py<br/>use_sequence_parallel_moe 补丁"]
-        WK["worker/worker.py<br/>AscendWorker.execute_model"]
+        WK["worker/worker.py<br/>NPUWorker.execute_model"]
         MR1["worker/model_runner_v1.py<br/>NPUModelRunner (MRV1)"]
         MR2["worker/v2/model_runner.py + pp_transport.py<br/>MRV2"]
         ASP["models/common/ops/sequence_parallel.py<br/>Ascend SP 自定义算子"]
@@ -90,9 +91,134 @@ flowchart TB
 
 ---
 
-## 1. PP 走读：从参数到执行
+## 1. 整体架构与模块划分
 
-### 1.1 配置与并行组初始化
+第 0 章回答"PP/SP 的代码在哪"，这一章把镜头拉远一格：整个系统怎么分层、每层的核心类与接口是什么。后面两章的走读，本质上就是在这几层之间上下穿梭。
+
+### 1.1 分层架构
+
+vLLM-Ascend 不是 vLLM 的 fork，而是 **OOT（out-of-tree）平台插件**：引擎、调度、模型接口都在上游 `vllm` 仓库；`vllm_ascend` 仓库只做三件事——接管设备层（平台与 worker）、提供 Ascend 的算子与通信实现、维护带 SP 数据面的模型代码。
+
+插件生效的链路：vllm-ascend 安装时在 `setup.py` 注册了 `vllm.platform_plugins` 入口（`ascend = vllm_ascend:register`）；vLLM 启动时探测各平台插件，`register()` 返回 `"vllm_ascend.platform.NPUPlatform"`，检测到 NPU 后 `current_platform` 即切换为 `NPUPlatform`。此后 `NPUPlatform.check_and_update_config`（`platform.py:478`）把 `worker_cls` 从 `"auto"` 解析为 `"vllm_ascend.worker.worker.NPUWorker"`，并注入 Ascend 侧默认配置。
+
+```mermaid
+flowchart TB
+    subgraph ENG["引擎层（vllm/v1）——单点调度"]
+        EP["LLM / AsyncLLM<br/>API 入口"]
+        EC["EngineCore<br/>batch queue"]
+        AUX["Scheduler · KVCacheManager<br/>InputProcessor · OutputProcessor · Detokenizer"]
+    end
+    subgraph EXEC["执行器层（vllm/v1/executor）——广播与收集"]
+        EX["Uniproc / Multiproc / Ray Executor<br/>collective_rpc 广播 SchedulerOutput"]
+    end
+    subgraph WORK["Worker 层（vllm_ascend/worker）——每个 NPU rank 一个"]
+        NW["NPUWorker<br/>execute_model 收发"]
+        R1["NPUModelRunner（MRV1）"]
+        R2["NPUModelRunner（MRV2）<br/>+ v2/pp_transport"]
+    end
+    subgraph MODEL["模型层——按 stage 切分构建"]
+        IF["SupportsPP · make_layers · get_pp_indices（vllm）"]
+        MDL["vllm_ascend/models/<br/>DeepSeek-V4 · Kimi K3 …"]
+    end
+    subgraph OPS["算子与通信层——PP/SP 数据面"]
+        GC["GroupCoordinator（vllm）<br/>HCCL 点对点 / 集合通信"]
+        SPO["SP 算子：vllm 标准 + vllm_ascend 封装"]
+        MOE["SP-MoE prepare/finalize"]
+    end
+    subgraph PLAT["平台层（vllm_ascend）——启动期生效"]
+        NP["NPUPlatform · AscendConfig"]
+        PT["patch/（两阶段补丁）"]
+        CP["compilation/（图模式改写）"]
+    end
+
+    ENG --> EXEC --> WORK --> MODEL --> OPS
+    PLAT -. "worker_cls / 默认配置注入" .-> EXEC
+    PLAT -. "monkey-patch / 图模式改写" .-> WORK
+    style ENG fill:#e8f0fe,stroke:#1a56b0
+    style EXEC fill:#e8f0fe,stroke:#1a56b0
+    style WORK fill:#fff3e0,stroke:#ef6c00
+    style PLAT fill:#fff3e0,stroke:#ef6c00
+    style MODEL fill:#f3e8fd,stroke:#7b1fa2
+    style OPS fill:#f3e8fd,stroke:#7b1fa2
+```
+
+颜色即仓库归属：**蓝**=上游 `vllm`、**橙**=`vllm_ascend`、**紫**=两侧共同参与。自上而下各层的职责：
+
+- **引擎层（蓝）**：请求从 `LLM`/`AsyncLLM` 进入，`EngineCore` 每步向 `Scheduler` 要一个可执行的 batch，输出经 `OutputProcessor`/`Detokenizer` 返回调用方。引擎在逻辑上是**单点**——PP 的所有 rank 执行同一份 `SchedulerOutput`（第 2 章"单点调度、广播执行"的源头）。
+- **执行器层（蓝）**：`Executor` 负责"单点 ↔ 一组 worker"的 RPC。`MultiprocExecutor` 经共享内存广播队列同时投递 `SchedulerOutput`，只从末 PP rank 收取输出。
+- **Worker 层（橙）**：每个 NPU rank 一个 `NPUWorker`，`execute_model` 中完成"接收上一 stage 激活 → 驱动 runner → 向下一 stage 发送"。runner 有两代：MRV1（`model_runner_v1.py`）与 MRV2（`v2/model_runner.py` + `v2/pp_transport.py`）。
+- **模型层（紫）**：上游定义"模型如何被切开"（`get_pp_indices` 算区间、`make_layers` 建层、`SupportsPP` 约束 forward 签名）；vllm-ascend 的模型实现（DeepSeek-V4、Kimi K3 等）在此之上写入 SP 数据面。
+- **算子与通信层（紫）**：`GroupCoordinator` 提供点对点/集合通信原语（Ascend 上经 DeviceCommunicator 走 HCCL）；SP 算子与 SP-MoE 的 prepare/finalize 是 SP 的数据面。
+- **平台层（橙）**：`NPUPlatform`/`AscendConfig` 决定硬件相关的默认行为；`patch/` 分两阶段修正上游；`compilation/` 做图模式等价改写。它们在 worker 启动前生效，运行时不再介入。
+
+一次 decode step 自上而下穿过所有层：`AsyncLLM → EngineCore（batch queue）→ MultiprocExecutor 广播 → NPUWorker 收发 → NPUModelRunner 驱动模型 → GroupCoordinator / SP 算子落地`。逐步拆解见 2.4 节。
+
+### 1.2 核心类与重要接口
+
+按层列出本文会反复遇到的类与接口。行号基于当前基线，漂移后按类名检索：
+
+**引擎层（vllm）**
+
+| 类/接口 | 位置 | 说明 |
+| --- | --- | --- |
+| `EngineCore` | `vllm/v1/engine/core.py:111` | 引擎核心，持 `Scheduler` 与执行器；PP 时经 batch queue 做 in-flight micro-batching |
+| `Scheduler` / `SchedulerOutput` | `vllm/v1/core/sched/scheduler.py` | 每步产出可执行 batch；`SchedulerOutput` 是广播给所有 rank 的"施工单" |
+| `InputProcessor` / `OutputProcessor` / `Detokenizer` | `vllm/v1/engine/` | 请求侧预处理（分词、多模态）与输出侧后处理（增量 detokenize） |
+| `KVCacheManager` | `vllm/v1/core/kv_cache_manager.py:131` | KV 显存的分配、淘汰与块管理 |
+
+**执行器层（vllm）**
+
+| 类/接口 | 位置 | 说明 |
+| --- | --- | --- |
+| `Executor`（抽象基类） | `vllm/v1/executor/abstract.py:54` | worker 的 RPC 面：`collective_rpc` / `execute_model` |
+| `UniprocExecutor` / `MultiprocExecutor` / `RayExecutor` | `vllm/v1/executor/` | 单进程（调试）/ 多进程（共享内存广播，生产默认）/ Ray 集群 |
+| `WorkerBase` / `WorkerWrapperBase` | `vllm/v1/worker/worker_base.py:44` | worker 抽象基类；把 `worker_cls` 字符串解析为类并实例化 |
+| `Worker`（参考实现） | `vllm/v1/worker/gpu_worker.py:188` | 上游 GPU worker，Ascend 侧 `NPUWorker` 的参照系 |
+
+**Worker 层（vllm-ascend）**
+
+| 类/接口 | 位置 | 说明 |
+| --- | --- | --- |
+| `NPUWorker` | `vllm_ascend/worker/worker.py:121` | 每个 NPU rank 一个；`execute_model`（L752）做 PP 的 irecv → 执行 → isend |
+| `NPUModelRunner`（MRV1） | `vllm_ascend/worker/model_runner_v1.py:361` | 继承上游 `GPUModelRunner`：装载切分后的层、组装输入、驱动 forward |
+| `NPUModelRunner`（MRV2） | `vllm_ascend/worker/v2/model_runner.py:99` | 新一代 runner（stateful、异步调度友好），配套 `v2/pp_transport.py` 接力中间张量与采样 token |
+| `PPHandler` | `vllm/v1/worker/gpu/pp_utils.py:55` | MRV2 中跨 stage 的采样 token 回传（末 stage 采样 → 各 stage 感知） |
+
+**模型层（两侧）**
+
+| 类/接口 | 位置 | 说明 |
+| --- | --- | --- |
+| `SupportsPP`（Protocol） | `vllm/model_executor/models/interfaces.py:753` | PP 模型契约：`forward(intermediate_tensors=…)` 接收上游激活、`make_empty_intermediate_tensors()` 造空壳 |
+| `get_pp_indices` | `vllm/distributed/utils.py:128` | 计算本 rank 负责的层区间（均匀 / 显式配置 / 按权重） |
+| `make_layers` / `PPMissingLayer` | `vllm/model_executor/models/utils.py` | 按区间建层；不属于本 stage 的层替换为空层 |
+| `IntermediateTensors` | `vllm/sequence.py:12` | stage 间中间激活的字典容器（`hidden_states`、`residual`、aux 张量等） |
+| Ascend 模型实现 | `vllm_ascend/models/` | DeepSeek-V4、Kimi K3 等；SP 数据面（AG/RS 边界、dense MLP 全量计算）写在模型 forward 里 |
+
+**算子与通信层**
+
+| 类/接口 | 位置 | 说明 |
+| --- | --- | --- |
+| `GroupCoordinator` | `vllm/distributed/parallel_state.py:426` | 并行组通信原语：`send/recv_tensor_dict`（PP 流水）、`all_reduce`（TP）等 |
+| `initialize_model_parallel` / `get_pp_group()` / `get_tp_group()` | 同上 | 全局并行组注册表，启动时初始化一次 |
+| 标准 SP 算子 | `vllm/models/common/ops/sequence_parallel.py` | `sp_all_gather` / `sp_reduce_scatter` / `sp_shard` / `sp_padding_mask` |
+| Ascend SP 封装 | `vllm_ascend/models/common/ops/sequence_parallel.py` | 同名 custom op 封装，图模式下可被捕获 |
+| SP-MoE 数据面 | `vllm_ascend/ops/fused_moe/prepare_finalize.py` | EP 域 AG/RS 与 pad/unpad |
+| `register_custom_ops` | `vllm_ascend/ops/register_custom_ops.py` | 把 Ascend 自定义算子注册进 `torch.ops.vllm_ascend` |
+
+**平台层（vllm-ascend）**
+
+| 类/接口 | 位置 | 说明 |
+| --- | --- | --- |
+| `NPUPlatform` | `vllm_ascend/platform.py:89` | OOT 平台插件入口：设备探测、`check_and_update_config`、communicator/编译后端选择 |
+| `AscendConfig` | `vllm_ascend/ascend_config.py:399` | `additional_config` 中 Ascend 开关的集合（`enable_flashcomm1`、DCPP 等）；经 `get_ascend_config()` 取单例 |
+| `patch/platform/` · `patch/worker/` | `vllm_ascend/patch/` | 两阶段 monkey-patch：前者启动前全局生效，后者在各 worker 初始化时生效 |
+| `compilation/passes/` | `vllm_ascend/compilation/` | 图模式等价改写（算子替换、无效通信消除） |
+
+---
+
+## 2. PP 走读：从参数到执行
+
+### 2.1 配置与并行组初始化
 
 **入口参数**：`vllm serve --pipeline-parallel-size 2`（可组合 `--tensor-parallel-size`、`--data-parallel-size`）。层数不均衡时用环境变量 `VLLM_PP_LAYER_PARTITION="32,29"` 自定义（1.2 节）。
 
@@ -157,11 +283,11 @@ def recv(self, size: torch.Size, dtype: torch.dtype, src: int | None = None) -> 
     ...
 ```
 
-在 Ascend 上 `device_communicator` 底层走 HCCL 的 P2P 通信。此外 `GroupCoordinator` 还提供整套张量字典传输接口——`send_tensor_dict` / `recv_tensor_dict` / 异步版 `isend_tensor_dict` / `irecv_tensor_dict` / `broadcast_tensor_dict`——PP 的 stage 间数据交换全部基于它们（见 1.5）。
+在 Ascend 上 `device_communicator` 底层走 HCCL 的 P2P 通信。此外 `GroupCoordinator` 还提供整套张量字典传输接口——`send_tensor_dict` / `recv_tensor_dict` / 异步版 `isend_tensor_dict` / `irecv_tensor_dict` / `broadcast_tensor_dict`——PP 的 stage 间数据交换全部基于它们（见 2.5）。
 
 > **为什么是"字典"而不是单个张量**：stage 边界传递的不只是 `hidden_states`，还有 `residual`（残差流）、spec decode 需要的 aux hidden states、共享 indexer 需要的 topk 索引等。用字符串键的字典做载体，扩展时不需要改传输协议——MRV2 的 `pp_transport` 正是靠这个扩展点实现的（1.6 节）。
 
-### 1.2 层划分：每个 rank 拿哪些层
+### 2.2 层划分：每个 rank 拿哪些层
 
 `vllm/distributed/utils.py:128` 的 `get_pp_indices` 决定 stage 边界：
 
@@ -213,7 +339,7 @@ PP2: [31, 30]        → rank0: [0,31)  rank1: [31,61)
 PP4: [15,15,16,15]   → rank2 多拿一层（中间 stage），首末不加
 ```
 
-### 1.3 模型构建：切开的模型长什么样
+### 2.3 模型构建：切开的模型长什么样
 
 #### 1.3.1 make_layers：把 ModuleList 切开
 
@@ -303,7 +429,7 @@ class SupportsPP(Protocol):
 
 1. `forward` 接受 `intermediate_tensors`（非首 rank 的输入）；
 2. `forward` 返回 `IntermediateTensors`（非末 rank 的输出）；
-3. `make_empty_intermediate_tensors` 能造出"空壳"中间张量——profiling/dummy run 时非首 rank 还没收到真数据，需要空壳占位（见 1.7）。
+3. `make_empty_intermediate_tensors` 能造出"空壳"中间张量——profiling/dummy run 时非首 rank 还没收到真数据，需要空壳占位（见 2.7）。
 
 `IntermediateTensors` 本质是 `dict[str, Tensor]` 的包装（键如 `"hidden_states"`、`"residual"`），这就是 stage 间传输的"信封"。
 
@@ -356,12 +482,12 @@ def forward(
 
 - **首 rank**：`input_ids` → embedding，`residual = None`；
 - **非首 rank**：从 `intermediate_tensors` 拆出 `hidden_states` / `residual` 继续算；
-- **非末 rank**：把输出打包成 `IntermediateTensors` 返回（交给 worker 发出去，见 1.5）；
+- **非末 rank**：把输出打包成 `IntermediateTensors` 返回（交给 worker 发出去，见 2.5）；
 - **末 rank**：跑 final norm，输出交给 `lm_head` + 采样。
 
 权重加载与 KV cache 也随之"自动"按 stage 切开：`PPMissingLayer` 没有参数（`is_pp_missing_parameter` 判定），加载器跳过它们；KV cache 注册时只遍历本 stage 的真实层，所以**每个 rank 只为自己那几层分配 KV cache 显存**。
 
-### 1.4 执行链路（V1）：一次 step 的完整旅程
+### 2.4 执行链路（V1）：一次 step 的完整旅程
 
 现在看运行时。V1 引擎的 PP 执行模型是"**单点调度、广播执行、末段输出**"。
 
@@ -388,7 +514,7 @@ self.step_fn = (
 )
 ```
 
-`max_concurrent_batches > 1` 时启用 batch queue：调度器可以连续调度多个 batch 进流水线而不阻塞等结果——这就是原理篇 3.3 说的 **in-flight micro-batching 填泡**。`step_with_batch_queue`（`core.py:670`）的逻辑概括为：
+`max_concurrent_batches > 1` 时启用 batch queue：调度器可以连续调度多个 batch 进流水线而不阻塞等结果——这就是原理篇 4.3 说的 **in-flight micro-batching 填泡**。`step_with_batch_queue`（`core.py:670`）的逻辑概括为：
 
 ```text
 1. 队列未满且还有请求可调度 → schedule 出新 batch，execute_model(non_block=True) 入队，
@@ -458,9 +584,9 @@ self._pp_send_work = handles[1:]
 - **执行**：`model_runner.execute_model(scheduler_output, intermediate_tensors)`；
 - **非末 rank**：`isend_tensor_dict` 异步发出输出，句柄留到下一步开头收尾（`_pp_send_work`），不阻塞当前 step。
 
-### 1.5 Ascend 侧的 worker 与 model runner
+### 2.5 Ascend 侧的 worker 与 model runner
 
-vLLM-Ascend 的 `AscendWorker` 复刻了上述模式（`vllm_ascend/worker/worker.py:752`）：
+vLLM-Ascend 的 `NPUWorker` 复刻了上述模式（`vllm_ascend/worker/worker.py:752`）：
 
 ```python
 # vllm_ascend/worker/worker.py (节选, L752)
@@ -509,7 +635,7 @@ def execute_model(
     ...
 ```
 
-与上游的差异只有一处，但很关键：**`enable_sp()` 时传 `all_gather_group=None`**。这个参数的语义是"发送方在 TP 域内去重"（只从 TP rank 0 发，接收侧再 AllGather 补齐，省 TP-1 份点对点流量）。开 SP 后不能这么干——因为模型在 stage 边界已经把 token 拼回全量（见第 3 章），各 TP rank 的张量内容虽然一致，但 SP 模型代码期待"每个 rank 都收到自己的那份传输"，路径上再插一次 AllGather 会破坏时序假设，干脆全员点对点。
+与上游的差异只有一处，但很关键：**`enable_sp()` 时传 `all_gather_group=None`**。这个参数的语义是"发送方在 TP 域内去重"（只从 TP rank 0 发，接收侧再 AllGather 补齐，省 TP-1 份点对点流量）。开 SP 后不能这么干——因为模型在 stage 边界已经把 token 拼回全量（见原理篇第 5 章），各 TP rank 的张量内容虽然一致，但 SP 模型代码期待"每个 rank 都收到自己的那份传输"，路径上再插一次 AllGather 会破坏时序假设，干脆全员点对点。
 
 > 追根溯源：上游 `vllm/v1/worker/utils.py:797` 的 `is_residual_scattered_for_sp` 决定 `residual` 这个键是否需要在发送时 TP 聚合——上游的 compile-SP 路径里 residual 可能以分片形态到达边界。Ascend 的模型级 SP 在边界处全部规约完毕，所以直接走 `None` 的朴素路径。
 
@@ -545,7 +671,7 @@ def sync_and_slice_intermediate_tensors(
     )
 ```
 
-注意注释 "Keep PP intermediate tensors local to the sequence-parallel shard"——MRV1 上 SP 与 PP 组合受限（见 2.4 的 K3 条件），这段代码是为支持的场景保留分片语义的地方。
+注意注释 "Keep PP intermediate tensors local to the sequence-parallel shard"——MRV1 上 SP 与 PP 组合受限（见 3.4 的 K3 条件），这段代码是为支持的场景保留分片语义的地方。
 
 **其二，执行收尾**（`model_runner_v1.py:2613` 附近）：
 
@@ -570,7 +696,7 @@ else:
 - 常规路径：非末 rank 返回 `IntermediateTensors`（给 worker 发出去）；末 rank 计算 logits 并采样，返回 `ModelRunnerOutput`。
 - 罕见路径 `broadcast_pp_output`：末 rank 把 logits 通过 `broadcast_tensor_dict` 广播给所有 rank（用于某些需要每个 rank 都拿到 logits 的特性，如 VLM/结构化输出的特殊路径）。
 
-### 1.6 MRV2：PPHandler 与 pp_transport
+### 2.6 MRV2：PPHandler 与 pp_transport
 
 Model Runner V2（`VLLM_USE_V2_MODEL_RUNNER=1` 开启，`vllm_ascend/worker/v2/model_runner.py`）与 V1 的本质区别是**有状态**：请求的 token 前缀、采样历史等由 runner 自身维护。这对 PP 是个新问题——**所有 stage 都需要知道"上一步采出了什么 token"**才能推进自己的状态，而采样只发生在末 stage。
 
@@ -637,7 +763,7 @@ def add_pp_transport_tensors(
 
 同文件还有 `SpecPPSupport` 注册表（`_SPEC_PP_SUPPORT_BY_METHOD`），声明每种投机解码方法与 PP 叠加的能力（支持哪些架构、是否需要 aux hidden states、是否绕过上游 guard），是查阅"PP×SpecDecode 支持矩阵"的权威代码位置。
 
-### 1.7 Ascend 特有的 PP 细节
+### 2.7 Ascend 特有的 PP 细节
 
 **Dummy run / profiling 的 PP 处理**（`vllm_ascend/worker/worker.py:985` 注释）："PP0 includes all the pipeline stages' latency when using async scheduling"——profile 计时只看首 stage 的日志时要记得它涵盖了全链路。非首 rank 在 dummy run 时还没有收到真激活，靠模型的 `make_empty_intermediate_tensors` 造空壳张量走通图捕获/profiling（`model_runner_v1.py:4205` 附近：非首 rank 若无缓存则调用 `self.model.make_empty_intermediate_tensors(...)` 构造）。
 
@@ -649,9 +775,9 @@ def add_pp_transport_tensors(
 
 ---
 
-## 2. SP 走读：从开关到算子
+## 3. SP 走读：从开关到算子
 
-### 2.1 开关链路：enable_flashcomm1 到底打开了什么
+### 3.1 开关链路：enable_flashcomm1 到底打开了什么
 
 SP 的入口是一个容易误解的名字。当前 main 分支上，**`enable_flashcomm1` 只是 SP-MoE 的总开关**，与历史上的 FlashComm 私有实现已无关系。完整链路分四跳：
 
@@ -781,7 +907,7 @@ flowchart LR
     X["enable_dsa_cp: true<br/>(DSA-CP)"] -.自动开启.-> A
 ```
 
-### 2.2 基础算子：上游标准 SP 算子与 Ascend 封装
+### 3.2 基础算子：上游标准 SP 算子与 Ascend 封装
 
 **上游标准算子**（`vllm/models/common/ops/sequence_parallel.py`）是四个纯函数：
 
@@ -873,7 +999,7 @@ def sp_shard(x: torch.Tensor) -> torch.Tensor:
 
 文件里的注释原话："A custom op keeps the modulo padding invisible to dynamo (same shape-baking hazard as `sp_shard`)"。
 
-### 2.3 Token 对齐：padding 的三条防线
+### 3.3 Token 对齐：padding 的三条防线
 
 SP 要求各 rank token 数相等，工程上有三条防线配合：
 
@@ -894,7 +1020,7 @@ def _pad_for_sequence_parallelism(self, num_scheduled_tokens: int) -> int:
 
 开 SP 时把本 step 的 token 数向上取整到 TP 的倍数，补出的行是假 token。配套地，`ascend_config.py:781` 还会把 `max_num_batched_tokens` 回调到 `TP × PCP` 的整数倍（打印 warning）。
 
-**防线二：padding mask 跟随切分**。假 token 会进 LayerNorm/Router，必须可辨识。mask 以 `forward_context.is_padding` 全局携带，在切分点用 `sp_padding_mask` 同步行布局（见 2.4 K3 代码）。
+**防线二：padding mask 跟随切分**。假 token 会进 LayerNorm/Router，必须可辨识。mask 以 `forward_context.is_padding` 全局携带，在切分点用 `sp_padding_mask` 同步行布局（见 3.4 K3 代码）。
 
 **防线三：MoE 侧跳过假 token**（上游 `vllm/envs.py`，默认开启）：
 
@@ -908,7 +1034,7 @@ def _pad_for_sequence_parallelism(self, num_scheduled_tokens: int) -> int:
 
 假 token 的 expert id 被置 `-1`，dispatch 与专家计算直接丢弃，不做无用功。
 
-### 2.4 模型层接入：DeepSeek-V4 与 Kimi K3
+### 3.4 模型层接入：DeepSeek-V4 与 Kimi K3
 
 SP 在模型层的选择性接入（哪些算子跑在分片区）是模型代码自己的责任。看两个代表。
 
@@ -1007,7 +1133,7 @@ self.experts = FusedMoEFactory(
 )
 ```
 
-### 2.5 MoE 层：SP 的主战场
+### 3.5 MoE 层：SP 的主战场
 
 通用 MoE 的 SP 数据面在 `vllm_ascend/ops/fused_moe/prepare_finalize.py`。类 docstring 本身就是最好的文档（`L351`）：
 
@@ -1036,7 +1162,7 @@ class PrepareAndFinalizeWithAllGather(PrepareAndFinalize):
     """
 ```
 
-这就是原理篇 4.4 那张图的代码出处：SP 开启后 AG/RS 升级到 **EP 域**（合并了 TP 与 DP 两次小通信）。选择逻辑（`L373`）：
+这就是原理篇 3.4 那张图的代码出处：SP 开启后 AG/RS 升级到 **EP 域**（合并了 TP 与 DP 两次小通信）。选择逻辑（`L373`）：
 
 ```python
 # vllm_ascend/ops/fused_moe/prepare_finalize.py (节选, L373)
@@ -1159,7 +1285,7 @@ def _maybe_all_reduce_shared_expert_impl(shared_output, layer_name) -> torch.Ten
 
 SP 开启时 routed 输出在 `finalize` 里已经 RS（等于已 reduce），所以跳过它的 AllReduce；但 **shared expert 的输出此时还没 reduce**（它在 TP 域复制计算），换成对 shared 输出做 AllReduce。两个 `_maybe_all_reduce_*` 算子成对出现，保证"恰好 reduce 一次"。
 
-### 2.6 图模式兼容
+### 3.6 图模式兼容
 
 除了 2.2 的 custom op 手段，昇腾编译管线还有一个 SP 相关的清理 pass（`vllm_ascend/compilation/passes/allgather_chunk_noop_pass.py`）：
 
@@ -1183,86 +1309,7 @@ class AllGatherChunkNoOpCleanupPass(VllmInductorPass):
 
 ---
 
-## 3. PP × SP 组合走读
-
-组合的枢纽在 **K3 模型 forward 的边界处理**（`vllm_ascend/models/kimi_k3.py:845`），这段代码同时用了本文出现过的几乎所有构件，值得逐行读：
-
-```python
-# vllm_ascend/models/kimi_k3.py (节选, L845)
-full_num_tokens = positions.shape[0]
-if get_pp_group().is_first_rank:
-    hidden_states = inputs_embeds if inputs_embeds is not None else self.embed_input_ids(input_ids)
-    residual = None
-else:
-    assert intermediate_tensors is not None
-    hidden_states = intermediate_tensors["hidden_states"]
-    residual = intermediate_tensors["residual"]
-
-materialized_aux = self.dspark_aux_capture_materialized
-aux_hidden_states = get_pp_transport_tensors(intermediate_tensors, PPTransportDataType.AUX_HIDDEN_STATES)
-if self.use_sequence_parallel:
-    if envs.VLLM_MOE_SKIP_PADDING and is_forward_context_available():
-        forward_context = get_forward_context()
-        # Every stage starts with a full-token padding mask, even
-        # though only the first stage starts with full activations.
-        forward_context.is_padding = sp_padding_mask(
-            forward_context.is_padding,
-            positions,
-        )
-    # Every stage starts from full-sequence tensors - the previous
-    # stage closed its sequence-parallel region at the boundary -
-    # and keeps its own shard afterwards, matching DeepSeek V4.
-    hidden_states = sp_shard(hidden_states)
-    if residual is not None:
-        residual = sp_shard(residual)
-    aux_hidden_states = [sp_shard(aux) for aux in aux_hidden_states]
-```
-
-**stage 入口**（PP 视角 + SP 视角）：
-
-1. 从 `intermediate_tensors` 拆出 `hidden_states` / `residual`（PP）；
-2. 从信封里拆出 DSpark/EAGLE3 需要的 aux hidden states（`pp_transport`）；
-3. 用 `sp_padding_mask` 建立/对齐 padding mask（假 token 标记）；
-4. `sp_shard` 把全量激活**本地切分**成 SP 分片——注意这里用的是无通信的 `sp_shard` 而不是 `sp_all_gather`，因为收到的本来就是全量张量。
-
-**stage 出口**（`kimi_k3.py:922`）：
-
-```python
-# vllm_ascend/models/kimi_k3.py (节选, L922)
-if not get_pp_group().is_last_rank:
-    if self.use_sequence_parallel:
-        # The next PP rank expects full-sequence tensors; close the
-        # sequence-parallel region before crossing the boundary so the
-        # upstream PP transport only sees replicated tensors.
-        hidden_states = sp_all_gather(hidden_states)[:full_num_tokens]
-        residual = sp_all_gather(residual)[:full_num_tokens]
-        aux_hidden_states = [sp_all_gather(aux)[:full_num_tokens] for aux in aux_hidden_states]
-    return add_pp_transport_tensors(
-        IntermediateTensors({"hidden_states": hidden_states, "residual": residual}),
-        PPTransportDataType.AUX_HIDDEN_STATES,
-        aux_hidden_states,
-    )
-```
-
-**闭合 SP 区域**（`sp_all_gather` 拼回全量，裁掉 pad 行）再打包发送——注释说得很清楚："the upstream PP transport only sees replicated tensors"，PP 传输协议不需要理解 SP。这与 1.5 节 worker 侧 `enable_sp() → all_gather_group=None` 遥相呼应：模型保证边界处是复制张量，worker 用朴素点对点即可。
-
-配套测试 `tests/ut/models/test_kimi_k3_pp_sp.py`（605 行）覆盖了 PP×SP 的层布局与数值正确性，是改动相关代码后必跑的单测。
-
----
-
-## 4. 测试索引
-
-| 测试 | 位置 | 覆盖 |
-| --- | --- | --- |
-| PP e2e（2 卡） | `tests/e2e/pull_request/two_card/test_pipeline_parallel.py` | DS3-Lite，PP2 × {mp, ray} 后端，输出对齐基线 |
-| PP×SP 单测 | `tests/ut/models/test_kimi_k3_pp_sp.py` | K3 的 PP+SP 层划分、边界闭合、数值 |
-| PP 传输单测 | `tests/ut/worker/v2/test_pp_transport.py` | MRV2 pp_transport 的 aux/topk 接力 |
-| SP-MoE prepare/finalize | `tests/ut/ops/test_prepare_finalize.py` | EP AG/RS 的 pad/unpad 逻辑 |
-| SP-MoE e2e | `tests/e2e/cases/models/configs/Qwen/Qwen3-32B-W8A8C8-A3.yaml` 等 | `enable_flashcomm1:true` 的真实部署（含图模式组合） |
-| 层划分 | `tests/ut/...`（上游 `vllm/distributed/utils.py` 对应测试） | `get_pp_indices` 的自动/手动划分 |
-
-
-## 5. 总结：一次 forward 的全景
+## 4. 总结：一次 forward 的全景
 
 最后把两条线合成一张图——**PP=2、TP=2、SP 开启**时，一次 decode step 的数据全景：
 
