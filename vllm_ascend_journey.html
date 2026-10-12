@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>vLLM-Ascend · 一次真实启动与推理的交互式走读</title>
+<style>
+/* ============ design tokens ============ */
+:root{
+  --bg0:#060a13; --bg1:#0a101f; --bg2:#0e1628;
+  --panel:#101a2e; --panel-2:#152238; --panel-3:#1a2942;
+  --line:#1e2c47; --line-2:#2b3d61; --line-3:#3b5280;
+  --txt:#e9eefe; --txt-2:#aebbdc; --mut:#7c8cb2; --mut-2:#55648c;
+  --asc:#39dcff; --asc-2:#18b6e6; --asc-dim:rgba(57,220,255,.12); --asc-line:rgba(57,220,255,.4);
+  --up:#96a5c6; --up-dim:rgba(150,165,198,.12); --up-line:rgba(150,165,198,.4);
+  --mix:#ffb454; --mix-dim:rgba(255,180,84,.12); --mix-line:rgba(255,180,84,.42);
+  --vio:#a78bfa; --grn:#4ade80; --red:#f87171; --rose:#fb7185;
+  --glow-asc:0 0 24px rgba(57,220,255,.35), 0 0 60px rgba(57,220,255,.12);
+  --f-d:"Inter Display","Inter","Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --f-s:"Inter","Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+  --f-m:"JetBrains Mono","SF Mono",ui-monospace,Menlo,Consolas,"Liberation Mono",monospace;
+  --r1:8px; --r2:12px; --r3:16px; --r4:22px; --pill:999px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; font:15px/1.7 var(--f-s); color:var(--txt);
+  background:
+    radial-gradient(1000px 500px at 85% -80px, rgba(57,220,255,.07), transparent 60%),
+    radial-gradient(900px 520px at -5% 25%, rgba(167,139,250,.06), transparent 60%),
+    linear-gradient(180deg, var(--bg0), var(--bg1) 40%, var(--bg0));
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+::selection{background:rgba(57,220,255,.25); color:#fff}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:var(--bg0)}
+::-webkit-scrollbar-thumb{background:var(--line-2); border-radius:8px; border:2px solid var(--bg0)}
+a{color:var(--asc); text-decoration:none}
+a:hover{text-decoration:underline}
+code{font-family:var(--f-m); font-size:.85em; background:rgba(57,220,255,.1); color:var(--asc); padding:1px 6px; border-radius:5px; border:1px solid rgba(57,220,255,.14); white-space:nowrap}
+h1,h2,h3,h4{font-family:var(--f-d); letter-spacing:-.02em}
+
+/* ============ progress + dotnav ============ */
+#progress{position:fixed; top:0; left:0; height:3px; width:0%; z-index:120;
+  background:linear-gradient(90deg,var(--asc-2),var(--asc),var(--vio));
+  box-shadow:0 0 14px rgba(57,220,255,.6); transition:width .08s linear}
+.dotnav{position:fixed; right:16px; top:50%; transform:translateY(-50%); z-index:110; display:flex; flex-direction:column; gap:12px}
+.dotnav a{width:10px; height:10px; border-radius:50%; background:var(--line-2); position:relative; transition:all .25s; cursor:pointer}
+.dotnav a:hover{background:var(--mut)}
+.dotnav a.on{background:var(--asc); box-shadow:0 0 0 4px rgba(57,220,255,.18), 0 0 12px var(--asc)}
+.dotnav a::after{content:attr(data-l); position:absolute; right:20px; top:50%; transform:translateY(-50%);
+  font:600 11px/1 var(--f-s); color:var(--txt-2); background:var(--panel); border:1px solid var(--line);
+  padding:5px 9px; border-radius:6px; white-space:nowrap; opacity:0; pointer-events:none; transition:opacity .2s}
+.dotnav a:hover::after{opacity:1}
+@media (max-width:900px){.dotnav{display:none}}
+
+/* ============ hero ============ */
+.hero{position:relative; min-height:92vh; display:flex; align-items:center; padding:90px 28px 70px; overflow:hidden; border-bottom:1px solid var(--line)}
+.hero-bg{position:absolute; inset:0; pointer-events:none}
+.hero-bg .grid{position:absolute; inset:0;
+  background-image:linear-gradient(rgba(57,220,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(57,220,255,.05) 1px,transparent 1px);
+  background-size:52px 52px;
+  -webkit-mask-image:radial-gradient(ellipse 80% 65% at 50% 35%, #000 25%, transparent 78%);
+  mask-image:radial-gradient(ellipse 80% 65% at 50% 35%, #000 25%, transparent 78%)}
+.orb{position:absolute; border-radius:50%; filter:blur(70px); opacity:.5; animation:orbFloat 16s ease-in-out infinite}
+.orb.a{width:480px;height:480px; right:-120px; top:-120px; background:radial-gradient(circle,rgba(57,220,255,.35),transparent 70%)}
+.orb.b{width:420px;height:420px; left:-140px; bottom:-100px; background:radial-gradient(circle,rgba(167,139,250,.28),transparent 70%); animation-delay:-6s}
+.orb.c{width:300px;height:300px; left:40%; top:10%; background:radial-gradient(circle,rgba(255,180,84,.18),transparent 70%); animation-delay:-11s}
+@keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,24px) scale(1.08)}}
+.hero-inner{position:relative; max-width:1200px; margin:0 auto; z-index:2; width:100%}
+.eyebrow{display:inline-flex; align-items:center; gap:9px; padding:7px 15px; border-radius:var(--pill);
+  background:rgba(57,220,255,.07); border:1px solid var(--asc-line); font:600 12px/1 var(--f-s);
+  color:var(--asc); letter-spacing:.08em; text-transform:uppercase; animation:fadeUp .7s ease both}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--asc); box-shadow:0 0 0 0 rgba(57,220,255,.6); animation:dotPulse 1.8s ease-out infinite}
+@keyframes dotPulse{0%{box-shadow:0 0 0 0 rgba(57,220,255,.55)}70%{box-shadow:0 0 0 11px rgba(57,220,255,0)}100%{box-shadow:0 0 0 0 rgba(57,220,255,0)}}
+.hero h1{font-size:clamp(38px,5.6vw,72px); line-height:1.03; margin:24px 0 18px; font-weight:800; animation:fadeUp .7s .1s ease both}
+.hero h1 .kw{font-family:var(--f-m); font-size:.8em; background:var(--panel); border:1px solid var(--line-2); padding:3px 14px; border-radius:12px; color:var(--asc); box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.hero h1 .grad{background:linear-gradient(120deg,var(--asc) 0%,var(--vio) 55%,var(--mix) 100%); -webkit-background-clip:text; background-clip:text; color:transparent}
+.hero p.sub{font-size:clamp(15px,1.5vw,19px); color:var(--txt-2); max-width:760px; line-height:1.7; margin:0 0 26px; animation:fadeUp .7s .2s ease both}
+.hero p.sub b{color:var(--txt)}
+.chips{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:30px; animation:fadeUp .7s .3s ease both}
+.chip{display:inline-flex; align-items:center; gap:7px; padding:8px 14px; border-radius:var(--pill);
+  background:var(--panel); border:1px solid var(--line); font:500 12.5px/1 var(--f-s); color:var(--txt-2)}
+.chip .lab{color:var(--mut); font-size:11px; text-transform:uppercase; letter-spacing:.05em}
+.chip code{background:transparent;border:0;padding:0;color:var(--txt); font-weight:600}
+.hero-cta{display:flex; align-items:center; gap:16px; flex-wrap:wrap; animation:fadeUp .7s .4s ease both}
+.btn{display:inline-flex; align-items:center; gap:8px; padding:13px 24px; border-radius:var(--pill);
+  font:700 14px/1 var(--f-s); cursor:pointer; border:1px solid transparent; transition:all .2s; text-decoration:none; font-family:inherit}
+.btn-p{background:linear-gradient(135deg,var(--asc-2),var(--asc)); color:#04222e; box-shadow:0 8px 26px rgba(57,220,255,.32)}
+.btn-p:hover{transform:translateY(-2px); box-shadow:0 12px 34px rgba(57,220,255,.45); text-decoration:none}
+.btn-g{background:var(--panel); color:var(--txt); border-color:var(--line-2)}
+.btn-g:hover{border-color:var(--asc-line); color:var(--asc); text-decoration:none}
+.hero-clock{margin-left:auto; text-align:right; animation:fadeUp .7s .5s ease both}
+.hero-clock .lab{font:600 10.5px/1 var(--f-m); color:var(--mut); text-transform:uppercase; letter-spacing:.12em}
+.hero-clock .val{font:700 30px/1.1 var(--f-m); color:var(--asc); text-shadow:0 0 24px rgba(57,220,255,.4); margin-top:5px; font-variant-numeric:tabular-nums}
+.hero-clock .sub2{font:500 11px/1 var(--f-m); color:var(--mut-2); margin-top:4px}
+@keyframes fadeUp{from{opacity:0; transform:translateY(18px)}to{opacity:1; transform:translateY(0)}}
+.scroll-hint{position:absolute; bottom:24px; left:50%; transform:translateX(-50%); color:var(--mut); font:500 11px/1 var(--f-m); letter-spacing:.2em; display:flex; flex-direction:column; align-items:center; gap:8px; z-index:2}
+.scroll-hint .bar{width:1px; height:34px; background:linear-gradient(180deg,var(--asc),transparent); animation:hintDrop 1.8s ease-in-out infinite}
+@keyframes hintDrop{0%{transform:scaleY(0); transform-origin:top}50%{transform:scaleY(1); transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0); transform-origin:bottom}}
+
+/* ============ layout / sections ============ */
+.wrap{max-width:1240px; margin:0 auto; padding:0 26px}
+section{padding:80px 0 30px}
+.sec-head{margin-bottom:26px}
+.sec-kicker{display:inline-flex; align-items:center; gap:8px; font:700 12px/1 var(--f-m); color:var(--asc); letter-spacing:.14em; text-transform:uppercase; margin-bottom:12px}
+.sec-kicker::before{content:""; width:26px; height:1px; background:var(--asc)}
+.sec-head h2{font-size:clamp(26px,3vw,40px); margin:0 0 12px; font-weight:800}
+.sec-head p{margin:0; color:var(--mut); font-size:15px; max-width:720px; line-height:1.7}
+.sec-head p b{color:var(--txt-2)}
+.legend{display:inline-flex; gap:16px; flex-wrap:wrap; margin-top:16px; padding:10px 16px; background:var(--panel); border:1px solid var(--line); border-radius:var(--pill); font:500 12px/1 var(--f-s); color:var(--txt-2)}
+.legend .li{display:inline-flex; align-items:center; gap:7px}
+.legend .sw{width:14px; height:14px; border-radius:4px}
+.legend .sw.asc{background:var(--asc-dim); border:1px solid var(--asc-line); box-shadow:inset 0 0 6px rgba(57,220,255,.3)}
+.legend .sw.up{background:var(--up-dim); border:1px solid var(--up-line)}
+.legend .sw.mix{background:var(--mix-dim); border:1px solid var(--mix-line)}
+
+.panel{background:var(--panel); border:1px solid var(--line); border-radius:var(--r3); box-shadow:0 20px 50px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04)}
+
+/* side badges */
+.side{display:inline-flex; align-items:center; gap:5px; font:700 10.5px/1 var(--f-m); padding:4px 9px; border-radius:var(--pill); border:1px solid transparent; letter-spacing:.04em}
+.side.asc{color:var(--asc); background:var(--asc-dim); border-color:var(--asc-line)}
+.side.up{color:var(--up); background:var(--up-dim); border-color:var(--up-line)}
+.side.mix{color:var(--mix); background:var(--mix-dim); border-color:var(--mix-line)}
+
+/* reveal on scroll */
+.rv{opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.3,1)}
+.rv.in{opacity:1; transform:none}
+
+/* generic terminal */
+.term{background:#070d18; border:1px solid var(--line-2); border-radius:var(--r2); overflow:hidden; box-shadow:inset 0 0 40px rgba(0,0,0,.4)}
+.term-h{display:flex; align-items:center; gap:8px; padding:9px 13px; background:linear-gradient(180deg,#0d1626,#0a1220); border-bottom:1px solid var(--line)}
+.term-h .d{width:10px;height:10px;border-radius:50%;background:#233252}
+.term-h .d:nth-child(1){background:#ff5f57}.term-h .d:nth-child(2){background:#febc2e}.term-h .d:nth-child(3){background:#28c840}
+.term-h .t{margin-left:6px; font:500 11.5px/1 var(--f-m); color:var(--mut)}
+.term-b{padding:12px 6px; font-family:var(--f-m); max-height:100%; overflow:auto}
+.term-b::-webkit-scrollbar{width:7px}
+.term-b::-webkit-scrollbar-thumb{background:var(--line-2)}
+.ll{display:flex; align-items:flex-start; gap:8px; padding:2.5px 12px; font:12px/1.6 var(--f-m); color:#c6d2ea; border-left:2px solid transparent; white-space:nowrap; overflow:hidden}
+.ll:hover{white-space:normal; word-break:break-all; background:rgba(255,255,255,.03)}
+.ll .ts{color:var(--mut-2); flex:0 0 auto; font-size:10.5px; padding-top:1px}
+.ll .pr{color:var(--mix); flex:0 0 auto; font-size:10.5px; padding-top:1px; max-width:180px; overflow:hidden; text-overflow:ellipsis}
+.ll .lv{flex:0 0 auto; font:700 9.5px/1 var(--f-m); padding:2px 5px; border-radius:4px; margin-top:1px}
+.ll .lv.INFO{color:var(--grn); background:rgba(74,222,128,.1)}
+.ll .lv.WARN{color:var(--mix); background:rgba(255,180,84,.12)}
+.ll .lv.DEBUG{color:var(--mut); background:rgba(150,165,198,.08)}
+.ll .src{color:var(--asc); flex:0 0 auto; font-size:11px; padding-top:1px}
+.ll .src .ln{color:var(--mut-2)}
+.ll .m{color:#dbe5f8; min-width:0; flex:1; padding-top:1px; word-break:break-word}
+.ll .m .em{color:var(--mix); font-weight:600}
+.ll.asc{border-left-color:var(--asc)} .ll.up{border-left-color:var(--up)} .ll.mix{border-left-color:var(--mix)}
+.ll .mult{margin-left:auto; flex:0 0 auto; font:700 9.5px/1 var(--f-m); padding:2px 6px; border-radius:4px; background:var(--mix-dim); color:var(--mix); border:1px solid var(--mix-line); align-self:center}
+.ll .cursor{display:inline-block; width:7px; height:14px; background:var(--asc); margin-left:2px; vertical-align:-2px; animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.ll-reveal{opacity:0; transform:translateX(-8px); animation:llIn .4s ease forwards}
+@keyframes llIn{to{opacity:1; transform:none}}
+
+/* back to top */
+#btt{position:fixed; right:18px; bottom:18px; z-index:110; width:44px; height:44px; border-radius:50%;
+  background:var(--panel); border:1px solid var(--line-2); color:var(--asc); font-size:17px; cursor:pointer;
+  display:none; align-items:center; justify-content:center; box-shadow:0 10px 26px rgba(0,0,0,.4); transition:all .25s}
+#btt.show{display:flex}
+#btt:hover{background:var(--asc); color:#04222e; transform:translateY(-3px)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important; transition-duration:.001ms !important; animation-iteration-count:1 !important}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav class="dotnav" id="dotnav" aria-label="章节导航"></nav>
+
+<header class="hero" id="top">
+  <div class="hero-bg">
+    <div class="grid"></div>
+    <div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
+  </div>
+  <div class="hero-inner">
+    <span class="eyebrow"><span class="dot"></span>vLLM-Ascend · 基于一次真实日志的交互式走读</span>
+    <h1>当你 <span class="kw">vllm serve</span> 时，<br>究竟<span class="grad">发生了什么？</span></h1>
+    <p class="sub">跟着一次 <b>真实</b> 的服务日志（约 <b>2800 行</b>），把 vLLM-Ascend 的模块与结构完整走一遍 —— 加载旅程经过哪些模块、推理旅程经过哪些模块、它们各自<b>负责什么、怎么衔接</b>。</p>
+    <div class="chips">
+      <span class="chip"><span class="lab">vLLM</span><code>0.30.0</code></span>
+      <span class="chip"><span class="lab">并行</span><code>DP=8 · EP=8</code></span>
+      <span class="chip"><span class="lab">模型</span><code>GLM-5.3-Flash-W8A8-MXFP8</code></span>
+      <span class="chip"><span class="lab">投机</span><code>MTP ×5</code></span>
+      <span class="chip"><span class="lab">量化</span><code>ascend · modelslim</code></span>
+      <span class="chip"><span class="lab">日志</span><code>~2800 行</code></span>
+    </div>
+    <div class="hero-cta">
+      <a class="btn btn-p" href="#timeline">▶ 开始旅程</a>
+      <a class="btn btn-g" href="#journey">直接看模块</a>
+      <div class="hero-clock">
+        <div class="lab">本次启动总耗时</div>
+        <div class="val" id="bootClock">0:00.0</div>
+        <div class="sub2">16:35:31 → 16:40:24</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">SCROLL<span class="bar"></span></div>
+</header>
+
+<main class="wrap">
+
+<!-- =================§ 全局骨架 ================= -->
+<section id="skeleton">
+  <div class="sec-head rv">
+    <div class="sec-kicker">Overview · 全局骨架</div>
+    <h2>一张骨架，装下两条旅程</h2>
+    <p>无论「启动」还是「推理」，数据都穿过同一组分层。<b>加载旅程</b>把这副骨架搭建并点火（L1–L16），<b>推理旅程</b>让请求在其中流动（R1–R6）。点任意一层，看它装着哪些模块。</p>
+    <div class="legend">
+      <span class="li"><span class="sw asc"></span>蓝 = Ascend 侧（vllm-ascend）</span>
+      <span class="li"><span class="sw up"></span>灰 = vLLM 侧（主仓）</span>
+      <span class="li"><span class="sw mix"></span>琥珀 = 两侧协同</span>
+    </div>
+  </div>
+  <div class="skel-grid">
+    <div class="skel-spine" id="skelSpine" aria-hidden="true"><div class="spine-line"></div><div class="spine-pulse"></div></div>
+    <div class="skel-layers" id="skelLayers"><!-- JS render --></div>
+    <aside class="skel-side panel" id="skelSide">
+      <div class="skel-side-h">
+        <div class="skel-side-num" id="skSideNum">·</div>
+        <div>
+          <div class="skel-side-name" id="skSideName">选择左侧一层</div>
+          <div class="skel-side-sub" id="skSideSub">查看该层包含的模块与归属</div>
+        </div>
+      </div>
+      <div class="skel-side-mods" id="skSideMods"><div class="skel-side-empty">← 点击任意层级，展开其中的模块</div></div>
+    </aside>
+  </div>
+</section>
+
+<!-- =================§ 启动时间线 ================= -->
+<section id="timeline">
+  <div class="sec-head rv">
+    <div class="sec-kicker">Boot Timeline · 启动时间线</div>
+    <h2>4 分 53 秒，一次启动的全景</h2>
+    <p>把 16 个加载阶段按<b>真实时间戳</b>铺在一条时间轴上。颜色的含义同上；块的左右位置 = 起止时刻，重叠 = 并行发生。点任意一块，跳到对应模块的详解；或按「重放开机」让时间重新走一遍。</p>
+  </div>
+  <div class="panel tl-panel rv">
+    <div class="tl-toolbar">
+      <button class="btn btn-p btn-sm" id="tlPlay">▶ 重放开机</button>
+      <div class="tl-clock"><span class="tl-clock-lab">T+</span><span id="tlClock">0:00.0</span></div>
+      <div class="tl-legend">
+        <span class="tl-lg"><i class="sw asc"></i>Ascend</span>
+        <span class="tl-lg"><i class="sw up"></i>vLLM</span>
+        <span class="tl-lg"><i class="sw mix"></i>协同</span>
+      </div>
+    </div>
+    <div class="tl-scroll">
+      <div class="tl-ruler" id="tlRuler"></div>
+      <div class="tl-rows" id="tlRows"></div>
+      <div class="tl-sweep" id="tlSweep"></div>
+    </div>
+    <div class="tl-foot">就绪于 <b>16:40:24</b> · 全程 <b>293s</b> · 权重加载（NFS 314 GiB）是最长的一段</div>
+  </div>
+</section>
+
+<!-- =================§ 旅程深潜 ================= -->
+<section id="journey">
+  <div class="sec-head rv">
+    <div class="sec-kicker">Deep Dive · 旅程深潜</div>
+    <h2>逐阶段：职责、动作、上下游、文件、日志</h2>
+    <p>左侧选阶段（或按 <b>▶ 自动</b>），右侧看这一阶段的完整画像。切换「加载 / 推理」两条旅程。每个模块都回答三件事：<b>它负责什么？从上游拿什么、给下游什么？在日志里长什么样？</b></p>
+  </div>
+  <div class="jd-tabs rv" role="tablist">
+    <button class="jd-tab on" data-j="load"><span class="jd-tab-ic">▶</span>加载旅程 <span class="jd-tab-n">L1–L16</span></button>
+    <button class="jd-tab" data-j="infer"><span class="jd-tab-ic">◐</span>推理旅程 <span class="jd-tab-n">R1–R6</span></button>
+    <div class="jd-controls">
+      <button class="jd-btn" id="jdPrev" title="上一阶段">‹</button>
+      <button class="jd-btn jd-play" id="jdPlay">▶ 自动</button>
+      <button class="jd-btn" id="jdNext" title="下一阶段">›</button>
+    </div>
+  </div>
+  <div class="jd-grid">
+    <ol class="jd-steps rv" id="jdSteps"></ol>
+    <article class="jd-card panel rv" id="jdCard">
+      <div class="jd-card-h">
+        <div class="jd-idchip" id="jdId">L1</div>
+        <div class="jd-card-hm">
+          <div class="jd-name" id="jdName">—</div>
+          <div class="jd-meta" id="jdMeta"></div>
+        </div>
+        <span class="side" id="jdSide"></span>
+      </div>
+      <div class="jd-block">
+        <div class="jd-block-t"><span class="jd-block-ic">◆</span>它负责什么</div>
+        <p class="jd-duty" id="jdDuty"></p>
+      </div>
+      <div class="jd-block">
+        <div class="jd-block-t"><span class="jd-block-ic">▸</span>关键动作</div>
+        <ul class="jd-points" id="jdPoints"></ul>
+      </div>
+      <div class="jd-flow">
+        <div class="jd-flow-node"><div class="jd-flow-lab">上游</div><div class="jd-flow-val" id="jdFrom">—</div></div>
+        <div class="jd-flow-arr">→</div>
+        <div class="jd-flow-node to"><div class="jd-flow-lab">下游</div><div class="jd-flow-val" id="jdTo">—</div></div>
+      </div>
+      <div class="jd-block">
+        <div class="jd-block-t"><span class="jd-block-ic">▤</span>关键文件 <span class="jd-hint">（悬停看说明）</span></div>
+        <div class="jd-files" id="jdFiles"></div>
+      </div>
+      <div class="jd-block">
+        <div class="jd-block-t"><span class="jd-block-ic">▮</span>日志锚点 <span class="jd-log-note" id="jdLogNote"></span></div>
+        <div class="term"><div class="term-b" id="jdLogs"></div></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<style>
+/* ============ skeleton ============ */
+.skel-grid{display:grid; grid-template-columns:44px 1fr 360px; gap:20px; align-items:start}
+@media (max-width:1020px){.skel-grid{grid-template-columns:32px 1fr}.skel-side{grid-column:1/-1}}
+.skel-spine{position:relative; height:100%; min-height:420px}
+.spine-line{position:absolute; left:50%; top:6px; bottom:6px; width:2px; transform:translateX(-50%); background:linear-gradient(180deg,var(--asc) 0%,var(--vio) 50%,var(--mix) 100%); opacity:.5; border-radius:2px}
+.spine-pulse{position:absolute; left:50%; width:10px; height:10px; margin-left:-5px; border-radius:50%; background:var(--asc); box-shadow:var(--glow-asc); animation:spineMove 5s linear infinite}
+@keyframes spineMove{0%{top:2%}50%{top:96%}100%{top:2%}}
+.skel-layers{display:flex; flex-direction:column; gap:14px}
+.skl{position:relative; background:var(--panel); border:1px solid var(--line); border-radius:var(--r3); padding:16px 18px; cursor:pointer; transition:all .3s; overflow:hidden}
+.skl::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--line-2)}
+.skl[data-side="asc"]::before{background:var(--asc)} .skl[data-side="up"]::before{background:var(--up)} .skl[data-side="mix"]::before{background:var(--mix)}
+.skl:hover{border-color:var(--line-3); transform:translateX(4px)}
+.skl.on{border-color:var(--asc-line); box-shadow:var(--glow-asc); background:var(--panel-2)}
+.skl-h{display:flex; align-items:center; gap:12px}
+.skl-n{width:34px; height:34px; border-radius:50%; flex:0 0 auto; display:flex; align-items:center; justify-content:center; background:var(--panel-3); border:1.5px solid var(--line-2); font:800 13px/1 var(--f-m); color:var(--mut); transition:all .3s}
+.skl.on .skl-n{background:var(--asc); color:#04222e; border-color:var(--asc); box-shadow:0 0 0 4px rgba(57,220,255,.2)}
+.skl-info{flex:1; min-width:0}
+.skl-name{font:700 15.5px/1.3 var(--f-d); color:var(--txt)}
+.skl-sub{font:500 11.5px/1.4 var(--f-m); color:var(--mut); margin-top:3px}
+.skl-cnt{font:600 11px/1 var(--f-m); color:var(--mut); background:var(--panel-3); border:1px solid var(--line); padding:4px 9px; border-radius:var(--pill); flex:0 0 auto}
+.skl-side{position:sticky; top:80px; padding:20px}
+.skl-side-h{display:flex; align-items:center; gap:12px; padding-bottom:14px; border-bottom:1px dashed var(--line)}
+.skl-side-num{width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,var(--asc-2),var(--asc)); color:#04222e; font:800 16px/1 var(--f-m); display:flex; align-items:center; justify-content:center; box-shadow:0 6px 18px rgba(57,220,255,.35); flex:0 0 auto}
+.skl-side-name{font:800 16px/1.3 var(--f-d); color:var(--txt)}
+.skl-side-sub{font:500 11.5px/1.4 var(--f-m); color:var(--mut); margin-top:3px}
+.skl-side-mods{padding-top:14px; display:flex; flex-direction:column; gap:8px; max-height:480px; overflow:auto}
+.skl-side-empty{color:var(--mut); font:500 12.5px/1.6 var(--f-s); padding:14px 4px; text-align:center; border:1px dashed var(--line); border-radius:var(--r2)}
+.smod{display:flex; align-items:center; gap:10px; padding:10px 12px; background:var(--panel-2); border:1px solid var(--line); border-radius:var(--r2); cursor:pointer; transition:all .2s; text-align:left}
+.smod:hover{border-color:var(--asc-line); transform:translateX(3px)}
+.smod .id{font:800 11px/1 var(--f-m); color:var(--asc); background:var(--asc-dim); border:1px solid var(--asc-line); padding:3px 7px; border-radius:6px; flex:0 0 auto}
+.smod .nm{flex:1; min-width:0; font:600 12.5px/1.3 var(--f-s); color:var(--txt-2); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.smod .go{color:var(--mut-2); font-size:12px; flex:0 0 auto}
+
+/* ============ timeline ============ */
+.tl-panel{padding:18px 20px 16px; overflow:hidden}
+.tl-toolbar{display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:14px}
+.btn-sm{padding:9px 18px; font-size:12.5px}
+.tl-clock{display:inline-flex; align-items:baseline; gap:5px; font:700 20px/1 var(--f-m); color:var(--asc); font-variant-numeric:tabular-nums}
+.tl-clock-lab{font-size:12px; color:var(--mut)}
+.tl-legend{margin-left:auto; display:flex; gap:14px; font:500 11.5px/1 var(--f-s); color:var(--txt-2)}
+.tl-lg{display:inline-flex; align-items:center; gap:6px}
+.tl-lg .sw{width:12px; height:12px; border-radius:3px; display:inline-block}
+.tl-lg .sw.asc{background:var(--asc)} .tl-lg .sw.up{background:var(--up)} .tl-lg .sw.mix{background:var(--mix)}
+.tl-scroll{position:relative; overflow-x:auto; padding-bottom:6px}
+.tl-scroll::-webkit-scrollbar{height:8px}
+.tl-ruler{position:relative; height:22px; min-width:900px; border-bottom:1px solid var(--line-2); margin-bottom:8px}
+.tl-tick{position:absolute; bottom:0; transform:translateX(-50%); font:500 9.5px/1 var(--f-m); color:var(--mut-2); white-space:nowrap; text-align:center}
+.tl-tick::after{content:""; position:absolute; left:50%; bottom:-6px; width:1px; height:6px; background:var(--line-2)}
+.tl-rows{position:relative; min-width:900px}
+.tl-row{display:flex; align-items:center; gap:10px; height:34px; position:relative}
+.tl-row + .tl-row{border-top:1px dashed rgba(30,44,71,.6)}
+.tl-lab{width:210px; flex:0 0 auto; display:flex; align-items:center; gap:8px; cursor:pointer}
+.tl-lab .lid{font:800 10.5px/1 var(--f-m); color:var(--mut); background:var(--panel-3); border:1px solid var(--line); padding:3px 6px; border-radius:5px; min-width:30px; text-align:center}
+.tl-lab .lnm{font:600 11.5px/1.2 var(--f-s); color:var(--txt-2); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.tl-track{position:relative; flex:1; height:100%}
+.tl-seg{position:absolute; top:7px; height:20px; border-radius:6px; cursor:pointer; transition:all .2s; display:flex; align-items:center; padding:0 8px; font:700 9.5px/1 var(--f-m); color:#04222e; white-space:nowrap; overflow:hidden}
+.tl-seg.asc{background:linear-gradient(135deg,var(--asc-2),var(--asc)); box-shadow:0 0 12px rgba(57,220,255,.3)}
+.tl-seg.up{background:linear-gradient(135deg,#7c8cb0,#96a5c6); color:#0a101f}
+.tl-seg.mix{background:linear-gradient(135deg,#e09a3c,var(--mix)); color:#2a1a04}
+.tl-seg:hover{transform:scaleY(1.25); z-index:3; box-shadow:0 4px 16px rgba(0,0,0,.5)}
+.tl-seg.hot{box-shadow:0 0 0 2px #fff, 0 0 18px rgba(255,255,255,.5)}
+.tl-seg.dim{opacity:.22}
+.tl-sweep{position:absolute; top:0; bottom:0; width:2px; background:linear-gradient(180deg,transparent,var(--asc),transparent); box-shadow:0 0 12px var(--asc); left:0; opacity:0; pointer-events:none; z-index:4}
+.tl-sweep.on{opacity:1}
+.tl-foot{margin-top:14px; padding-top:12px; border-top:1px dashed var(--line); font:500 12px/1.6 var(--f-s); color:var(--mut)}
+.tl-foot b{color:var(--txt-2)}
+.tl-tip{position:fixed; z-index:300; background:#0a1424; border:1px solid var(--asc-line); border-radius:var(--r2); padding:10px 13px; font:500 12px/1.6 var(--f-s); color:var(--txt); box-shadow:0 14px 40px rgba(0,0,0,.6), 0 0 20px rgba(57,220,255,.15); pointer-events:none; max-width:340px; opacity:0; transform:translateY(6px); transition:opacity .15s, transform .15s}
+.tl-tip.show{opacity:1; transform:none}
+.tl-tip .tt{font:800 12.5px/1.3 var(--f-d); color:var(--asc); margin-bottom:4px}
+.tl-tip .tm{font:500 10.5px/1 var(--f-m); color:var(--mut); margin-bottom:6px}
+.tl-tip .tl2{font:500 11px/1.5 var(--f-m); color:var(--txt-2)}
+</style>
+
+<style>
+/* ============ journey deep-dive ============ */
+.jd-tabs{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:20px}
+.jd-tab{display:inline-flex; align-items:center; gap:8px; padding:11px 20px; border-radius:var(--pill); background:var(--panel); border:1px solid var(--line-2); color:var(--mut); font:700 13.5px/1 var(--f-s); cursor:pointer; transition:all .25s}
+.jd-tab:hover{color:var(--txt)}
+.jd-tab.on{background:linear-gradient(135deg,var(--asc-2),var(--asc)); color:#04222e; border-color:transparent; box-shadow:0 8px 22px rgba(57,220,255,.3)}
+.jd-tab-ic{font-size:11px}
+.jd-tab-n{font:600 11px/1 var(--f-m); opacity:.8}
+.jd-controls{margin-left:auto; display:flex; gap:7px}
+.jd-btn{width:38px; height:38px; border-radius:50%; background:var(--panel); border:1px solid var(--line-2); color:var(--txt-2); font-size:15px; cursor:pointer; transition:all .2s; display:flex; align-items:center; justify-content:center; font-family:inherit}
+.jd-btn:hover{border-color:var(--asc-line); color:var(--asc)}
+.jd-btn.jd-play{width:auto; padding:0 18px; border-radius:var(--pill); font:700 12.5px/1 var(--f-s); background:var(--asc); color:#04222e; border-color:transparent}
+.jd-grid{display:grid; grid-template-columns:300px 1fr; gap:20px; align-items:start}
+@media (max-width:980px){.jd-grid{grid-template-columns:1fr}.jd-steps{position:static; max-height:none; flex-direction:row; flex-wrap:wrap}}
+.jd-steps{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:5px; position:sticky; top:80px; max-height:calc(100vh - 110px); overflow:auto; padding-right:6px}
+.jd-steps::-webkit-scrollbar{width:6px}
+.jd-steps::-webkit-scrollbar-thumb{background:var(--line-2)}
+.jd-step{display:flex; align-items:center; gap:11px; padding:10px 12px; border-radius:var(--r2); cursor:pointer; border:1px solid transparent; transition:all .2s; position:relative}
+.jd-step:hover{background:var(--panel)}
+.jd-step.on{background:var(--panel-2); border-color:var(--asc-line); box-shadow:inset 0 0 20px rgba(57,220,255,.05)}
+.jd-step .n{width:26px; height:26px; border-radius:50%; flex:0 0 auto; display:flex; align-items:center; justify-content:center; font:800 10px/1 var(--f-m); background:var(--panel-3); border:1.5px solid var(--line-2); color:var(--mut); transition:all .25s}
+.jd-step.on .n{background:var(--asc); color:#04222e; border-color:var(--asc)}
+.jd-step .sn{flex:1; min-width:0; font:600 12.5px/1.3 var(--f-s); color:var(--txt-2); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.jd-step.on .sn{color:var(--txt)}
+.jd-step .sd{width:7px; height:7px; border-radius:50%; flex:0 0 auto}
+.jd-step .sd.asc{background:var(--asc)} .jd-step .sd.up{background:var(--up)} .jd-step .sd.mix{background:var(--mix)}
+.jd-card{padding:24px 26px; min-height:600px}
+.jd-card-h{display:flex; align-items:flex-start; gap:14px; padding-bottom:16px; border-bottom:1px dashed var(--line); margin-bottom:18px}
+.jd-idchip{flex:0 0 auto; min-width:58px; height:58px; padding:0 10px; border-radius:16px; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,var(--asc-2),var(--asc)); color:#04222e; font:800 19px/1 var(--f-m); box-shadow:0 8px 22px rgba(57,220,255,.35)}
+.jd-card-hm{flex:1; min-width:0}
+.jd-name{font:800 21px/1.25 var(--f-d); color:var(--txt); letter-spacing:-.01em}
+.jd-meta{display:flex; flex-wrap:wrap; gap:7px; margin-top:7px}
+.jd-mtag{font:600 10.5px/1 var(--f-m); color:var(--txt-2); background:var(--panel-3); border:1px solid var(--line); padding:4px 8px; border-radius:var(--pill)}
+.jd-block{margin-bottom:18px}
+.jd-block-t{display:flex; align-items:center; gap:7px; font:800 12px/1 var(--f-m); color:var(--asc); letter-spacing:.08em; text-transform:uppercase; margin-bottom:9px}
+.jd-block-ic{font-size:11px}
+.jd-hint{font:500 10px/1 var(--f-s); color:var(--mut-2); text-transform:none; letter-spacing:0}
+.jd-duty{margin:0; color:var(--txt-2); font-size:14.5px; line-height:1.75}
+.jd-duty b{color:var(--txt)}
+.jd-points{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px; counter-reset:pt}
+.jd-points li{position:relative; padding:9px 13px 9px 36px; background:var(--panel-2); border:1px solid var(--line); border-radius:var(--r2); font:500 13px/1.65 var(--f-s); color:var(--txt-2); counter-increment:pt}
+.jd-points li::before{content:counter(pt); position:absolute; left:11px; top:11px; width:17px; height:17px; border-radius:50%; background:var(--asc-dim); border:1px solid var(--asc-line); color:var(--asc); font:800 10px/1 var(--f-m); display:flex; align-items:center; justify-content:center}
+.jd-points li b{color:var(--txt)}
+.jd-points li code{font-size:11.5px}
+.jd-flow{display:grid; grid-template-columns:1fr auto 1fr; gap:10px; align-items:stretch; margin-bottom:18px}
+.jd-flow-node{background:var(--panel-2); border:1px solid var(--line); border-radius:var(--r2); padding:11px 13px; min-width:0}
+.jd-flow-node.to{border-color:var(--asc-line); background:var(--asc-dim)}
+.jd-flow-lab{font:700 10px/1 var(--f-m); color:var(--mut); text-transform:uppercase; letter-spacing:.1em; margin-bottom:5px}
+.jd-flow-node.to .jd-flow-lab{color:var(--asc)}
+.jd-flow-val{font:500 12px/1.5 var(--f-m); color:var(--txt); word-break:break-word}
+.jd-flow-arr{display:flex; align-items:center; justify-content:center; color:var(--asc); font:800 18px/1 var(--f-m)}
+.jd-files{display:flex; flex-wrap:wrap; gap:7px}
+.jf{font:500 11.5px/1.4 var(--f-m); padding:6px 11px; border-radius:var(--r2); background:var(--panel-2); border:1px solid var(--line); color:var(--txt-2); cursor:help; transition:all .2s; display:inline-flex; align-items:center; gap:6px; position:relative}
+.jf::before{content:"▸"; color:var(--mut-2); font-size:9px}
+.jf.asc{color:var(--asc); background:var(--asc-dim); border-color:var(--asc-line)}
+.jf.up{color:var(--up); background:var(--up-dim); border-color:var(--up-line)}
+.jf:hover{transform:translateY(-2px); box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.jf .jf-tip{position:absolute; bottom:calc(100% + 8px); left:50%; transform:translateX(-50%) translateY(4px); z-index:80; background:#0a1424; border:1px solid var(--asc-line); color:var(--txt); font:500 11.5px/1.5 var(--f-s); padding:8px 11px; border-radius:8px; width:max-content; max-width:300px; white-space:normal; opacity:0; pointer-events:none; transition:all .18s; box-shadow:0 10px 30px rgba(0,0,0,.6)}
+.jf:hover .jf-tip{opacity:1; transform:translateX(-50%) translateY(0)}
+.jd-log-note{font:500 10.5px/1 var(--f-m); color:var(--mix); text-transform:none; letter-spacing:0; margin-left:auto}
+#jdLogs .ll{opacity:0}
+</style>
+
+<!-- =================§ 机制详解 ================= -->
+<section id="mechanism">
+  <div class="sec-head rv">
+    <div class="sec-kicker">Mechanism · 机制详解</div>
+    <h2>vLLM 怎么「看见」Ascend，patch 又怎么改写 vLLM</h2>
+    <p>两个关键机制决定了 vLLM-Ascend 的存在方式：<b>entry points</b> 让它被发现，<b>MonkeyPatch</b> 让它在不 fork 源码的前提下改写 vLLM 行为。</p>
+  </div>
+
+  <div class="mech-grid rv">
+    <div class="mech-card panel" data-side="up">
+      <div class="mech-tag"><span class="side up">vLLM 侧机制</span></div>
+      <h3>① entry points · 插件发现</h3>
+      <p class="mech-lead">vLLM 启动时按「插件组名」扫描所有已安装包，找到 <code>ascend</code> 后调用 <code>register()</code>，拿回 <code>NPUPlatform</code> 的类路径并实例化。</p>
+      <ol class="mech-steps" id="mechSteps1">
+        <li><code>setup.py</code> 登记 <code>entry_points={"vllm.platform_plugins":["ascend = vllm_ascend:register"]}</code></li>
+        <li><code>load_plugins_by_group("vllm.platform_plugins")</code> 扫描 site-packages</li>
+        <li>发现 <code>ascend</code> → 调用 <code>vllm_ascend.register()</code></li>
+        <li>返回类路径 <code>"vllm_ascend.platform.NPUPlatform"</code></li>
+        <li>vLLM import 并实例化 —— 此刻 vLLM 有了 Ascend 平台</li>
+      </ol>
+      <button class="btn btn-g btn-sm mech-anim" data-target="mechSteps1">▶ 演示扫描</button>
+    </div>
+
+    <div class="mech-card panel" data-side="asc">
+      <div class="mech-tag"><span class="side asc">Ascend 侧手段</span></div>
+      <h3>② MonkeyPatch · 运行时改写</h3>
+      <p class="mech-lead">import <code>vllm_ascend</code> 会顺带 import 它的 <code>patch/__init__.py</code>，里面一串 <code>import patch_xxx</code> 以「import 副作用」的形式，把 vLLM 内部属性重绑成 Ascend 实现。</p>
+      <div class="patch-demo">
+        <div class="patch-code" id="patchCode">
+          <div class="pc-row"><span class="pc-cmt"># 改写前（vLLM 原版）</span></div>
+          <div class="pc-row"><span class="pc-pkg up">vllm.config.CacheConfig</span>.cache_dtype</div>
+          <div class="pc-row pc-val">= <span class="pc-old" id="pcOld">{"auto","fp8","fp8_e4m3",…} <i>← 不含 int8</i></span></div>
+        </div>
+        <button class="patch-swap" id="patchSwap">应用 patch ⇄</button>
+        <div class="patch-code after" id="patchCodeAfter">
+          <div class="pc-row"><span class="pc-cmt"># patch_kv_cache_dtype.py 在 import 时执行：</span></div>
+          <div class="pc-row"><span class="pc-pkg up">vllm.config.CacheConfig</span>.cache_dtype</div>
+          <div class="pc-row pc-val">= <span class="pc-new">… + {"int8"} <i>← Ascend 补上了</i></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="patch-eg rv">
+    <h3 class="patch-eg-t">三个真实 patch 例子</h3>
+    <div class="patch-eg-grid">
+      <div class="eg panel">
+        <div class="eg-h"><span class="eg-n">1</span><div class="eg-t">放开 KV cache dtype 校验</div><span class="eg-m">16:35:36</span></div>
+        <p class="eg-d">vLLM 侧 <code>CacheConfig.cache_dtype</code> 的合法枚举里没有 <code>int8</code>，但 Ascend 的 MLA / indexer KV 就要 int8。patch 把校验集合补上，vLLM 侧配置即可接受 int8。</p>
+        <div class="term"><div class="term-b">
+          <div class="ll asc" style="opacity:1"><span class="ts">16:35:36</span><span class="src">patch_indexer_kv_dtype.py<span class="ln">:102</span></span><span class="m">Patched <span class="em">indexer_kv_dtype</span> to accept 'int8'</span></div>
+          <div class="ll asc" style="opacity:1"><span class="ts">16:35:36</span><span class="src">patch_kv_cache_dtype.py<span class="ln">:115</span></span><span class="m">Patched <span class="em">cache_dtype</span> to accept 'int8'</span></div>
+        </div></div>
+      </div>
+      <div class="eg panel">
+        <div class="eg-h"><span class="eg-n">2</span><div class="eg-t">对齐 Attention Block Size 到 4480</div><span class="eg-m">16:35:39</span></div>
+        <p class="eg-d">hybrid 模型（GLM-5Next）同时有 MLA、recurrent-state、compressed-indexer 三种缓存。patch 把它们的 page size 对齐到 4480 tokens，避免一种缓存对齐失败导致整块浪费。</p>
+        <div class="term"><div class="term-b">
+          <div class="ll asc" style="opacity:1"><span class="ts">16:35:39</span><span class="src">patch_mamba_config.py<span class="ln">:121</span></span><span class="m">Setting attention block size to <span class="em">4480</span></span></div>
+          <div class="ll asc" style="opacity:1"><span class="ts">16:35:39</span><span class="src">patch_mamba_config.py<span class="ln">:158</span></span><span class="m">Padding mamba page size by <span class="em">0.00%</span></span></div>
+        </div></div>
+      </div>
+      <div class="eg panel">
+        <div class="eg-h"><span class="eg-n">3</span><div class="eg-t">替换 Worker 进程入口</div><span class="eg-m">Worker import 时</span></div>
+        <p class="eg-d">vLLM 默认起 <code>Worker</code> 子进程跑模型；vllm-ascend 把这个入口换成 <code>NPUWorker</code>。日志里 <code>(Worker_DPx_EPx pid=…)</code> 的前缀就是它起的进程名 —— 同一行看不到 patch 日志，因为它执行得比日志配置还早。</p>
+        <div class="term"><div class="term-b">
+          <div class="ll up" style="opacity:1"><span class="ts">16:38:48</span><span class="pr">Worker pid=391612</span><span class="src">parallel_state.py<span class="ln">:2267</span></span><span class="m">rank 2 … assigned as DP rank 2, EP rank 2 <span class="em">← 已是 NPUWorker</span></span></div>
+        </div></div>
+      </div>
+    </div>
+    <div class="mech-jump">
+      <span>在旅程里看落地：</span>
+      <a class="jk" href="#journey" data-goto="L2">→ L2 · 插件系统</a>
+      <a class="jk" href="#journey" data-goto="L4">→ L4 · 适配层 patch</a>
+    </div>
+  </div>
+</section>
+
+<!-- =================§ 进程拓扑 ================= -->
+<section id="topology">
+  <div class="sec-head rv">
+    <div class="sec-kicker">Process Topology · 进程拓扑</div>
+    <h2>26 个进程：为什么日志会重复 8 次</h2>
+    <p>一次 <code>vllm serve</code> 实际是 <b>1 主进程 + 8 API server + 1 DP 协调器 + 8 EngineCore + 8 Worker = 26 个进程</b>。per-rank 的代码在 8 个进程各跑一遍（×8）；patch / 配置校验在每个进程 import 时各跑一次（×24）。点任意节点看它的日志前缀与样本。</p>
+  </div>
+  <div class="topo-wrap panel rv">
+    <div class="topo-left">
+      <svg id="topoSvg" viewBox="0 0 760 460" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" aria-label="进程拓扑图"></svg>
+    </div>
+    <aside class="topo-side" id="topoSide">
+      <div class="ts-h">
+        <div class="ts-name" id="tsName">点击任一节点</div>
+        <span class="ts-count" id="tsCount"></span>
+      </div>
+      <div class="ts-prefix">日志前缀 <code id="tsPrefix">—</code></div>
+      <p class="ts-desc" id="tsDesc">主进程 / API server / DP 协调器 / EngineCore / Worker，各自扮演什么角色、为什么会重复打日志。</p>
+      <div class="ts-sample">
+        <div class="ts-sample-t">日志样本</div>
+        <div class="term"><div class="term-b" id="tsSample"><div class="ll" style="opacity:1"><span class="m" style="color:var(--mut)">（选择节点查看）</span></div></div></div>
+      </div>
+      <div class="ts-filter">
+        <div class="ts-filter-t">日志量演示</div>
+        <div class="ts-filter-row">
+          <button class="tf-btn on" data-f="all">全部 rank</button>
+          <button class="tf-btn" data-f="one">只看一个 rank</button>
+        </div>
+        <div class="ts-bar"><div class="ts-bar-fill" id="tsBarFill"></div></div>
+        <div class="ts-bar-num"><b id="tsBarNum">≈ 2800</b> 行</div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- =================§ 显存账本 ================= -->
+<section id="memory">
+  <div class="sec-head rv">
+    <div class="sec-kicker">Memory Ledger · 显存账本</div>
+    <h2>一块 NPU 的显存，都花在哪了</h2>
+    <p>以一个 Worker（一块 91.75 GiB 的 NPU）为例：启动时显存如何被<b>权重、激活、KV cache</b> 切分，以及由此算出「能装多少 token、能并发几个超长请求」。滚动到这里时数字会动。</p>
+  </div>
+  <div class="mem-grid rv">
+    <div class="panel mem-card">
+      <div class="mem-card-t">单 Worker 显存切分 <span class="mem-total">总 91.75 GiB</span></div>
+      <div class="mem-bar" id="memBar">
+        <div class="mem-seg w" data-v="53.31" style="flex:53.31"><span class="mem-seg-lab">权重<br><b>53.31</b> GiB</span></div>
+        <div class="mem-seg kv" data-v="20.03" style="flex:20.03"><span class="mem-seg-lab">KV cache<br><b>20.03</b> GiB</span></div>
+        <div class="mem-seg act" data-v="6.45" style="flex:6.45"><span class="mem-seg-lab">激活<br><b>6.45</b></span></div>
+        <div class="mem-seg other" data-v="11.96" style="flex:11.96"><span class="mem-seg-lab">预留/工作区<br><b>~12</b></span></div>
+      </div>
+      <div class="mem-legend">
+        <span class="ml"><i style="background:var(--asc)"></i>权重（W8A8+MXFP8）</span>
+        <span class="ml"><i style="background:var(--vio)"></i>KV cache</span>
+        <span class="ml"><i style="background:var(--mix)"></i>峰值激活</span>
+        <span class="ml"><i style="background:var(--line-3)"></i>预留</span>
+      </div>
+      <div class="mem-src">来源：<code>worker.py:928</code> free memory 明细 · <code>worker.py:649</code> Available KV cache memory</div>
+    </div>
+    <div class="mem-derive">
+      <div class="md-step panel"><div class="md-k">可用 KV 显存</div><div class="md-v"><span class="count" data-to="20.03" data-dec="2">0</span><span class="md-u">GiB</span></div><div class="md-s">profile 后剩余</div></div>
+      <div class="md-arr">→</div>
+      <div class="md-step panel"><div class="md-k">KV 容量</div><div class="md-v"><span class="count" data-to="499200" data-dec="0">0</span><span class="md-u">tokens</span></div><div class="md-s">按 block 切分</div></div>
+      <div class="md-arr">→</div>
+      <div class="md-step panel"><div class="md-k">超长请求并发</div><div class="md-v"><span class="count" data-to="3.75" data-dec="2">0</span><span class="md-u">×</span></div><div class="md-s">133,120 tok / 请求</div></div>
+      <div class="md-note">hybrid 模型 4 个 KV group，每组 <b>4480</b>（<code>kv cache group sizes [4480,4480,4480,4480]</code>）</div>
+    </div>
+  </div>
+</section>
+
+<!-- =================§ 投机解码剧场 ================= -->
+<section id="spec">
+  <div class="sec-head rv">
+    <div class="sec-kicker">Speculative Decoding · 投机解码剧场</div>
+    <h2>MTP：一次出 5 个草稿，能接受几个？</h2>
+    <p>这是「推理旅程 · R5」的核心。draft 模型先快速猜出 <b>5 个</b>候选 token，<b>RejectionSampler</b> 再用目标模型逐个校验：从前往后，与目标分布一致就<b>接受（绿）</b>，遇到第一个不一致就<b>拒绝（红）</b>并丢弃其后所有，最后在断点处补采一个。接受越多，省的时间越多。</p>
+  </div>
+  <div class="spec-wrap panel rv">
+    <div class="spec-controls">
+      <button class="btn btn-p btn-sm" id="specStep">▶ 校验这一轮</button>
+      <button class="btn btn-g btn-sm" id="specAgain">⟲ 换一轮</button>
+      <label class="spec-auto"><input type="checkbox" id="specAuto"> 自动连播</label>
+      <div class="spec-stat">本轮前进 <b id="specAdv">0</b> / 6 步 · 接受 <b id="specAcc">0</b> / 5 草稿</div>
+    </div>
+    <div class="spec-rows">
+      <div class="spec-row">
+        <div class="spec-row-lab">草稿 <span>draft →</span></div>
+        <div class="spec-tokens" id="specDraft"></div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-row-lab">校验 <span>verify →</span></div>
+        <div class="spec-tokens" id="specVerify"></div>
+      </div>
+    </div>
+    <div class="spec-result" id="specResult">点击「校验这一轮」，看 RejectionSampler 如何裁决。</div>
+    <div class="spec-expl">
+      <div class="spec-expl-item"><span class="tok-demo acc"></span>接受 —— 草稿与目标一致，白赚一步</div>
+      <div class="spec-expl-item"><span class="tok-demo rej"></span>拒绝 —— 第一个不一致，其后全部作废</div>
+      <div class="spec-expl-item"><span class="tok-demo bonus"></span>补采 —— 在断点处由目标模型采样</div>
+    </div>
+  </div>
+</section>
+
+<!-- =================§ 模块速查 ================= -->
+<section id="lookup">
+  <div class="sec-head rv">
+    <div class="sec-kicker">Module Index · 模块速查</div>
+    <h2>24 个模块，一表速查</h2>
+    <p>按「看到某个文件 / 想知道某事」快速定位模块与归属。搜索或按侧过滤。</p>
+  </div>
+  <div class="lk-tools rv">
+    <input class="lk-q" id="lkQ" type="search" placeholder="搜索 模块 / 文件 / 职责…">
+    <div class="lk-chips">
+      <button class="lkc on" data-t="all"><i class="sw" style="background:#8a97b5"></i>全部</button>
+      <button class="lkc" data-t="asc"><i class="sw" style="background:var(--asc)"></i>Ascend</button>
+      <button class="lkc" data-t="up"><i class="sw" style="background:var(--up)"></i>vLLM</button>
+      <button class="lkc" data-t="mix"><i class="sw" style="background:var(--mix)"></i>协同</button>
+    </div>
+    <div class="lk-count" id="lkCount"></div>
+  </div>
+  <div class="lk-grid" id="lkGrid"></div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="foot-grid">
+    <div>
+      <h4>附注</h4>
+      <p>参考日志来自一次真实 <code>vllm serve</code> 运行：vLLM <code>0.30.0</code>、<code>DP=8 / EP=8</code>、模型 <code>GLM-5.3-Flash-W8A8-MXFP8-0918</code>、MTP 投机 5 tokens、<code>ascend</code> 量化，约 2800 行（95% 是 per-rank 重复）。</p>
+      <p>加载阶段基于真实日志；<b>推理阶段 R1–R6 的日志按真实模板重建</b> —— 原日志在 16:40:24 就绪后，16:43 因 NPU AI Core Error 崩溃，未跑成完整请求。此处按真实字段构造一次成功请求的轨迹。</p>
+    </div>
+    <div>
+      <h4>版本与环境</h4>
+      <ul>
+        <li>vLLM <code>0.30.0</code>（V1 engine）· 并行 <code>DP=8/EP=8</code>，<code>TP=1/PP=1</code></li>
+        <li>模型 <code>GLM-5.3-Flash-W8A8-MXFP8-0918</code>（NFS 314 GiB）</li>
+        <li>投机 <code>MTP</code>（num_speculative_tokens=5）· 量化 <code>ascend</code>（modelslim，W8A8+MXFP8）</li>
+        <li>启动 ~5 分钟（16:35:31 → 16:40:24）· 行号已与本地源码交叉核对</li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<button id="btt" aria-label="回到顶部" title="回到顶部">↑</button>
+
+<style>
+/* ============ mechanism ============ */
+.mech-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:26px}
+@media (max-width:940px){.mech-grid{grid-template-columns:1fr}}
+.mech-card{padding:22px 24px; position:relative; overflow:hidden}
+.mech-card::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px}
+.mech-card[data-side="up"]::before{background:var(--up)}
+.mech-card[data-side="asc"]::before{background:var(--asc)}
+.mech-tag{margin-bottom:10px}
+.mech-card h3{margin:0 0 8px; font:800 18px/1.3 var(--f-d); color:var(--txt)}
+.mech-lead{margin:0 0 14px; color:var(--txt-2); font-size:13.5px; line-height:1.7}
+.mech-steps{list-style:none; margin:0 0 14px; padding:0; display:flex; flex-direction:column; gap:7px; counter-reset:ms}
+.mech-steps li{position:relative; padding:9px 12px 9px 34px; background:var(--panel-2); border:1px solid var(--line); border-radius:var(--r2); font:500 12.5px/1.6 var(--f-m); color:var(--txt-2); counter-increment:ms; opacity:0; transform:translateX(-8px); transition:opacity .4s, transform .4s}
+.mech-steps li.show{opacity:1; transform:none}
+.mech-steps li::before{content:counter(ms); position:absolute; left:10px; top:10px; width:17px; height:17px; border-radius:50%; background:var(--up-dim); border:1px solid var(--up-line); color:var(--up); font:800 10px/1 var(--f-m); display:flex; align-items:center; justify-content:center}
+.mech-steps li code{font-size:11px}
+.mech-anim{width:auto}
+.patch-demo{display:flex; flex-direction:column; gap:10px}
+.patch-code{background:#070d18; border:1px solid var(--line-2); border-radius:var(--r2); padding:11px 14px; font:500 12px/1.7 var(--f-m)}
+.patch-code.after{border-color:var(--asc-line); box-shadow:inset 0 0 20px rgba(57,220,255,.05)}
+.pc-row{white-space:pre; overflow-x:auto}
+.pc-cmt{color:var(--mut-2); font-style:italic}
+.pc-pkg.up{color:#9bc6f5}
+.pc-val{color:#dbe5f8}
+.pc-old{color:var(--rose)}
+.pc-old i{color:var(--mut-2); font-style:italic; font-size:11px}
+.pc-new{color:var(--grn)}
+.pc-new i{color:var(--mut-2); font-style:italic; font-size:11px}
+.patch-swap{align-self:center; padding:8px 18px; border-radius:var(--pill); background:var(--panel-3); border:1px solid var(--asc-line); color:var(--asc); font:700 12px/1 var(--f-m); cursor:pointer; transition:all .2s; font-family:inherit}
+.patch-swap:hover{background:var(--asc); color:#04222e; box-shadow:0 0 16px rgba(57,220,255,.4)}
+.patch-code .pc-new, .patch-code .pc-old{transition:all .3s}
+.patch-eg-t{margin:0 0 14px; font:800 16px/1.3 var(--f-d); color:var(--txt)}
+.patch-eg-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+@media (max-width:1000px){.patch-eg-grid{grid-template-columns:1fr}}
+.eg{padding:16px 18px; display:flex; flex-direction:column}
+.eg-h{display:flex; align-items:center; gap:10px; margin-bottom:9px}
+.eg-n{width:26px; height:26px; border-radius:50%; background:var(--asc-dim); border:1px solid var(--asc-line); color:var(--asc); font:800 12px/1 var(--f-m); display:flex; align-items:center; justify-content:center; flex:0 0 auto}
+.eg-t{font:800 13.5px/1.35 var(--f-d); color:var(--txt); flex:1; min-width:0}
+.eg-m{font:500 10.5px/1 var(--f-m); color:var(--mut-2); flex:0 0 auto}
+.eg-d{margin:0 0 11px; color:var(--txt-2); font-size:12.5px; line-height:1.65}
+.eg .term{margin-top:auto}
+.mech-jump{margin-top:18px; padding:13px 16px; background:var(--asc-dim); border:1px solid var(--asc-line); border-left:3px solid var(--asc); border-radius:0 var(--r2) var(--r2) 0; display:flex; flex-wrap:wrap; align-items:center; gap:10px; font:500 13px/1.5 var(--f-s); color:var(--txt-2)}
+.jk{display:inline-flex; align-items:center; gap:5px; padding:7px 13px; border-radius:var(--pill); background:var(--panel); border:1px solid var(--asc-line); color:var(--asc); font:600 12.5px/1 var(--f-s); cursor:pointer; transition:all .2s; text-decoration:none}
+.jk:hover{background:var(--asc); color:#04222e; text-decoration:none}
+</style>
+
+<style>
+/* ============ topology ============ */
+.topo-wrap{display:grid; grid-template-columns:1.5fr 1fr; gap:0; overflow:hidden}
+@media (max-width:980px){.topo-wrap{grid-template-columns:1fr}}
+.topo-left{padding:18px; min-height:460px; display:flex; align-items:center; justify-content:center}
+.topo-side{border-left:1px solid var(--line); padding:22px; background:var(--panel-2)}
+@media (max-width:980px){.topo-side{border-left:0; border-top:1px solid var(--line)}}
+.ts-h{display:flex; align-items:center; gap:10px; margin-bottom:10px}
+.ts-name{font:800 17px/1.3 var(--f-d); color:var(--txt)}
+.ts-count{font:700 11px/1 var(--f-m); color:var(--mix); background:var(--mix-dim); border:1px solid var(--mix-line); padding:4px 9px; border-radius:var(--pill)}
+.ts-prefix{font:500 12px/1.6 var(--f-s); color:var(--mut); margin-bottom:10px}
+.ts-desc{margin:0 0 16px; color:var(--txt-2); font-size:13px; line-height:1.7}
+.ts-sample-t{font:700 11px/1 var(--f-m); color:var(--asc); letter-spacing:.08em; text-transform:uppercase; margin-bottom:8px}
+.ts-filter{margin-top:18px; padding-top:16px; border-top:1px dashed var(--line)}
+.ts-filter-t{font:700 11px/1 var(--f-m); color:var(--asc); letter-spacing:.08em; text-transform:uppercase; margin-bottom:10px}
+.ts-filter-row{display:flex; gap:8px; margin-bottom:12px}
+.tf-btn{padding:8px 14px; border-radius:var(--pill); background:var(--panel); border:1px solid var(--line-2); color:var(--txt-2); font:600 12px/1 var(--f-s); cursor:pointer; transition:all .2s; font-family:inherit}
+.tf-btn.on{background:var(--asc); color:#04222e; border-color:transparent}
+.ts-bar{height:10px; border-radius:6px; background:var(--panel-3); border:1px solid var(--line); overflow:hidden}
+.ts-bar-fill{height:100%; width:100%; background:linear-gradient(90deg,var(--asc-2),var(--asc)); border-radius:6px; transition:width .9s cubic-bezier(.2,.7,.3,1)}
+.ts-bar-num{margin-top:8px; font:500 12px/1 var(--f-s); color:var(--mut)}
+.ts-bar-num b{color:var(--asc); font:800 16px/1 var(--f-m)}
+/* svg nodes */
+.tp-node{cursor:pointer; transition:all .2s}
+.tp-node rect{transition:all .2s}
+.tp-node:hover rect{filter:brightness(1.2)}
+.tp-node.sel rect{stroke:#fff; stroke-width:2; filter:drop-shadow(0 0 8px rgba(255,255,255,.5))}
+.tp-node.dim{opacity:.25}
+.tp-edge{stroke:var(--line-2); stroke-width:1.5; fill:none}
+.tp-flow{stroke:var(--asc); stroke-width:1.5; fill:none; stroke-dasharray:5 7; opacity:.5; animation:edgeFlow 1.4s linear infinite}
+@keyframes edgeFlow{to{stroke-dashoffset:-24}}
+.tp-lab{font:700 12px/1 var(--f-s); fill:var(--txt)}
+.tp-lab2{font:500 10px/1 var(--f-m); fill:var(--mut)}
+.tp-badge{font:800 10px/1 var(--f-m); fill:var(--mix)}
+
+/* ============ memory ============ */
+.mem-grid{display:grid; grid-template-columns:1.5fr 1fr; gap:20px; align-items:stretch}
+@media (max-width:980px){.mem-grid{grid-template-columns:1fr}}
+.mem-card{padding:22px 24px; display:flex; flex-direction:column}
+.mem-card-t{font:800 15px/1.3 var(--f-d); color:var(--txt); margin-bottom:18px; display:flex; align-items:baseline; gap:10px}
+.mem-total{font:600 11px/1 var(--f-m); color:var(--mut); margin-left:auto}
+.mem-bar{display:flex; height:130px; border-radius:var(--r2); overflow:hidden; border:1px solid var(--line-2); box-shadow:inset 0 2px 10px rgba(0,0,0,.4)}
+.mem-seg{position:relative; display:flex; align-items:flex-end; justify-content:center; padding:10px 4px; overflow:hidden; transition:flex 1s cubic-bezier(.2,.7,.3,1); min-width:0}
+.mem-seg .mem-seg-lab{font:600 10.5px/1.35 var(--f-m); color:#04222e; text-align:center; white-space:nowrap}
+.mem-seg .mem-seg-lab b{font-size:14px}
+.mem-seg.w{background:linear-gradient(180deg,var(--asc),var(--asc-2))}
+.mem-seg.kv{background:linear-gradient(180deg,var(--vio),#8b6fe0)}
+.mem-seg.act{background:linear-gradient(180deg,var(--mix),#e09a3c)}
+.mem-seg.other{background:var(--line-3)}
+.mem-seg.other .mem-seg-lab{color:var(--txt-2)}
+.mem-legend{display:flex; flex-wrap:wrap; gap:14px; margin-top:14px}
+.ml{display:inline-flex; align-items:center; gap:6px; font:500 11.5px/1 var(--f-s); color:var(--txt-2)}
+.ml i{width:11px; height:11px; border-radius:3px; display:inline-block}
+.mem-src{margin-top:14px; padding-top:12px; border-top:1px dashed var(--line); font:500 11px/1.6 var(--f-m); color:var(--mut-2)}
+.mem-derive{display:flex; flex-direction:column; gap:8px; align-items:stretch}
+.md-step{padding:14px 16px; text-align:center}
+.md-k{font:700 11px/1 var(--f-m); color:var(--mut); text-transform:uppercase; letter-spacing:.08em; margin-bottom:7px}
+.md-v{font:800 26px/1 var(--f-m); color:var(--asc); font-variant-numeric:tabular-nums}
+.md-v .md-u{font-size:13px; color:var(--mut); margin-left:4px}
+.md-s{font:500 11px/1 var(--f-s); color:var(--mut); margin-top:5px}
+.md-arr{text-align:center; color:var(--asc); font:800 16px/1 var(--f-m)}
+.md-note{font:500 11.5px/1.6 var(--f-s); color:var(--txt-2); padding:10px 12px; background:var(--panel-2); border:1px solid var(--line); border-radius:var(--r2); text-align:center}
+.md-note b{color:var(--txt)}
+</style>
+
+<style>
+/* ============ spec decode ============ */
+.spec-wrap{padding:24px 26px}
+.spec-controls{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:22px}
+.spec-auto{display:inline-flex; align-items:center; gap:6px; font:500 12.5px/1 var(--f-s); color:var(--txt-2); cursor:pointer}
+.spec-auto input{accent-color:var(--asc)}
+.spec-stat{margin-left:auto; font:600 12.5px/1 var(--f-m); color:var(--mut)}
+.spec-stat b{color:var(--asc); font-size:15px}
+.spec-rows{display:flex; flex-direction:column; gap:16px; margin-bottom:18px}
+.spec-row{display:grid; grid-template-columns:120px 1fr; gap:14px; align-items:center}
+@media (max-width:760px){.spec-row{grid-template-columns:1fr}}
+.spec-row-lab{font:700 12px/1.4 var(--f-m); color:var(--txt-2)}
+.spec-row-lab span{display:block; color:var(--mut-2); font-weight:500; font-size:10.5px}
+.spec-tokens{display:flex; gap:8px; flex-wrap:wrap; min-height:56px; align-items:center}
+.tok{width:52px; height:56px; border-radius:var(--r2); display:flex; flex-direction:column; align-items:center; justify-content:center;
+  font:700 17px/1 var(--f-m); border:1.5px solid var(--line-2); background:var(--panel-2); color:var(--txt);
+  transition:all .35s cubic-bezier(.2,.7,.3,1); position:relative; transform:scale(.95); opacity:.55}
+.tok .tk-pos{font:600 9px/1 var(--f-m); color:var(--mut-2); margin-top:4px}
+.tok.live{transform:scale(1); opacity:1}
+.tok.acc{background:rgba(74,222,128,.14); border-color:var(--grn); color:var(--grn); box-shadow:0 0 14px rgba(74,222,128,.25); transform:scale(1); opacity:1}
+.tok.rej{background:rgba(248,113,113,.12); border-color:var(--red); color:var(--red); box-shadow:0 0 14px rgba(248,113,113,.2); transform:scale(1); opacity:1}
+.tok.bonus{background:rgba(167,139,250,.14); border-color:var(--vio); color:var(--vio); box-shadow:0 0 14px rgba(167,139,250,.25); transform:scale(1); opacity:1}
+.tok.drop{background:var(--panel); border-color:var(--line); color:var(--mut-2); text-decoration:line-through; transform:scale(.92); opacity:.4}
+.tok-demo{width:16px; height:16px; border-radius:4px; display:inline-block; vertical-align:-3px; margin-right:7px}
+.tok-demo.acc{background:rgba(74,222,128,.2); border:1.5px solid var(--grn)}
+.tok-demo.rej{background:rgba(248,113,113,.18); border:1.5px solid var(--red)}
+.tok-demo.bonus{background:rgba(167,139,250,.18); border:1.5px solid var(--vio)}
+.spec-result{padding:14px 18px; border-radius:var(--r2); background:var(--panel-2); border:1px solid var(--line); font:500 13.5px/1.7 var(--f-s); color:var(--txt-2); min-height:52px; transition:all .3s}
+.spec-result b{color:var(--asc)}
+.spec-result .ok{color:var(--grn); font-weight:700}
+.spec-result .bad{color:var(--red); font-weight:700}
+.spec-expl{display:flex; flex-wrap:wrap; gap:18px; margin-top:16px; font:500 12px/1.6 var(--f-s); color:var(--txt-2)}
+
+/* ============ lookup ============ */
+.lk-tools{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:18px}
+.lk-q{flex:1; min-width:220px; padding:11px 16px; border-radius:var(--pill); background:var(--panel); border:1px solid var(--line-2); color:var(--txt); font:500 13px/1 var(--f-s); transition:all .2s}
+.lk-q:focus{outline:none; border-color:var(--asc); box-shadow:0 0 0 3px rgba(57,220,255,.15)}
+.lk-q::placeholder{color:var(--mut-2)}
+.lk-chips{display:flex; gap:6px; flex-wrap:wrap}
+.lkc{display:inline-flex; align-items:center; gap:6px; padding:8px 14px; border-radius:var(--pill); background:var(--panel); border:1px solid var(--line-2); color:var(--txt-2); font:600 12px/1 var(--f-s); cursor:pointer; transition:all .2s; font-family:inherit}
+.lkc:hover{border-color:var(--asc-line); color:var(--txt)}
+.lkc.on{background:var(--asc); color:#04222e; border-color:transparent}
+.lkc .sw{width:8px; height:8px; border-radius:50%; display:inline-block}
+.lk-count{font:500 12px/1 var(--f-m); color:var(--mut); margin-left:auto}
+.lk-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:14px}
+.lk-card{background:var(--panel); border:1px solid var(--line); border-radius:var(--r3); padding:15px 17px 13px; position:relative; overflow:hidden; transition:all .25s}
+.lk-card::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--line-2)}
+.lk-card[data-side="asc"]::before{background:var(--asc)}
+.lk-card[data-side="up"]::before{background:var(--up)}
+.lk-card[data-side="mix"]::before{background:var(--mix)}
+.lk-card:hover{border-color:var(--line-3); transform:translateY(-2px); box-shadow:0 12px 28px rgba(0,0,0,.35)}
+.lk-card.hide{display:none}
+.lk-h{display:flex; align-items:center; gap:9px; margin-bottom:7px}
+.lk-name{font:800 14px/1.3 var(--f-d); color:var(--txt); flex:1; min-width:0}
+.lk-duty{margin:0 0 10px; font:500 12.5px/1.65 var(--f-s); color:var(--txt-2)}
+.lk-files{display:flex; flex-wrap:wrap; gap:5px}
+.lk-f{font:500 10.5px/1.4 var(--f-m); padding:4px 8px; border-radius:6px; background:var(--panel-2); border:1px solid var(--line); color:var(--txt-2); max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.lk-f.asc{color:var(--asc); background:var(--asc-dim); border-color:var(--asc-line)}
+.lk-f.up{color:var(--up); background:var(--up-dim); border-color:var(--up-line)}
+
+/* ============ footer ============ */
+.foot{margin-top:80px; border-top:1px solid var(--line); background:var(--bg1); padding:40px 28px 60px}
+.foot-grid{max-width:1240px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr; gap:40px}
+@media (max-width:880px){.foot-grid{grid-template-columns:1fr}}
+.foot h4{margin:0 0 10px; font:800 14px/1.3 var(--f-d); color:var(--txt)}
+.foot p{margin:0 0 10px; font:500 12.5px/1.75 var(--f-s); color:var(--mut)}
+.foot p b{color:var(--txt-2)}
+.foot ul{margin:0; padding-left:18px}
+.foot li{margin:5px 0; font:500 12.5px/1.7 var(--f-s); color:var(--mut)}
+</style>
+
+<script type="application/json" id="stageData">
+{
+"load":[
+{"id":"L1","layer":1,"side":"up","clock":"16:35:31","t0":0,"t1":6,"prefix":"主进程（无前缀）","repeat":"×1",
+"name":"CLI 与配置系统","short":"参数 → VllmConfig",
+"duty":"<b>vllm serve 的第一站。</b>把几十上百个命令行参数解析、校验、推导成一份贯穿全程的 <b>VllmConfig</b> —— 模型路径、并行度（DP=8/EP=8/TP=1/PP=1）、量化方式、投机配置、编译模式、max_model_len 都在这里定型。后续每个模块都从这里读取自己那一份。",
+"points":[
+"入口 <code>vllm/entrypoints/cli/serve.py</code> 解析参数；<code>api_server_count</code> 未指定时默认跟随 <code>data_parallel_size</code>（所以 API server 也是 8 个）",
+"<code>vllm/config/*.py</code> 一组 dataclass 做 schema 校验与默认值推导（chunked prefill、投机与编译模式的合法性组合等）",
+"从 checkpoint 的 <code>config.json</code> 解析出 architectures 字符串 <code>Glm5NextForConditionalGeneration</code>，决定后面用哪个模型类",
+"打印 banner（版本号）与 non-default args —— 日志里最先出现的两行，也是排障最先要核对的两行"],
+"files":[["up","vllm/entrypoints/cli/serve.py","vllm serve 命令入口"],["up","vllm/entrypoints/serve/utils/api_utils.py","banner + 非默认参数打印"],["up","vllm/config/*.py","VllmConfig schema 与校验"]],
+"logs":[{"t":"16:35:37","lvl":"INFO","src":"api_utils.py:347","msg":"█ ... version 0.30.0   model /mnt/share/.../GLM-5.3-Flash-W8A8-MXFP8-0918","v":"up","wide":1},{"t":"16:35:37","lvl":"INFO","src":"serve.py:125","msg":"Defaulting api_server_count to data_parallel_size (8).","v":"up"},{"t":"16:35:37","lvl":"INFO","src":"api_utils.py:286","msg":"non-default args: {api_server_count: 8, data_parallel_size: 8, enable_expert_parallel: True, max_model_len: 133120, quantization: ascend, speculative_config: {num_speculative_tokens: 5, method: mtp}, …}","v":"up"},{"t":"16:35:37","lvl":"INFO","src":"model.py:692","msg":"Resolved architecture: Glm5NextForConditionalGeneration","v":"up","wide":1}],
+"from":"命令行 vllm serve ...","to":"VllmConfig 实例"},
+
+{"id":"L2","layer":1,"side":"up","clock":"16:35:31","t0":0,"t1":1,"prefix":"主进程（无前缀）","repeat":"×1",
+"name":"插件系统","short":"entry points 发现 Ascend",
+"duty":"<b>vLLM 主仓并不认识 Ascend。</b>它用 Python 打包标准里的 entry points 机制，在启动时扫描所有已安装包声明的「插件组」，从而发现 vLLM-Ascend。这是 vLLM-Ascend 能够被加载的<b>机制本身</b> —— 没有这一步，后面所有 Ascend 代码都不会生效。",
+"points":[
+"<code>vllm-ascend/setup.py</code> 在打包时登记 <code>entry_points={\"vllm.platform_plugins\":[\"ascend = vllm_ascend:register\"]}</code>",
+"vLLM 启动时调 <code>load_plugins_by_group(\"vllm.platform_plugins\")</code> 扫描 site-packages，发现 <code>ascend</code>",
+"调用 <code>vllm_ascend.register()</code>，返回类路径字符串 <code>\"vllm_ascend.platform.NPUPlatform\"</code>",
+"vLLM 据此 import 并实例化 NPUPlatform；<code>vllm.general_plugins</code> 组还会加载模型注册、KV connector、loader 等钩子"],
+"files":[["up","vllm/plugins/__init__.py","entry_points 扫描（发现 vLLM-Ascend）"],["up","vllm/platforms/__init__.py","Platform 抽象与选择"],["asc","vllm-ascend/setup.py","注册 ascend 插件（存在机制）"]],
+"logs":[{"t":"16:35:31","lvl":"INFO","src":"__init__.py:52","msg":"Available plugins for group vllm.platform_plugins:","v":"up"},{"t":"16:35:31","lvl":"INFO","src":"__init__.py:54","msg":"- ascend -> vllm_ascend:register","v":"up"},{"t":"16:35:31","lvl":"INFO","src":"__init__.py:272","msg":"Platform plugin ascend is activated","v":"up"}],
+"from":"site-packages 里的 entry_points","to":"NPUPlatform 实例"},
+
+{"id":"L3","layer":1,"side":"asc","clock":"16:35:31","t0":0,"t1":8,"prefix":"主进程（无前缀）","repeat":"×1",
+"name":"平台层 NPUPlatform","short":"vLLM ↔ Ascend 总接口",
+"duty":"vLLM 只认 <code>Platform</code> 这个抽象基类，把「设备相关的一切」都委托给它。<b>NPUPlatform 就是 Ascend 对这套接口的实现，是 vLLM 与 Ascend 之间的枢纽。</b>它声明设备类型、选择 Attention 后端、改写不适合 NPU 的配置、注册量化方法 —— 之后 vLLM 每做一个设备相关决策都会经过这里。",
+"points":[
+"声明 <code>device_type=\"npu\"</code>、设备枚举、显存查询、随机种子等基础能力（platform.py 里一组 <code>get_device_*</code> / <code>is_*_available</code>）",
+"<code>get_attn_backend_cls</code> 指向 Ascend 的 Attention 后端（MLA / SFA / DSA 等）",
+"<code>check_and_update_config</code> 把 GPU 专属参数重置（如 <code>disable_cascade_attn</code>）、写入 Ascend 默认值、选择 Worker 类与调度器",
+"注册 Ascend 量化配置；<code>pre_register_and_update</code> 在最早时机触发全局 patch（衔接 L4）"],
+"files":[["asc","vllm_ascend/platform.py","NPUPlatform（vLLM ↔ Ascend 总接口）"]],
+"logs":[{"t":"16:35:31","lvl":"INFO","src":"platform.py:71","msg":"Breakable CUDAGraph on Ascend is opt-in; using VLLM_USE_BREAKABLE_CUDAGRAPH=0.","v":"asc"},{"t":"16:35:39","lvl":"WARN","src":"platform.py:655","msg":"GPU-specific parameter is not supported on Ascend. parameter=disable_cascade_attn, value=True, action: resetting to False.","v":"asc","mult":1},{"t":"16:35:39","lvl":"INFO","src":"platform.py:867","msg":"The timeout interval of the HCCL operator is 1836s. … Set VLLM_EXECUTE_MODEL_TIMEOUT_SECONDS=3000","v":"asc"}],
+"from":"vLLM 侧默认 Platform（CUDA）","to":"NPUPlatform 接管 device / dtype / 后端选择"},
+
+{"id":"L4","layer":1,"side":"asc","clock":"16:35:36","t0":5,"t1":8,"prefix":"主进程 / 各子进程 import 时","repeat":"×24",
+"name":"适配层 patch","short":"运行时重绑 vLLM 内部属性",
+"duty":"vLLM 没有为所有 Ascend 需求预留官方扩展点。vllm-ascend 的解法是 <b>MonkeyPatch</b>：在运行时把 vLLM 内部对象的属性/方法重绑成 Ascend 实现。每个 patch 文件都在 import 时完成替换，并在 <code>patch/__init__.py</code> 里逐条登记「改了什么、为什么」，方便跟随 vLLM 升级时核对。",
+"points":[
+"两条路径：<b>全局 patch</b>（<code>patch/platform/</code>，约 29 个文件，由 <code>adapt_patch(is_global_patch=True)</code> 在进程启动早期触发）；<b>Worker patch</b>（<code>patch/worker/</code>，约 19 个文件，每个 Worker <code>__init__</code> 时应用）",
+"例：放开 <code>CacheConfig.cache_dtype</code> / <code>indexer_kv_dtype</code> 的 int8 校验（MLA / indexer KV 需要）",
+"例：对齐 hybrid 模型的 attention block size 到 4480，避免一种缓存对齐失败导致整块浪费",
+"<b>每个子进程 import 时各跑一遍 —— 这就是 patch 日志 ×24 的来源</b>；代价是与 vLLM 内部属性名强耦合，升级需逐条核对"],
+"files":[["asc","vllm_ascend/patch/platform/*","全局 patch（进程启动早期）"],["asc","vllm_ascend/patch/worker/*","Worker patch（import 时应用）"]],
+"logs":[{"t":"16:35:36","lvl":"INFO","src":"patch_indexer_kv_dtype.py:102","msg":"Patched AttentionConfig.indexer_kv_dtype to accept 'int8' (DeepSeek V4 Ascend indexer K cache dtype).","v":"asc","mult":1},{"t":"16:35:36","lvl":"INFO","src":"patch_kv_cache_dtype.py:115","msg":"Patched CacheConfig.cache_dtype to accept 'int8' (DeepSeek V4 Ascend MLA KV cache dtype).","v":"asc","mult":1},{"t":"16:35:39","lvl":"INFO","src":"patch_mamba_config.py:121","msg":"Setting attention block size to 4480 tokens to align MLA, recurrent-state, and compressed indexer cache pages.","v":"asc"},{"t":"16:35:39","lvl":"INFO","src":"patch_mamba_config.py:158","msg":"Padding mamba page size by 0.00% to ensure that mamba page size and attention page size are exactly equal.","v":"asc"}],
+"from":"vLLM 侧 vllm 对象（import 时）","to":"被改写后的属性 / 方法"},
+
+{"id":"L5","layer":1,"side":"asc","clock":"16:35:39","t0":8,"t1":9,"prefix":"主进程 / 各子进程","repeat":"×8",
+"name":"Ascend 专属配置","short":"--additional-config 与环境变量",
+"duty":"vLLM 的通用配置装不下 Ascend 的专属开关。<code>ascend_config.py</code> 用一份 schema 承载所有 <code>--additional-config</code> 内容（EPLB、KVPP、图编译、调度、量化等子配置），<code>envs.py</code> 集中登记 <code>VLLM_ASCEND_*</code> 环境变量。二者在 Worker 初始化时被解析，驱动后续大量行为分支。",
+"points":[
+"<code>ascend_config.py</code>：EPLB（专家负载均衡）、KVPP、编译开关（<code>fuse_norm_quant</code>/<code>fuse_qknorm_rope</code> 等融合）、调度策略、量化等子配置",
+"<code>envs.py</code>：集中登记 <code>VLLM_ASCEND_*</code> 环境变量（如绑核、rope UB 大小等）",
+"启动时打印若干解析结果：EPLB 是否开、冗余专家数、all2all 后端选择"],
+"files":[["asc","vllm_ascend/ascend_config.py","--additional-config schema 解析"],["asc","vllm_ascend/envs.py","VLLM_ASCEND_* 环境变量注册"]],
+"logs":[{"t":"16:35:39","lvl":"INFO","src":"ascend_config.py:252","msg":"Dynamic EPLB is False","v":"asc"},{"t":"16:35:39","lvl":"INFO","src":"ascend_config.py:253","msg":"The number of redundant experts is 0","v":"asc"},{"t":"16:35:39","lvl":"INFO","src":"ascend_config.py:655","msg":"FlashComm1 is disabled. Using flashinfer_all2allv as the all2all backend.","v":"asc","mult":1}],
+"from":"--additional-config / VLLM_ASCEND_* 环境变量","to":"解析后的 AscendConfig"},
+
+{"id":"L6","layer":3,"side":"up","clock":"16:35:51","t0":20,"t1":291,"prefix":"主进程","repeat":"×1",
+"name":"进程编排","short":"拆成 26 个进程",
+"duty":"一次 <code>vllm serve</code> 实际是 <b>1 + 8 + 1 + 8 + 8 = 26 个进程</b>。这一阶段由主进程把 DP 协调器、8 个 API server、8 个 EngineCore 拉起来，并进入等待：任一子进程异常退出都会触发整体收敛。理解它是理解「日志为什么重复 8 次」的前提。",
+"points":[
+"起 <b>1 个 DP Coordinator</b>：汇总各 DP rank 负载，做 DP 协调",
+"起 <b>8 个 API server 进程</b>：每个独立跑 FastAPI + 一份引擎客户端（route 表与请求日志各打一遍）",
+"起 <b>8 个 EngineCore 进程</b>：每个 DP rank 一个引擎核心",
+"主进程进入等待并监控：任一子进程异常 → 触发整体收敛退出"],
+"files":[["up","vllm/v1/engine/utils.py","进程编排（API server / EngineCore / DP coord）"],["up","vllm/v1/utils.py","process manager（启动 / 监控 / 收敛）"],["up","vllm/v1/engine/coordinator.py","DP 协调器"]],
+"logs":[{"t":"16:35:51","lvl":"INFO","src":"utils.py:1151","msg":"Started DP Coordinator process (PID: 386333)","v":"up"},{"t":"16:38:04","lvl":"INFO","src":"utils.py:253","msg":"Started 8 API server processes","v":"up"},{"t":"16:40:13","lvl":"INFO","src":"utils.py:556","msg":"Waiting for API servers to complete …","v":"up"},{"t":"16:40:22","lvl":"INFO","src":"coordinator.py:250","msg":"All engine subscriptions received by DP coordinator","v":"up"}],
+"from":"主 CLI 进程","to":"1 DP 协调器 + 8 API server + 8 EngineCore + 8 Worker"},
+
+{"id":"L7","layer":2,"side":"up","clock":"16:38:26","t0":175,"t1":282,"prefix":"EngineCore_DP0..7","repeat":"×8",
+"name":"引擎核心 EngineCore","short":"每 rank 的大脑：调度+执行+输出",
+"duty":"每个 DP rank 的<b>大脑</b>。持有调度器与 KV cache 管理器，跑 <code>run_busy_loop</code> 主循环：调度 → 执行 → 输出。它打印的完整引擎配置行是排障时最值得逐字段核对的一行。初始化 KV cache（profile 显存 → 建块 → warmup）决定了引擎的容量上限。",
+"points":[
+"打印完整 V1 引擎配置（模型、投机、并行、量化等全字段）",
+"初始化 KV cache：profile → 建块 → warmup（决定容量上限）",
+"进入 <code>run_busy_loop</code>：每步 <code>Scheduler.schedule</code> 产出 SchedulerOutput → 交给 Executor → 处理输出",
+"<code>init engine ... took 20.12 s</code> 标记单个 rank 引擎初始化耗时"],
+"files":[["up","vllm/v1/engine/core.py","V1 LLM engine 主循环（调度+执行+输出）"]],
+"logs":[{"t":"16:38:26","lvl":"INFO","src":"core.py:123","msg":"Initializing a V1 LLM engine (v0.30.0) with config: model='…', speculative_config=SpeculativeConfig(method='mtp', num_spec_tokens=5), tensor_parallel_size=1, data_parallel_size=8, …","v":"up","wide":1},{"t":"16:40:13","lvl":"INFO","src":"core.py:379","msg":"init engine (profile, create kv cache, warmup model) took 20.12 s","v":"up","mult":1}],
+"from":"VllmConfig + 全局 patch 后的 NPUPlatform","to":"V1 LLM engine 实例（可跑主循环）"},
+
+{"id":"L8","layer":3,"side":"mix","clock":"16:38:26","t0":175,"t1":196,"prefix":"EngineCore_DP0 / Worker_DPx_EPx","repeat":"×8",
+"name":"执行器 Executor 与 Worker","short":"广播指令 → 本进程内执行",
+"duty":"Executor 负责<b>「把指令广播给各 Worker」</b>，Worker（NPUWorker）负责<b>「本进程内的设备与模型」</b>。vllm-ascend 通过 <code>patch_multiproc_executor.py</code> 把 Worker 进程入口替换成 NPUWorker —— 日志里 <code>(Worker_DPx_EPx pid=…)</code> 的前缀就是它起的进程名。",
+"points":[
+"Executor（<code>multiproc_executor.py</code>）起 Worker 进程并广播 <code>execute_model</code>",
+"NPUWorker（<code>vllm_ascend/worker/worker.py</code>）：应用 worker patch、注册 Ascend 算子、初始化设备（<code>_init_device</code>）",
+"接着加载模型、算 KV 预算（<code>determine_available_memory</code>）、warmup（<code>compile_or_warm_up_model</code>）、绑核",
+"日志前缀 <code>Worker_DPx_EPx</code> 即 NPUWorker 起的进程名"],
+"files":[["up","vllm/v1/executor/multiproc_executor.py","多进程执行器（广播 execute_model）"],["asc","vllm_ascend/worker/worker.py","NPUWorker 主类（设备+模型+KV）"],["asc","vllm_ascend/patch/platform/patch_multiproc_executor.py","替换 Worker 进程入口"]],
+"logs":[{"t":"16:38:26","lvl":"INFO","src":"multiproc_executor.py:153","msg":"DP group leader: node_rank=0, node_rank_within_dp=0, master_addr=127.0.0.1, mq_connect_ip=141.61.133.104 (local), world_size=1, local_world_size=1","v":"up"},{"t":"16:38:47","lvl":"INFO","src":"parallel_state.py:1827","msg":"world_size=8 rank=2 local_rank=0 distributed_init_method=tcp://127.0.0.1:58571 backend=hccl","v":"up","mult":1}],
+"from":"EngineCore 调度输出（SchedulerOutput）","to":"Worker 端 execute_model 调通 ModelRunner"},
+
+{"id":"L9","layer":4,"side":"asc","clock":"16:38:50","t0":199,"t1":259,"prefix":"Worker_DPx_EPx","repeat":"×8",
+"name":"ModelRunner 加载模型","short":"每 Worker 独立读 checkpoint",
+"duty":"Worker 内的核心，<b>「每一步该算什么」的编排者</b>：组输入张量 → 跑 forward → 采样 → 组织输出。启动阶段它负责把 checkpoint 真正读进 NPU。8 个 Worker 各自独立读一份（NFS 上 314 GiB 的 checkpoint），单 rank 权重约 53.3 GB、耗时约 50s。",
+"points":[
+"<code>load_model</code>：把权重装进 NPU（本例单 rank <b>53.31 GB</b>）",
+"运行时职责：<code>_prepare_inputs</code>（input_ids/positions/block table/attention metadata）→ <code>_model_forward</code> → <code>sample_tokens</code>",
+"负责 KV cache 的实际分配与 ACL 图捕获",
+"若启用投机，顺带加载 draft 模型（见 L13）"],
+"files":[["asc","vllm_ascend/worker/model_runner_v1.py","ModelRunner（每步执行的编排者）"]],
+"logs":[{"t":"16:38:50","lvl":"INFO","src":"model_runner_v1.py:4362","msg":"Starting to load model /mnt/share/…/GLM-5.3-Flash-W8A8-MXFP8-0918…","v":"asc","mult":1},{"t":"16:39:50","lvl":"INFO","src":"model_runner_v1.py:4449","msg":"Loading model weights took 53.3064 GB","v":"asc","mult":1},{"t":"16:39:50","lvl":"INFO","src":"llm_base_proposer.py:367","msg":"[spec_decode/base] Loading draft model: method=mtp, load_format=None","v":"asc","mult":1}],
+"from":"Worker 进程入口 + 设备","to":"已装到 NPU 上的 GLM-5.3 模型"},
+
+{"id":"L10","layer":4,"side":"mix","clock":"16:38:47","t0":197,"t1":200,"prefix":"Worker_DPx_EPx","repeat":"×8",
+"name":"并行状态与通信","short":"建进程组 + NPU 通信原语",
+"duty":"建立 TP / EP / DP / PP / CP 进程组，并提供 NPU 通信原语。本例 <b>EP=8：288 个专家切到 8 个 rank，每 rank 本地 36 个</b>。Ascend 侧在标准组之外，额外构建 <code>_MC2</code> / <code>_KVPP</code> / 细粒度 TP 等专属通信组，并提供直接走 HCCL 的通信器。",
+"points":[
+"<code>init_model_parallel_group</code> 建立标准 TP/EP/DP/PP/CP 组（vLLM 侧）",
+"Ascend 侧扩展组：<code>_MC2</code>（MoE all2all）、<code>_KVPP</code>、细粒度 TP 等",
+"通信器：<code>NPUCommunicator</code> 与直接 HCCL 的 <code>PyHcclCommunicator</code>",
+"<code>expert_map_manager</code>：EP=8 → 本地 36 / 全局 288 专家"],
+"files":[["up","vllm/distributed/parallel_state.py","TP/EP/DP/PP 进程组"],["asc","vllm_ascend/distributed/parallel_state.py","扩展并行组（_MC2/_KVPP/细粒度 TP）"],["asc","vllm_ascend/distributed/device_communicators/","NPU 通信原语（PyHcclCommunicator 等）"]],
+"logs":[{"t":"16:38:48","lvl":"INFO","src":"parallel_state.py:2267","msg":"rank 2 in world size 8 is assigned as DP rank 2, PP rank 0, TP rank 0, ETP rank 0, EP rank 2, EPLB rank N/A","v":"up","mult":1},{"t":"16:38:51","lvl":"INFO","src":"expert_map_manager.py:245","msg":"[EP Rank 2/8] Expert parallelism is enabled. Local/global number of experts: 36/288.","v":"asc","mult":1}],
+"from":"Worker 进程","to":"HCCL 进程组 + NPUCommunicator / PyHcclCommunicator"},
+
+{"id":"L11","layer":4,"side":"mix","clock":"16:38:50","t0":199,"t1":201,"prefix":"Worker_DPx_EPx","repeat":"×8",
+"name":"模型注册与实现","short":"architectures → 模型类",
+"duty":"把 checkpoint 里的 <code>architectures</code> 字符串映射到具体模型类。vLLM 侧 <code>ModelRegistry</code> 做映射；vllm-ascend 通过 general plugin 注册 Ascend 模型 —— 需要自定义 NPU 算子 / 缓存布局的模型（GLM5Next、DeepSeek V4 等）用<b>原生实现</b>，否则用<b>薄封装</b>（只覆盖 forward / 权重）。",
+"points":[
+"<code>ModelRegistry</code>：architectures → 模型类（本例 <code>Glm5NextForConditionalGeneration</code>）",
+"Ascend 模型目录 <code>vllm_ascend/models/</code>：原生实现 + 薄封装（约 16 个模型 / 目录）",
+"多模态 / encoder 部分用默认后端（如 ViT attention 用 <code>TORCH_SDPA</code>）"],
+"files":[["up","vllm/model_executor/models/registry.py","ModelRegistry（architectures → 模型类）"],["asc","vllm_ascend/models/","Ascend 原生 / 薄封装模型"]],
+"logs":[{"t":"16:38:50","lvl":"INFO","src":"interface.py:414","msg":"Using default backend AttentionBackendEnum.TORCH_SDPA for vit attention","v":"asc","mult":1},{"t":"16:38:50","lvl":"INFO","src":"mm_encoder_attention.py:372","msg":"Using AttentionBackendEnum.TORCH_SDPA for MMEncoderAttention.","v":"asc","mult":1}],
+"from":"checkpoint 的 architectures 字段","to":"Glm5NextForConditionalGeneration 类（已绑定 NPU 后端）"},
+
+{"id":"L12","layer":4,"side":"mix","clock":"16:38:50","t0":199,"t1":253,"prefix":"Worker_DPx_EPx","repeat":"×8",
+"name":"权重加载与量化","short":"读 314 GiB → 反量化到 NPU",
+"duty":"把磁盘上的权重读进来、按量化方案还原、放进 NPU。vLLM 侧负责 checkpoint 读取、page cache 预取、加载计时；Ascend 侧提供 <code>netloader</code> / <code>rfork</code> 两种加载格式，以及 <code>modelslim</code> / <code>fp8</code> / <code>compressed-tensors</code> 等量化方案的注册与实现，并处理权重 key 的 HF→vLLM 映射。",
+"points":[
+"NFS 上 314 GiB checkpoint；上游负责读取、预取、计时（<code>Loading weights took 50.41 seconds</code>）",
+"Ascend <code>quantization/</code>：<code>modelslim</code>（本例 W8A8 + MXFP8）、<code>fp8</code>、<code>compressed-tensors</code>、<code>modelopt_mxfp8</code> 等",
+"<code>Applied hf_to_vllm_mapper to quant_description keys</code>：量化描述里的 HF key 映射到 vLLM 权重 key"],
+"files":[["up","vllm/model_executor/model_loader/*","checkpoint 加载框架（预取/计时）"],["asc","vllm_ascend/model_loader/*","netloader / rfork 自定义加载格式"],["asc","vllm_ascend/quantization/","量化方案（modelslim / fp8 / compressed-tensors）"]],
+"logs":[{"t":"16:38:50","lvl":"INFO","src":"modelslim_config.py:316","msg":"Using the vLLM Ascend modelslim Quantization now!","v":"asc","mult":1},{"t":"16:38:50","lvl":"INFO","src":"modelslim_config.py:428","msg":"Applied hf_to_vllm_mapper to quant_description keys","v":"asc","mult":1},{"t":"16:39:44","lvl":"INFO","src":"default_loader.py:430","msg":"Loading weights took 50.41 seconds","v":"up","mult":1}],
+"from":"NFS 上的 314 GiB checkpoint","to":"NPU 上的 W8A8 + MXFP8 权重"},
+
+{"id":"L13","layer":4,"side":"asc","clock":"16:39:50","t0":259,"t1":261,"prefix":"Worker_DPx_EPx","repeat":"×8",
+"name":"投机推理（MTP）加载","short":"draft 共享 embedding + 独立图",
+"duty":"加载 draft 模型（此处为 MTP 多 token 预测），与主模型共享 embedding，并为其独立包一层 ACL 图。运行时由 draft 模型先出草稿 token，再由 RejectionSampler 校验 / 接受（见 R5、投机解码剧场）。",
+"points":[
+"检测到 MTP：draft 模型与 target 模型<b>共享 embedding 权重</b>",
+"用 <code>ACLGraphWrapper</code> 给 draft 模型独立包一层图（runtime_mode=FULL）",
+"<code>num_speculative_tokens=5</code>：每轮 draft 出 5 个候选"],
+"files":[["asc","vllm_ascend/spec_decode/llm_base_proposer.py","投机 draft 模型加载"],["asc","vllm_ascend/spec_decode/multi_kv_cache_group_proposer.py","MTP proposer（多 KV group）"]],
+"logs":[{"t":"16:39:50","lvl":"INFO","src":"llm_base_proposer.py:564","msg":"[spec_decode/base] Detected MTP model. Sharing target model embedding weights with the draft model.","v":"asc","mult":1},{"t":"16:39:50","lvl":"INFO","src":"llm_base_proposer.py:651","msg":"[spec_decode/base] Wrapping draft model with ACLGraphWrapper: runtime_mode=FULL, use_eagle=True, enable_enpu=False","v":"asc","mult":1}],
+"from":"同一 checkpoint 里的 MTP 子模块","to":"ACLGraphWrapper 包裹的 draft 模型"},
+
+{"id":"L14","layer":5,"side":"mix","clock":"16:39:59","t0":268,"t1":284,"prefix":"EngineCore_DPx","repeat":"×8",
+"name":"KV cache 容量规划","short":"剩余显存 → 能放多少 token",
+"duty":"按 profile 后的剩余显存，算出 KV cache 能放多少 token，并按模型结构分组（hybrid 模型不止一种 KV）。本例：单 rank 可用 KV 显存约 <b>20.03 GiB → 499,200 tokens</b>；对 133,120 token 的超长请求，最大并发约 <b>3.75×</b>。",
+"points":[
+"profile 后剩余显存 → KV 容量（<code>Available KV cache memory: 20.03 GiB</code>）",
+"hybrid 模型分组：4 个 group，每组 <b>4480</b>（<code>kv cache group sizes [4480,4480,4480,4480]</code>）",
+"容量换算：<code>NPU KV cache size: 499,200 tokens</code> → <code>Maximum concurrency for 133,120 tokens per request: 3.75x</code>"],
+"files":[["up","vllm/v1/core/kv_cache_utils.py","KV cache 容量规划与 block 分配"],["asc","vllm_ascend/core/kv_cache_interface.py","Ascend 专属 KV cache spec"]],
+"logs":[{"t":"16:39:59","lvl":"INFO","src":"kv_cache_utils.py:2395","msg":"NPU KV cache size: 499,200 tokens, Maximum concurrency for 133,120 tokens per request: 3.75x","v":"up","mult":1},{"t":"16:40:15","lvl":"INFO","src":"kv_cache_utils.py:748","msg":"kv cache group sizes [4480, 4480, 4480, 4480]","v":"up","mult":1}],
+"from":"profile 后的剩余显存 + 模型 KV 形状","to":"KVCache 配置（每 rank 的 group / block 数）"},
+
+{"id":"L15","layer":5,"side":"asc","clock":"16:40:00","t0":269,"t1":291,"prefix":"Worker_DPx_EPx / EngineCore_DPx","repeat":"×8",
+"name":"算子、内核与编译","short":"融合 pass + ACL 图捕获→回放",
+"duty":"提供 Ascend 算子（Python 覆盖 / Triton 内核 / CANN 自定义算子），并把模型编译成可回放的计算图。<b>融合 pass</b> 把若干小算子合并，<b>ACL 图捕获</b>后推理时直接 replay，省掉逐算子调度开销。",
+"points":[
+"<code>ops/</code>：覆盖 vLLM 算子层（约 24 个 Python 模块）；<code>ops/triton/</code>：约 23 个 Triton 内核",
+"<code>csrc/</code>：CANN 自定义算子，编译出 <code>torch.ops._C_ascend.*</code>",
+"<code>compilation/</code>：图融合 pass（<code>Enabled custom fusions: norm_quant, act_quant</code>）+ <code>acl_graph.py</code> 捕获 / 回放",
+"证据：<code>Triton kernel warmup finished</code> · <code>Graph capturing finished in 7 secs, took 0.25 GiB</code> · <code>ACL graph replay is active</code>"],
+"files":[["asc","vllm_ascend/ops/","算子覆盖（替换 vLLM 算子层）"],["asc","vllm_ascend/ops/triton/","Triton 内核"],["asc","csrc/","CANN 自定义算子"],["asc","vllm_ascend/compilation/","图融合 pass + ACL 图捕获/回放"]],
+"logs":[{"t":"16:40:00","lvl":"INFO","src":"kernel_warmup.py:53","msg":"Triton kernel warmup finished in 0.074s.","v":"asc","mult":1},{"t":"16:40:07","lvl":"INFO","src":"gpu_model_runner.py:6929","msg":"Graph capturing finished in 7 secs, took 0.25 GiB","v":"up","mult":1},{"t":"16:40:22","lvl":"INFO","src":"compilation.py:336","msg":"Enabled custom fusions: norm_quant, act_quant","v":"up","mult":1},{"t":"16:41:04","lvl":"INFO","src":"acl_graph.py:301","msg":"ACL graph replay is active (logged once).","v":"asc","mult":1}],
+"from":"已加载到 NPU 的模型","to":"可回放的 ACL 图（decode-FULL）"},
+
+{"id":"L16","layer":5,"side":"mix","clock":"16:40:11","t0":280,"t1":293,"prefix":"Worker_DPx_EPx / ApiServer_N","repeat":"×8",
+"name":"资源调优与就绪","short":"绑核 + 启动 FastAPI",
+"duty":"绑核、显存策略等运行时调优，随后启动 FastAPI / uvicorn，在 8 个 API server 上注册完整路由表。到 <code>Starting vLLM server on http://0.0.0.0:8017</code>，服务就绪，可以接请求。",
+"points":[
+"<code>cpu_binding.py</code>：NUMA 绑核（<code>mode=topo_affinity</code>，把 Worker 绑到对应 NUMA 节点）",
+"启动 FastAPI / uvicorn，注册路由（<code>/v1/chat/completions</code> 等）",
+"<code>api_server_count&gt;1</code> 时禁用统计日志（避免统计不全）—— 所以本日志看不到吞吐统计行"],
+"files":[["asc","vllm_ascend/cpu_binding.py","NUMA 绑核（topo_affinity / migrate）"],["asc","vllm_ascend/platform.py","平台就绪钩子"],["up","vllm/entrypoints/launchers/*","FastAPI 路由（uvicorn）"]],
+"logs":[{"t":"16:40:11","lvl":"INFO","src":"cpu_binding.py:539","msg":"[cpu_bind_mode] mode=topo_affinity rank=0 visible_npus=[0, 1, 2, 3, 4, 5, 6, 7]","v":"asc","mult":1},{"t":"16:40:12","lvl":"INFO","src":"cpu_binding.py:663","msg":"[migrate] NPU:7 -> NUMA [1]","v":"asc","mult":1},{"t":"16:40:23","lvl":"WARN","src":"loggers.py:1233","msg":"AsyncLLM created with api_server_count more than 1; disabling stats logging …","v":"up","mult":1},{"t":"16:40:24","lvl":"INFO","src":"entry.py:139","msg":"Starting vLLM server on http://0.0.0.0:8017","v":"up"},{"t":"16:40:24","lvl":"INFO","src":"launcher.py:70","msg":"Route: /v1/chat/completions, Methods: POST","v":"up"}],
+"from":"已 warmup 完成的引擎","to":"http://0.0.0.0:8017/v1/chat/completions 在线"}
+]}
+</script>
+
+<script type="application/json" id="inferData">
+{"infer":[
+{"id":"R1","layer":1,"side":"up","clock":"16:45:02","t0":0,"t1":1,"prefix":"ApiServer_N","repeat":"×1",
+"name":"接入层","short":"HTTP → EngineCoreRequest",
+"duty":"请求的第一站。FastAPI 路由收到 HTTP 请求后，<code>AsyncLLM.add_request</code> 把它交给 <code>InputProcessor.process_inputs</code>：renderer + tokenizer 把 prompt 变成 token，产出 <code>EngineCoreRequest</code>，随后经 ZMQ 送往引擎核心。逐请求 INFO 需 <code>--enable-log-requests</code> 才打印。",
+"points":[
+"<code>POST /v1/chat/completions</code> → FastAPI 路由处理",
+"<code>InputProcessor</code>：renderer 渲染 + tokenizer 编码 → token ids",
+"产出 <code>EngineCoreRequest</code>（含 sampling params、token ids）",
+"日志：<code>Received request …</code> / <code>Added request …</code>（需 --enable-log-requests）"],
+"files":[["up","vllm/entrypoints/launchers/api_server/","FastAPI 路由（uvicorn）"],["up","vllm/entrypoints/serve/utils/request_logger.py","请求 / 响应 INFO 日志"],["up","vllm/v1/engine/async_llm.py","AsyncLLM（add_request / output_handler）"],["up","vllm/v1/engine/input_processor.py","renderer + tokenizer（prompt → tokens）"]],
+"logs":[{"t":"16:45:02","lvl":"INFO","src":"request_logger.py:63","msg":"Received request chatcmpl-8d41e28657fa3470: params: model='glm', max_tokens=512, temperature=1.0, top_p=0.95, stream=False","v":"up","wide":1},{"t":"16:45:02","lvl":"INFO","src":"async_llm.py:513","msg":"Added request chatcmpl-8d41e28657fa3470.","v":"up"}],
+"from":"POST /v1/chat/completions","to":"EngineCoreRequest（已 tokenize）"},
+
+{"id":"R2","layer":2,"side":"mix","clock":"16:45:02","t0":1,"t1":2,"prefix":"EngineCore_DPx","repeat":"×1",
+"name":"引擎层（调度）","short":"Scheduler 决定本步跑什么",
+"duty":"<code>EngineCoreClient</code> 经 ZMQ 把请求送进引擎核心；<code>EngineCore</code> 主循环里 <code>Scheduler.schedule</code> 决定本步跑哪些请求、各跑多少 token、KV block 怎么分，产出 <code>SchedulerOutput</code>。调度器是<b>「性能与并发」的中枢</b>。vLLM-Ascend 在不改接口的前提下提供了若干 Ascend 专属调度器。",
+"points":[
+"<code>Scheduler.schedule</code>：准入 + token 预算 + KV block 分配 → <code>SchedulerOutput</code>",
+"含投机 draft 占位与异步调度支持",
+"Ascend 专属调度器变体：<code>vllm_ascend/core/</code>（batch_job_aware / dyntra_lb / short_request_first / recompute）",
+"V1 默认<b>不逐请求打 INFO</b>；看 Running / Waiting / Preemptions 统计行（本日志统计被禁用）"],
+"files":[["up","vllm/v1/engine/core_client.py","ZMQ 客户端（送请求到 EngineCore）"],["up","vllm/v1/engine/core.py","V1 LLM engine 主循环"],["up","vllm/v1/core/sched/scheduler.py","V1 调度器（准入/预算/记账）"],["asc","vllm_ascend/core/*_scheduler.py","Ascend 专属调度器变体"]],
+"logs":[{"empty":1,"msg":"V1 调度器不逐请求打 INFO；细节需 DEBUG，或看统计行的 Running/Waiting/Preemptions。本次 api_server_count=8，统计被禁用。"}],
+"from":"EngineCoreRequest","to":"SchedulerOutput（本步要跑的请求 + 投机占位）"},
+
+{"id":"R3","layer":3,"side":"mix","clock":"16:45:02","t0":2,"t1":3,"prefix":"EngineCore_DPx → Worker_DPx_EPx","repeat":"×1",
+"name":"执行层","short":"广播 → 本进程内执行",
+"duty":"<code>Executor.execute_model</code> 把 <code>SchedulerOutput</code> 广播给各 Worker；<code>NPUWorker.execute_model</code> 是本进程内的执行入口，随后交给 ModelRunner。正常路径没有逐请求 INFO，<b>异常时 execute_model 的栈会在这里出现</b>。",
+"points":[
+"Executor 广播 SchedulerOutput 到本 DP rank 的 Worker",
+"<code>NPUWorker.execute_model</code> → <code>ModelRunner.execute_model</code>",
+"异步执行时与输出处理 overlap（提升吞吐）"],
+"files":[["up","vllm/v1/executor/multiproc_executor.py","多进程执行器（广播 execute_model）"],["asc","vllm_ascend/worker/worker.py","NPUWorker.execute_model 入口"]],
+"logs":[{"empty":1,"msg":"正常路径无逐请求 INFO；异常时 execute_model 的调用栈会出现在这里。"}],
+"from":"SchedulerOutput","to":"Worker.execute_model 调通 ModelRunner.execute_model"},
+
+{"id":"R4","layer":4,"side":"asc","clock":"16:45:02","t0":3,"t1":4,"prefix":"Worker_DPx_EPx","repeat":"×1",
+"name":"计算层","short":"_prepare_inputs → forward → ACL 回放",
+"duty":"<b>整条推理链最核心的一段。</b><code>_update_states</code> 同步新 / 完成请求进运行态；<code>_prepare_inputs</code> 组 input_ids / positions / block table / attention metadata；<code>_model_forward</code> 逐层计算：Attention 后端读历史 KV、算注意力、写回 KV，MoE 路由专家并经 MC2 等做专家并行；已捕获的 ACL 图直接回放。",
+"points":[
+"<code>_update_states</code> → <code>_prepare_inputs</code>（组 attention metadata 等）",
+"Attention 后端（<code>attention/</code>：MLA / SFA / DSA 等）读写 KV（slot_mapping）",
+"MoE（<code>ops/fused_moe/</code>）路由 + 专家并行（MC2 all2all）",
+"ACL 图回放减少调度开销（DEBUG 可见 <code>Running batch with cudagraph_mode: FULL</code>）"],
+"files":[["asc","vllm_ascend/worker/model_runner_v1.py","ModelRunner（每步执行的编排者）"],["asc","vllm_ascend/attention/*","Attention 后端（MLA / SFA / DSA）"],["asc","vllm_ascend/ops/fused_moe/*","MoE 路由 + 专家并行"],["asc","vllm_ascend/compilation/acl_graph.py","ACL 图回放"]],
+"logs":[{"t":"16:45:02","lvl":"DEBUG","src":"gpu_model_runner.py:4279","msg":"Running batch with cudagraph_mode: FULL, batch_descriptor: γ=1,4096,4096, num_tokens_across_dp: [0,0,0,6,0,0,0,0]   ← 需 --log-level DEBUG","v":"up","wide":1}],
+"from":"Worker.execute_model","to":"每步的 hidden_states / logits"},
+
+{"id":"R5","layer":5,"side":"mix","clock":"16:45:05","t0":4,"t1":5,"prefix":"Worker_DPx_EPx","repeat":"×1",
+"name":"采样层","short":"MTP draft → RejectionSampler 校验",
+"duty":"<code>sample_tokens → _sample</code> 走 NPU 采样 kernel（top-k / top-p / penalty / 随机采样）。MTP 场景下 draft 模型先出 <b>5 个草稿 token</b>，再由 <b>RejectionSampler</b> 校验：从前往后接受与目标分布一致的前缀，第一个不一致处截断并重采 —— <b>接受率决定投机收益</b>。",
+"points":[
+"NPU 采样 kernel（<code>sample/sampler.py</code>、<code>penalties.py</code>）",
+"<code>propose_draft_token_ids</code>：draft 出草稿（MTP 5 个）",
+"<code>sample/rejection_sampler.py</code>：校验 / 接受，决定最终 token",
+"接受率体现在 spec_decode 指标（本日志统计被禁用）→ 见下方「投机解码剧场」"],
+"files":[["asc","vllm_ascend/sample/sampler.py","NPU 采样 kernel（top-k/top-p/penalty）"],["asc","vllm_ascend/sample/rejection_sampler.py","MTP 草稿校验（rejection sampling）"],["asc","vllm_ascend/spec_decode/*","投机实现（MTP / Eagle 等）"],["up","vllm/v1/sample/sampler.py","vLLM 侧 sampler 基类"]],
+"logs":[{"empty":1,"msg":"无逐请求 INFO；接受率体现在统计行与 spec_decode 指标（本次统计被禁用）。下方「投机解码剧场」有交互演示。"}],
+"from":"logits（每请求）","to":"最终 token + 接受率统计"},
+
+{"id":"R6","layer":6,"side":"up","clock":"16:45:13","t0":5,"t1":6,"prefix":"ApiServer_N","repeat":"×1",
+"name":"输出层","short":"记账 → detokenize → 返回",
+"duty":"<code>Scheduler.update_from_output</code> 记账（更新请求状态、释放 / 复用 KV block、处理 preemption）→ <code>OutputProcessor.process_outputs</code> 增量 detokenize（RequestState 累积）→ 构造 <code>RequestOutput</code> → 经 ZMQ 回到 API server 返回响应。流式时每个增量都走这条路。",
+"points":[
+"<code>update_from_output</code>：更新请求状态、释放 / 复用 KV block、处理 preemption",
+"<code>OutputProcessor</code>：增量 detokenize（RequestState 累积 token → 文本）",
+"构造 <code>RequestOutput</code>（token、finish_reason、usage）→ 回 API server",
+"日志：<code>Generated response … finish_reason: stop, usage: {…}</code>"],
+"files":[["up","vllm/v1/core/sched/scheduler.py","Scheduler 记账（update_from_output）"],["up","vllm/v1/engine/output_processor.py","增量 detokenize"],["up","vllm/entrypoints/serve/utils/request_logger.py","响应 INFO 日志"]],
+"logs":[{"t":"16:45:13","lvl":"INFO","src":"request_logger.py:98","msg":"Generated response chatcmpl-8d41e28657fa3470: output: '你好！GLM-5.3-Flash-W8A8-MXFP8 已就绪，能帮你做…', finish_reason: stop, usage: {prompt_tokens: 11, completion_tokens: 312, total_tokens: 323}","v":"up","wide":1}],
+"from":"每步的 token + 接受信息","to":"HTTP Response（chatcmpl 文本）"}
+]}
+</script>
+
+<script type="application/json" id="metaData">
+{
+"layers":[
+{"n":1,"name":"接入 · 平台 · 前端","sub":"CLI · 插件 · Platform · patch · 配置 · API Server","side":"up"},
+{"n":2,"name":"引擎层 EngineCore","sub":"Scheduler · KV Cache Manager · 主循环","side":"up"},
+{"n":3,"name":"执行层","sub":"进程编排 · Executor 广播 · NPUWorker","side":"mix"},
+{"n":4,"name":"计算层","sub":"ModelRunner · 并行 · 模型 · 权重 · 投机加载","side":"asc"},
+{"n":5,"name":"采样 · 编译 · 调优","sub":"KV 规划 · 算子/图 · 投机 · 采样 · 就绪","side":"mix"},
+{"n":6,"name":"输出层","sub":"记账 · 增量 detokenize · 返回","side":"up"}
+],
+"modules":[
+{"name":"CLI / Config","side":"up","duty":"把命令行参数变成 VllmConfig","files":[["up","vllm/entrypoints/cli/serve.py"],["up","vllm/config/*"]]},
+{"name":"插件系统","side":"up","duty":"发现并加载插件（vLLM-Ascend 的入口）","files":[["up","vllm/plugins/__init__.py"],["asc","vllm-ascend/setup.py"]]},
+{"name":"Platform","side":"asc","duty":"vLLM ↔ Ascend 总接口、配置修正、后端选择","files":[["asc","vllm_ascend/platform.py"]]},
+{"name":"patch","side":"asc","duty":"运行时改写 vLLM 内部行为","files":[["asc","vllm_ascend/patch/platform/*"],["asc","vllm_ascend/patch/worker/*"]]},
+{"name":"Ascend 配置","side":"asc","duty":"--additional-config / 环境变量","files":[["asc","vllm_ascend/ascend_config.py"],["asc","vllm_ascend/envs.py"]]},
+{"name":"进程编排","side":"up","duty":"起 API server / EngineCore / DP 协调器","files":[["up","vllm/v1/engine/utils.py"],["up","vllm/v1/utils.py"]]},
+{"name":"EngineCore","side":"up","duty":"每 rank 主循环：调度 + 执行 + 输出","files":[["up","vllm/v1/engine/core.py"]]},
+{"name":"Scheduler","side":"mix","duty":"准入、token 预算、KV block 分配（+ Ascend 变体）","files":[["up","vllm/v1/core/sched/scheduler.py"],["asc","vllm_ascend/core/*_scheduler.py"]]},
+{"name":"Executor","side":"up","duty":"把指令广播到各 Worker","files":[["up","vllm/v1/executor/multiproc_executor.py"]]},
+{"name":"Worker","side":"asc","duty":"设备、加载、KV 预算、执行、warmup、绑核","files":[["asc","vllm_ascend/worker/worker.py"]]},
+{"name":"ModelRunner","side":"asc","duty":"组输入 / forward / 采样 / 图捕获 / KV 分配","files":[["asc","vllm_ascend/worker/model_runner_v1.py"]]},
+{"name":"并行状态","side":"mix","duty":"建 TP/EP/DP/PP/CP 进程组（+ Ascend 扩展组）","files":[["up","vllm/distributed/parallel_state.py"],["asc","vllm_ascend/distributed/parallel_state.py"]]},
+{"name":"通信器","side":"asc","duty":"NPU 通信原语 / HCCL","files":[["asc","vllm_ascend/distributed/device_communicators/"]]},
+{"name":"模型注册","side":"up","duty":"architectures 字符串 → 模型类","files":[["up","vllm/model_executor/models/registry.py"]]},
+{"name":"模型实现","side":"asc","duty":"Ascend 原生 / 薄封装模型","files":[["asc","vllm_ascend/models/"]]},
+{"name":"权重加载","side":"mix","duty":"读 checkpoint、page cache 预取、权重映射","files":[["up","vllm/model_executor/model_loader/*"],["asc","vllm_ascend/model_loader/*"]]},
+{"name":"量化","side":"asc","duty":"量化方案注册与实现（modelslim / fp8 / …）","files":[["asc","vllm_ascend/quantization/"]]},
+{"name":"投机推理","side":"asc","duty":"draft 模型（MTP / Eagle…）+ 校验","files":[["asc","vllm_ascend/spec_decode/*"],["asc","vllm_ascend/sample/rejection_sampler.py"]]},
+{"name":"算子 / 内核","side":"asc","duty":"Python 覆盖 / Triton / CANN 自定义算子","files":[["asc","vllm_ascend/ops/"],["asc","vllm_ascend/ops/triton/"],["asc","csrc/"]]},
+{"name":"KV cache","side":"mix","duty":"容量规划、分组、Ascend spec","files":[["up","vllm/v1/core/kv_cache_utils.py"],["asc","vllm_ascend/core/kv_cache_interface.py"]]},
+{"name":"编译 / 图","side":"asc","duty":"融合 pass、ACL 图捕获 / 回放","files":[["asc","vllm_ascend/compilation/"]]},
+{"name":"采样","side":"mix","duty":"采样 kernel、投机校验","files":[["asc","vllm_ascend/sample/"],["up","vllm/v1/sample/"]]},
+{"name":"输出","side":"up","duty":"记账、增量解码、返回","files":[["up","vllm/v1/engine/output_processor.py"]]},
+{"name":"API Server","side":"up","duty":"FastAPI 路由、请求日志、uvicorn","files":[["up","vllm/entrypoints/launchers/"]]}
+]
+}
+</script>
+
+<script>
+(function(){
+'use strict';
+/* ---------- data ---------- */
+var LOAD = JSON.parse(document.getElementById('stageData').textContent).load;
+var INFER = JSON.parse(document.getElementById('inferData').textContent).infer;
+var META = JSON.parse(document.getElementById('metaData').textContent);
+var LAYERS = META.layers, MODULES = META.modules;
+var JOURNEYS = { load: LOAD, infer: INFER };
+var ALL = LOAD.concat(INFER);
+var BY_ID = {}; ALL.forEach(function(s){ BY_ID[s.id]=s; });
+
+/* ---------- helpers ---------- */
+function $(q,c){return (c||document).querySelector(q);}
+function $$(q,c){return Array.prototype.slice.call((c||document).querySelectorAll(q));}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function pad(n){return n<10?'0'+n:''+n;}
+function fmtClock(sec){var m=Math.floor(sec/60), s=sec-m*60, si=Math.floor(s), t=Math.round((s-si)*10); if(t===10){si++;t=0;} if(si===60){m++;si=0;} return m+':'+pad(si)+'.'+t;}
+function sideCls(s){return s==='asc'?'asc':(s==='mix'?'mix':'up');}
+function sideName(s){return s==='asc'?'Ascend 侧':(s==='mix'?'两侧协同':'vLLM 侧');}
+
+/* ---------- progress + dotnav ---------- */
+var sections = $$('main section[id]');
+var dotnav = $('#dotnav');
+sections.forEach(function(sec){
+  var a=document.createElement('a');
+  a.href='#'+sec.id; a.setAttribute('data-l', ($('.sec-kicker',sec)||{}).textContent||sec.id);
+  a.addEventListener('click',function(e){e.preventDefault(); document.getElementById(sec.id).scrollIntoView({behavior:'smooth'});});
+  dotnav.appendChild(a);
+});
+var dots=$$('#dotnav a');
+var prog=$('#progress');
+function onScroll(){
+  var y=window.scrollY, h=document.documentElement.scrollHeight-window.innerHeight;
+  prog.style.width=(h>0?(y/h)*100:0)+'%';
+  var btt=$('#btt'); if(y>500) btt.classList.add('show'); else btt.classList.remove('show');
+}
+window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+$('#btt').addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+if('IntersectionObserver' in window){
+  var navIO=new IntersectionObserver(function(es){es.forEach(function(en){
+    var id=en.target.id, idx=sections.indexOf(en.target);
+    if(en.isIntersecting){dots.forEach(function(d){d.classList.remove('on');}); if(dots[idx])dots[idx].classList.add('on');}
+  });},{rootMargin:'-40% 0px -55% 0px'});
+  sections.forEach(function(s){navIO.observe(s);});
+  var rvIO=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in'); rvIO.unobserve(en.target);}});},{threshold:.12});
+  $$('.rv').forEach(function(el){rvIO.observe(el);});
+}else{$$('.rv').forEach(function(el){el.classList.add('in');});}
+
+/* ---------- hero boot clock ---------- */
+(function(){
+  var el=$('#bootClock'); if(!el) return;
+  var start=null, dur=2600, target=293;
+  function tick(ts){ if(!start)start=ts; var p=Math.min(1,(ts-start)/dur); var e=1-Math.pow(1-p,3);
+    el.textContent=fmtClock(target*e); if(p<1) requestAnimationFrame(tick); }
+  requestAnimationFrame(tick);
+})();
+
+/* ---------- skeleton ---------- */
+var skelLayers=$('#skelLayers'), skSideNum=$('#skSideNum'), skSideName=$('#skSideName'), skSideSub=$('#skSideSub'), skSideMods=$('#skSideMods');
+LAYERS.forEach(function(L){
+  var mods=ALL.filter(function(s){return s.layer===L.n;});
+  var el=document.createElement('div');
+  el.className='skl'; el.setAttribute('data-side',L.side); el.setAttribute('data-n',L.n);
+  el.innerHTML='<div class="skl-h"><div class="skl-n">'+L.n+'</div>'+
+    '<div class="skl-info"><div class="skl-name">'+esc(L.name)+'</div><div class="skl-sub">'+esc(L.sub)+'</div></div>'+
+    '<span class="skl-cnt">'+mods.length+' 模块</span></div>';
+  el.addEventListener('click',function(){selectLayer(L.n);});
+  skelLayers.appendChild(el);
+});
+function selectLayer(n){
+  $$('.skl',skelLayers).forEach(function(e){e.classList.toggle('on',+e.getAttribute('data-n')===n);});
+  var L=LAYERS.filter(function(x){return x.n===n;})[0];
+  var mods=ALL.filter(function(s){return s.layer===n;});
+  skSideNum.textContent=n; skSideName.textContent=L.name; skSideSub.textContent=L.sub;
+  var html='';
+  mods.forEach(function(s){
+    var jn=/^L/.test(s.id)?'加载':'推理';
+    html+='<button class="smod" data-id="'+s.id+'"><span class="id">'+s.id+'</span><span class="nm">'+esc(s.name)+' · '+jn+'</span><span class="go">→</span></button>';
+  });
+  skSideMods.innerHTML=html||'<div class="skl-side-empty">本层无对应阶段</div>';
+  $$('.smod',skSideMods).forEach(function(b){b.addEventListener('click',function(){gotoStage(b.getAttribute('data-id'));});});
+}
+
+/* ---------- timeline ---------- */
+var TL_TOTAL=293;
+var tlRuler=$('#tlRuler'), tlRows=$('#tlRows'), tlSweep=$('#tlSweep'), tlClock=$('#tlClock');
+(function(){
+  var html='';
+  for(var s=0;s<=TL_TOTAL;s+=30){ var pct=(s/TL_TOTAL)*100; html+='<div class="tl-tick" style="left:'+pct+'%">+'+Math.floor(s/60)+':'+pad(s%60)+'</div>'; }
+  tlRuler.innerHTML=html;
+})();
+LOAD.forEach(function(st){
+  var row=document.createElement('div'); row.className='tl-row';
+  var left=(st.t0/TL_TOTAL)*100, w=Math.max(1.4,((st.t1-st.t0)/TL_TOTAL)*100);
+  row.innerHTML='<div class="tl-lab" data-id="'+st.id+'"><span class="lid">'+st.id+'</span><span class="lnm">'+esc(st.short)+'</span></div>'+
+    '<div class="tl-track"><div class="tl-seg '+sideCls(st.side)+'" data-id="'+st.id+'" style="left:'+left+'%;width:'+w+'%"></div></div>';
+  tlRows.appendChild(row);
+});
+/* tooltip */
+var tlTip=document.createElement('div'); tlTip.className='tl-tip'; document.body.appendChild(tlTip);
+function showTip(e,st){
+  var keyLog=(st.logs&&st.logs.length&&!st.logs[0].empty)?st.logs[0].msg:'';
+  tlTip.innerHTML='<div class="tt">'+st.id+' · '+esc(st.name)+'</div>'+
+    '<div class="tm">'+st.clock+' · T+'+fmtClock(st.t0)+' → T+'+fmtClock(st.t1)+' · '+sideName(st.side)+'</div>'+
+    (keyLog?'<div class="tl2">'+esc(keyLog.length>90?keyLog.slice(0,90)+'…':keyLog)+'</div>':'');
+  tlTip.classList.add('show'); moveTip(e);
+}
+function moveTip(e){
+  var pad=14, r=tlTip.getBoundingClientRect();
+  var x=e.clientX+pad, y=e.clientY+pad;
+  if(x+r.width>window.innerWidth-8) x=e.clientX-r.width-pad;
+  if(y+r.height>window.innerHeight-8) y=e.clientY-r.height-pad;
+  tlTip.style.left=x+'px'; tlTip.style.top=y+'px';
+}
+function hideTip(){tlTip.classList.remove('show');}
+$$('.tl-seg',tlRows).forEach(function(seg){
+  var st=BY_ID[seg.getAttribute('data-id')];
+  seg.addEventListener('mouseenter',function(e){showTip(e,st);});
+  seg.addEventListener('mousemove',moveTip);
+  seg.addEventListener('mouseleave',hideTip);
+  seg.addEventListener('click',function(){gotoStage(st.id);});
+});
+$$('.tl-lab',tlRows).forEach(function(lab){lab.addEventListener('click',function(){gotoStage(lab.getAttribute('data-id'));});});
+/* replay */
+var tlPlaying=false;
+$('#tlPlay').addEventListener('click',function(){
+  if(tlPlaying) return; tlPlaying=true; this.textContent='… 回放中';
+  tlSweep.classList.add('on');
+  var segs=$$('.tl-seg',tlRows), start=null, dur=8000;
+  function frame(ts){ if(!start)start=ts; var p=Math.min(1,(ts-start)/dur); var t=TL_TOTAL*p;
+    tlSweep.style.left='calc(210px + '+(p*(100-0))+'% )'; // approx; refine below
+    tlSweep.style.left=(p*100)+'%';
+    tlClock.textContent=fmtClock(t);
+    segs.forEach(function(sg){ var st2=BY_ID[sg.getAttribute('data-id')];
+      if(t>=st2.t0 && t<=st2.t1) sg.classList.add('hot'); else sg.classList.remove('hot'); });
+    if(p<1){requestAnimationFrame(frame);} else {
+      tlPlaying=false; $('#tlPlay').textContent='▶ 重放开机';
+      setTimeout(function(){tlSweep.classList.remove('on'); segs.forEach(function(sg){sg.classList.remove('hot');}); tlClock.textContent='0:00.0';},900);
+    }
+  }
+  requestAnimationFrame(frame);
+  });
+})();
+</script>
+
+<script>
+(function(){
+'use strict';
+var LOAD=JSON.parse(document.getElementById('stageData').textContent).load;
+var INFER=JSON.parse(document.getElementById('inferData').textContent).infer;
+var META=JSON.parse(document.getElementById('metaData').textContent);
+var LAYERS=META.layers, MODULES=META.modules;
+var JOURNEYS={load:LOAD,infer:INFER};
+var ALL=LOAD.concat(INFER); var BY_ID={}; ALL.forEach(function(s){BY_ID[s.id]=s;});
+function $(q,c){return (c||document).querySelector(q);}
+function $$(q,c){return Array.prototype.slice.call((c||document).querySelectorAll(q));}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function sideCls(s){return s==='asc'?'asc':(s==='mix'?'mix':'up');}
+function sideName(s){return s==='asc'?'Ascend 侧':(s==='mix'?'两侧协同':'vLLM 侧');}
+function layerName(n){var L=LAYERS.filter(function(x){return x.n===n;})[0]; return L?L.name:'';}
+
+/* ================= journey deep-dive ================= */
+var curJ='load', curI=0, playing=false, timer=null, INTERVAL=2800;
+var stepsEl=$('#jdSteps');
+
+function renderSteps(){
+  var arr=JOURNEYS[curJ], html='';
+  arr.forEach(function(s,i){
+    html+='<li class="jd-step" data-i="'+i+'"><span class="n">'+s.id+'</span><span class="sn">'+esc(s.name)+'</span><span class="sd '+sideCls(s.side)+'"></span></li>';
+  });
+  stepsEl.innerHTML=html;
+  $$('.jd-step',stepsEl).forEach(function(li){
+    li.addEventListener('click',function(){ stopPlay(); selectStage(+li.getAttribute('data-i'), false); });
+  });
+}
+
+function buildLogs(s){
+  var host=$('#jdLogs');
+  if(!s.logs||!s.logs.length){host.innerHTML='<div class="ll" style="opacity:1"><span class="m" style="color:var(--mut)">∅ 本阶段无逐行日志</span></div>'; return;}
+  var html='';
+  s.logs.forEach(function(l,i){
+    if(l.empty){ html+='<div class="ll" style="opacity:1;border-left-color:var(--line-2)"><span class="m" style="color:var(--mut)">· '+esc(l.msg)+'</span></div>'; return; }
+    var parts=(l.src||'').split(':');
+    var src=l.src?'<span class="src">'+esc(parts[0])+'<span class="ln">:'+esc(parts[1]||'')+'</span></span>':'';
+    var pr=l.p?'<span class="pr">'+esc(l.p)+'</span>':'';
+    var msg=esc(l.msg); if(l.wide) msg='<span class="em">'+msg+'</span>';
+    var mult=l.mult?'<span class="mult">×8</span>':'';
+    html+='<div class="ll '+sideCls(l.v||s.side)+' ll-reveal" style="animation-delay:'+(i*90)+'ms">'+
+      '<span class="ts">'+esc(l.t)+'</span>'+pr+'<span class="lv '+(l.lvl||'INFO')+'">'+(l.lvl||'INFO')+'</span>'+src+
+      '<span class="m">'+msg+'</span>'+mult+'</div>';
+  });
+  html+='<div class="ll ll-reveal" style="animation-delay:'+(s.logs.length*90)+'ms;border-left-color:transparent"><span class="m"><span class="cursor"></span></span></div>';
+  host.innerHTML=html;
+}
+
+function selectStage(i, scroll){
+  var arr=JOURNEYS[curJ]; if(!arr.length) return;
+  if(i<0)i=0; if(i>=arr.length)i=arr.length-1; curI=i;
+  var s=arr[i];
+  $$('.jd-step',stepsEl).forEach(function(li,idx){ li.classList.toggle('on',idx===i); });
+  var on=$('.jd-step.on',stepsEl); if(on){ try{ on.scrollIntoView({block:'nearest'}); }catch(e){} }
+  $('#jdId').textContent=s.id;
+  $('#jdName').textContent=s.name;
+  var sd=$('#jdSide'); sd.className='side '+sideCls(s.side); sd.textContent=sideName(s.side);
+  var jn=curJ==='load'?'加载旅程':'推理旅程';
+  $('#jdMeta').innerHTML=
+    '<span class="jd-mtag">'+jn+'</span>'+
+    '<span class="jd-mtag">'+esc(layerName(s.layer))+'</span>'+
+    '<span class="jd-mtag">◷ '+esc(s.clock)+'</span>'+
+    '<span class="jd-mtag">'+esc(s.prefix)+'</span>'+
+    (s.repeat&&s.repeat!=='×1'?'<span class="jd-mtag" style="color:var(--mix);border-color:var(--mix-line)">每行 '+esc(s.repeat)+'</span>':'');
+  $('#jdDuty').innerHTML=s.duty;
+  var ph=''; (s.points||[]).forEach(function(p){ ph+='<li>'+p+'</li>'; });
+  $('#jdPoints').innerHTML=ph;
+  $('#jdFrom').textContent=s.from||'—';
+  $('#jdTo').textContent=s.to||'—';
+  var fh=''; (s.files||[]).forEach(function(f){
+    fh+='<span class="jf '+sideCls(f[0])+'">'+esc(f[1])+(f[2]?'<span class="jf-tip">'+esc(f[2])+'</span>':'')+'</span>';
+  });
+  $('#jdFiles').innerHTML=fh;
+  $('#jdLogNote').textContent=(s.repeat&&s.repeat!=='×1')?('真实日志中每行 '+s.repeat):'';
+  buildLogs(s);
+  if(scroll){ var card=$('#jdCard'); try{ card.scrollIntoView({behavior:'smooth',block:'nearest'}); }catch(e){} }
+}
+function stopPlay(){ playing=false; if(timer){clearInterval(timer); timer=null;} $('#jdPlay').textContent='▶ 自动'; }
+function startPlay(){
+  if(playing) return; playing=true; $('#jdPlay').textContent='⏸ 暂停';
+  var arr=JOURNEYS[curJ]; if(curI>=arr.length-1) selectStage(0,false);
+  timer=setInterval(function(){
+    if(curI<JOURNEYS[curJ].length-1){ selectStage(curI+1,false); }
+    else stopPlay();
+  },INTERVAL);
+}
+$('#jdPlay').addEventListener('click',function(){ playing?stopPlay():startPlay(); });
+$('#jdPrev').addEventListener('click',function(){ stopPlay(); selectStage(curI-1,false); });
+$('#jdNext').addEventListener('click',function(){ stopPlay(); selectStage(curI+1,false); });
+$$('.jd-tab').forEach(function(t){
+  t.addEventListener('click',function(){
+    $$('.jd-tab').forEach(function(x){x.classList.remove('on');}); t.classList.add('on');
+    curJ=t.getAttribute('data-j'); stopPlay(); renderSteps(); selectStage(0,false);
+  });
+});
+document.addEventListener('keydown',function(e){
+  var tag=(e.target&&e.target.tagName)||''; if(tag==='INPUT'||tag==='TEXTAREA') return;
+  var journeyVisible = isNear($('#journey'));
+  if(e.key==='ArrowRight'){ stopPlay(); selectStage(curI+1,false); }
+  else if(e.key==='ArrowLeft'){ stopPlay(); selectStage(curI-1,false); }
+  else if(e.key===' '&&journeyVisible){ e.preventDefault(); playing?stopPlay():startPlay(); }
+});
+function isNear(el){ if(!el) return false; var r=el.getBoundingClientRect(); return r.top<window.innerHeight&&r.bottom>0; }
+
+/* global jump (used by skeleton / timeline / mechanism) */
+window.gotoStage=function(id){
+  var s=BY_ID[id]; if(!s) return;
+  var target=/^L/.test(id)?'load':'infer';
+  if(curJ!==target){
+    curJ=target;
+    $$('.jd-tab').forEach(function(x){x.classList.toggle('on',x.getAttribute('data-j')===curJ);});
+    renderSteps();
+  }
+  var idx=JOURNEYS[curJ].indexOf(s); if(idx<0)idx=0;
+  stopPlay(); selectStage(idx,false);
+  var sec=document.getElementById('journey'); if(sec&&sec.scrollIntoView){ try{ sec.scrollIntoView({behavior:'smooth',block:'start'}); }catch(e){} }
+};
+
+renderSteps(); selectStage(0,false);
+
+/* ================= mechanism ================= */
+$$('.mech-anim').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var list=document.getElementById(btn.getAttribute('data-target'));
+    var items=$$('li',list);
+    items.forEach(function(li){li.classList.remove('show');});
+    items.forEach(function(li,i){ setTimeout(function(){li.classList.add('show');}, 160*i); });
+  });
+});
+var patchSwap=$('#patchSwap');
+if(patchSwap){
+  var swapped=false;
+  patchSwap.addEventListener('click',function(){
+    swapped=!swapped;
+    var oldEl=$('#pcOld'), after=$('#patchCodeAfter');
+    if(swapped){
+      oldEl.innerHTML='… + {"int8"} <i>← 已被 patch 改写</i>'; oldEl.style.color='var(--grn)';
+      after.style.boxShadow='0 0 0 2px var(--asc-line), 0 0 24px rgba(57,220,255,.25)';
+      patchSwap.textContent='已应用 ✓ （再点还原）';
+    }else{
+      oldEl.innerHTML='{"auto","fp8","fp8_e4m3",…} <i>← 不含 int8</i>'; oldEl.style.color='';
+      after.style.boxShadow='';
+      patchSwap.textContent='应用 patch ⇄';
+    }
+  });
+}
+/* mechanism jump links */
+$$('.jk[data-goto]').forEach(function(a){
+  a.addEventListener('click',function(e){ e.preventDefault(); window.gotoStage(a.getAttribute('data-goto')); });
+});
+
+})();
+</script>
+
+<style>
+/* reveal-grow for memory bar */
+.mem-seg{transform:scaleX(0); transform-origin:left center; transition:transform 1.05s cubic-bezier(.2,.7,.3,1)}
+.mem-bar.grow .mem-seg{transform:scaleX(1)}
+.mem-bar.grow .mem-seg.w{transition-delay:.05s}
+.mem-bar.grow .mem-seg.kv{transition-delay:.22s}
+.mem-bar.grow .mem-seg.act{transition-delay:.4s}
+.mem-bar.grow .mem-seg.other{transition-delay:.56s}
+/* topology single-rank filter */
+#topoSvg.one .stk-extra{display:none}
+</style>
+
+<script>
+(function(){
+'use strict';
+var META=JSON.parse(document.getElementById('metaData').textContent);
+var MODULES=META.modules;
+function $(q,c){return (c||document).querySelector(q);}
+function $$(q,c){return Array.prototype.slice.call((c||document).querySelectorAll(q));}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function countTo(el,to,dec,dur){var start=null;function f(ts){if(!start)start=ts;var p=Math.min(1,(ts-start)/dur);var e=1-Math.pow(1-p,3);var v=to*e;el.textContent=dec>0?v.toFixed(dec):Math.round(v).toLocaleString('en-US');if(p<1)requestAnimationFrame(f);}requestAnimationFrame(f);}
+
+/* ================= topology ================= */
+var COL={asc:'#39dcff',up:'#96a5c6',mix:'#ffb454'};
+var TOPO={
+ main:{cx:380,cy:58,label:'主进程',sub:'vllm serve',count:'×1',c8:0,cls:'mix',prefix:'（无前缀）',
+  desc:'vllm serve 入口进程。解析参数、拉起并监控全部子进程；任一子进程异常退出 → 整体收敛退出。banner、进程启动行都来自它。',
+  sample:[{t:'16:35:37',src:'api_utils.py:347',msg:'█ vLLM API server version 0.30.0'},{t:'16:38:04',src:'utils.py:253',msg:'Started 8 API server processes'}]},
+ api:{cx:130,cy:200,label:'API Server',sub:'FastAPI / uvicorn',count:'×8',c8:1,cls:'up',prefix:'(ApiServer_N pid=…)',
+  desc:'对外 HTTP 服务。每个进程独立跑一份 FastAPI + 引擎客户端，8 个进程注册相同路由表 —— 所以「Route: …」日志 ×8。',
+  sample:[{t:'16:40:24',src:'launcher.py:70',msg:'Route: /v1/chat/completions, Methods: POST',p:'ApiServer_1'},{t:'16:40:24',src:'launcher.py:70',msg:'Route: /v1/chat/completions, Methods: POST',p:'ApiServer_2'}]},
+ coord:{cx:380,cy:200,label:'DP Coordinator',sub:'跨 rank 负载协调',count:'×1',c8:0,cls:'mix',prefix:'（无前缀）',
+  desc:'DP 协调器，仅 DP>1 时存在。汇总各 DP rank 的负载与订阅，做跨 rank 协调。只有 1 个，日志不重复。',
+  sample:[{t:'16:40:22',src:'coordinator.py:250',msg:'All engine subscriptions received by DP coordinator'}]},
+ engine:{cx:620,cy:200,label:'EngineCore',sub:'调度 + 主循环',count:'×8',c8:1,cls:'up',prefix:'(EngineCore_DPx pid=…)',
+  desc:'每个 DP rank 的「大脑」：持有调度器与 KV cache 管理器，跑 run_busy_loop。8 个 rank 各一份 → 引擎日志 ×8。',
+  sample:[{t:'16:38:26',src:'core.py:123',msg:'Initializing a V1 LLM engine (v0.30.0)…',p:'EngineCore_DP0'},{t:'16:40:13',src:'core.py:379',msg:'init engine (profile, create kv cache, warmup) took 20.12 s',p:'EngineCore_DP0'}]},
+ worker:{cx:620,cy:360,label:'NPUWorker',sub:'加载 / KV / 图 / 执行',count:'×8',c8:1,cls:'asc',prefix:'(Worker_DPx_EPx pid=…)',
+  desc:'真正跑模型的进程：加载权重、分配 KV、捕获 ACL 图、执行每一步。per-rank 日志主要来源（×8）；patch / 配置在 import 时各跑一次（×24）。',
+  sample:[{t:'16:38:48',src:'parallel_state.py:2267',msg:'rank 2 … assigned as DP rank 2, EP rank 2',p:'Worker_DP2_EP2'},{t:'16:39:50',src:'model_runner_v1.py:4449',msg:'Loading model weights took 53.3064 GB',p:'Worker_DP2_EP2'}]}
+};
+var EDGES=[['main','api'],['main','coord'],['main','engine'],['engine','worker']];
+(function buildTopo(){
+  var svg=$('#topoSvg'); if(!svg) return;
+  var html='<defs></defs>';
+  EDGES.forEach(function(e){
+    var a=TOPO[e[0]], b=TOPO[e[1]];
+    var x1=a.cx, y1=a.cy+27, x2=b.cx, y2=b.cy-27;
+    var d='M'+x1+','+y1+' C'+x1+','+(y1+42)+' '+x2+','+(y2-42)+' '+x2+','+y2;
+    html+='<path class="tp-edge" d="'+d+'"/><path class="tp-flow" d="'+d+'"/>';
+  });
+  Object.keys(TOPO).forEach(function(id){
+    var n=TOPO[id], col=COL[n.cls], x=n.cx-75, y=n.cy-27;
+    html+='<g class="tp-node" data-id="'+id+'" data-c8="'+n.c8+'">';
+    if(n.c8){
+      html+='<rect class="stk-extra" x="'+(x+8)+'" y="'+(y-8)+'" width="150" height="54" rx="12" fill="#0e1626" stroke="'+col+'" stroke-opacity="0.35"/>';
+      html+='<rect class="stk-extra" x="'+(x+4)+'" y="'+(y-4)+'" width="150" height="54" rx="12" fill="#111a2c" stroke="'+col+'" stroke-opacity="0.6"/>';
+    }
+    html+='<rect x="'+x+'" y="'+y+'" width="150" height="54" rx="12" fill="#182338" stroke="'+col+'" stroke-width="1.6"/>';
+    html+='<text class="tp-lab" x="'+n.cx+'" y="'+(n.cy-5)+'" text-anchor="middle">'+esc(n.label)+'</text>';
+    html+='<text class="tp-lab2" x="'+n.cx+'" y="'+(n.cy+15)+'" text-anchor="middle">'+esc(n.sub)+'</text>';
+    html+='<text class="tp-badge" x="'+(x+144)+'" y="'+(y-11)+'" text-anchor="end" fill="'+col+'">'+n.count+'</text>';
+    html+='</g>';
+  });
+  svg.innerHTML=html;
+  $$('.tp-node',svg).forEach(function(g){
+    g.addEventListener('click',function(){ selectTopo(g.getAttribute('data-id')); });
+  });
+})();
+function selectTopo(id){
+  var n=TOPO[id]; if(!n) return;
+  $$('.tp-node').forEach(function(g){ g.classList.toggle('sel', g.getAttribute('data-id')===id); });
+  $('#tsName').textContent=n.label;
+  $('#tsCount').textContent=n.count+' 个';
+  $('#tsPrefix').textContent=n.prefix;
+  $('#tsDesc').textContent=n.desc;
+  var html='';
+  n.sample.forEach(function(l){
+    var parts=l.src.split(':');
+    html+='<div class="ll '+n.cls+'" style="opacity:1">'+(l.p?'<span class="pr">'+esc(l.p)+'</span>':'')+
+      '<span class="ts">'+l.t+'</span><span class="src">'+esc(parts[0])+'<span class="ln">:'+esc(parts[1])+'</span></span>'+
+      '<span class="m">'+esc(l.msg)+'</span></div>';
+  });
+  $('#tsSample').innerHTML=html;
+}
+/* log-volume filter demo */
+$$('.tf-btn').forEach(function(b){
+  b.addEventListener('click',function(){
+    $$('.tf-btn').forEach(function(x){x.classList.remove('on');}); b.classList.add('on');
+    var one=b.getAttribute('data-f')==='one';
+    var svg=$('#topoSvg'); svg.classList.toggle('one',one);
+    $$('.tp-node[data-c8="1"] .tp-badge',svg).forEach(function(t){ t.textContent=one?'×1':'×8'; });
+    $('#tsBarFill').style.width=one?'12.5%':'100%';
+    countTo($('#tsBarNum'), one?350:2800, 0, 700);
+    $('#tsBarNum').previousSibling; // noop guard
+  });
+});
+selectTopo('worker');
+
+/* ================= memory ledger ================= */
+(function(){
+  var fired=false;
+  function fire(){
+    if(fired) return; fired=true;
+    var bar=$('#memBar'); if(bar) bar.classList.add('grow');
+    $$('.count').forEach(function(el){ countTo(el, parseFloat(el.getAttribute('data-to')), +(el.getAttribute('data-dec')||0), 1400); });
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ fire(); io.disconnect(); } }); },{threshold:.25});
+    var sec=document.getElementById('memory'); if(sec) io.observe(sec);
+  } else fire();
+})();
+
+/* ================= speculative decoding demo ================= */
+var TARGET=['你','好','，','我','是','GLM','，','已','就','绪','，','可','以','帮','你'];
+var DISTRACT=['的','了','啊','呢','吧','哈','AI','模','型','。','！','呀','哦','嗯'];
+var specPos=0, specDraft=[], specAccN=0, specBusy=false, autoTimer=null, phase=0;
+function wAcc(max){ var pool=[0,1,1,2,2,3,3,3,4,4,4,5]; var a=pool[Math.floor(Math.random()*pool.length)]; return Math.min(a,max); }
+function tokEl(ch,cls,pos){ var d=document.createElement('div'); d.className='tok '+cls; d.innerHTML=esc(ch)+'<span class="tk-pos">'+pos+'</span>'; return d; }
+function specBuild(){
+  var rem=TARGET.length-specPos;
+  var nDraft=Math.min(5,rem);
+  specAccN=wAcc(nDraft);
+  specDraft=[];
+  for(var i=0;i<nDraft;i++){
+    var verdict= i<specAccN ? 'acc' : (i===specAccN ? 'rej' : 'drop');
+    var ch = verdict==='rej' ? DISTRACT[Math.floor(Math.random()*DISTRACT.length)] : TARGET[specPos+i];
+    specDraft.push({ch:ch, verdict:verdict});
+  }
+  var dd=$('#specDraft'); dd.innerHTML='';
+  specDraft.forEach(function(t,i){ dd.appendChild(tokEl(t.ch,'live','d'+(i+1))); });
+  $('#specVerify').innerHTML='';
+  $('#specResult').innerHTML='草稿已就绪（'+nDraft+' 个）。点「校验这一轮」，看 RejectionSampler 如何裁决。';
+}
+function specStep(){
+  if(specBusy) return;
+  if(!specDraft.length) specBuild();
+  specBusy=true;
+  var vd=$('#specVerify'); vd.innerHTML='';
+  var bonus = (specPos+specAccN) < TARGET.length ? TARGET[specPos+specAccN] : null;
+  /* recolor draft tokens */
+  $$('#specDraft .tok').forEach(function(el,i){
+    var v=specDraft[i].verdict;
+    setTimeout(function(){ el.classList.remove('live'); el.classList.add(v==='acc'?'acc':(v==='rej'?'rej':'drop')); }, i*140);
+  });
+  /* build verify row: accepted + bonus */
+  var accepted=specDraft.filter(function(t){return t.verdict==='acc';});
+  var delay=specDraft.length*140+150;
+  accepted.forEach(function(t,i){ setTimeout(function(){ vd.appendChild(tokEl(t.ch,'acc','✓'+(i+1))); }, delay+i*140); });
+  var adv=specAccN + (bonus?1:0);
+  var bi=accepted.length;
+  if(bonus){ setTimeout(function(){ vd.appendChild(tokEl(bonus,'bonus','+1')); }, delay+bi*140); }
+  setTimeout(function(){
+    $('#specAdv').textContent=adv;
+    $('#specAcc').textContent=specAccN;
+    var msg='草稿 '+specDraft.length+' 个，<b class="ok">接受 '+specAccN+' 个</b>（绿）。';
+    if(specAccN<specDraft.length){
+      var rejTok=specDraft[specAccN].ch;
+      msg+='第 '+(specAccN+1)+' 个「'+esc(rejTok)+'」与目标分布不一致 → <b class="bad">拒绝</b>（红），其后全部作废（灰）。';
+    }else{
+      msg+='全部命中，<b class="ok">无一拒绝</b>。';
+    }
+    if(bonus){ msg+='在断点由目标模型补采「'+esc(bonus)+'」（紫）。本轮前进 <b>'+adv+'</b> 步。'; }
+    else{ msg+='序列已到末尾。'; }
+    $('#specResult').innerHTML=msg;
+    specPos+=adv;
+    if(specPos>=TARGET.length){ specPos=0; $('#specResult').innerHTML+=' <b>✅ 演示序列生成完毕，已重置。</b>'; }
+    specDraft=[]; specBusy=false;
+  }, delay+(bi+(bonus?1:0))*140+200);
+}
+$('#specStep').addEventListener('click',function(){ if(phase===0){phase=1;} specStep(); });
+$('#specAgain').addEventListener('click',function(){ if(specBusy) return; if(specPos>=TARGET.length) specPos=0; specBuild(); });
+$('#specAuto').addEventListener('change',function(){
+  if(this.checked){ phase=0; autoTimer=setInterval(function(){ if(specBusy) return; if(phase===0){ specBuild(); phase=1; } else { specStep(); phase=0; } }, 1900); }
+  else { clearInterval(autoTimer); autoTimer=null; }
+});
+specBuild();
+
+/* ================= lookup ================= */
+var SIDE_SHORT={asc:'Ascend',up:'vLLM',mix:'协同'};
+function lkCard(m){
+  var fs=''; m.files.forEach(function(f){ fs+='<span class="lk-f '+f[0]+'">'+esc(f[1])+'</span>'; });
+  return '<div class="lk-card" data-side="'+m.side+'">'+
+    '<div class="lk-h"><span class="side '+m.side+'">'+SIDE_SHORT[m.side]+'</span><span class="lk-name">'+esc(m.name)+'</span></div>'+
+    '<p class="lk-duty">'+esc(m.duty)+'</p>'+
+    '<div class="lk-files">'+fs+'</div></div>';
+}
+function renderLookup(){
+  var host=$('#lkGrid'); host.innerHTML=MODULES.map(lkCard).join('');
+}
+var lkSide='all';
+function applyLookup(){
+  var q=($('#lkQ').value||'').toLowerCase().trim();
+  var shown=0;
+  $$('.lk-card').forEach(function(card,i){
+    var m=MODULES[i];
+    var hay=(m.name+' '+m.duty+' '+m.files.map(function(f){return f[1];}).join(' ')).toLowerCase();
+    var okQ=!q || hay.indexOf(q)>-1;
+    var okS=lkSide==='all' || m.side===lkSide;
+    var show=okQ&&okS;
+    card.classList.toggle('hide',!show);
+    if(show) shown++;
+  });
+  $('#lkCount').textContent=shown+' / '+MODULES.length+' 个模块';
+}
+$('#lkQ').addEventListener('input',applyLookup);
+$$('.lkc').forEach(function(c){
+  c.addEventListener('click',function(){
+    $$('.lkc').forEach(function(x){x.classList.remove('on');}); c.classList.add('on');
+    lkSide=c.getAttribute('data-t'); applyLookup();
+  });
+});
+renderLookup(); applyLookup();
+
+})();
+</script>
+</body>
+</html>
