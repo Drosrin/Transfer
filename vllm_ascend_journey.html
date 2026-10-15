@@ -560,74 +560,6 @@ section{padding:80px 0 30px}
   </div>
 </section>
 
-<!-- =================§ 显存账本 ================= -->
-<section id="memory">
-  <div class="sec-head rv">
-    <div class="sec-kicker">Memory Ledger · 显存账本</div>
-    <h2>一块 NPU 的显存，都花在哪了</h2>
-    <p>以一个 Worker（一块 91.75 GiB 的 NPU）为例：启动时显存如何被<b>权重、激活、KV cache</b> 切分，以及由此算出「能装多少 token、能并发几个超长请求」。滚动到这里时数字会动。</p>
-  </div>
-  <div class="mem-grid rv">
-    <div class="panel mem-card">
-      <div class="mem-card-t">单 Worker 显存切分 <span class="mem-total">总 91.75 GiB</span></div>
-      <div class="mem-bar" id="memBar">
-        <div class="mem-seg w" data-v="53.31" style="flex:53.31"><span class="mem-seg-lab">权重<br><b>53.31</b> GiB</span></div>
-        <div class="mem-seg kv" data-v="20.03" style="flex:20.03"><span class="mem-seg-lab">KV cache<br><b>20.03</b> GiB</span></div>
-        <div class="mem-seg act" data-v="6.45" style="flex:6.45"><span class="mem-seg-lab">激活<br><b>6.45</b></span></div>
-        <div class="mem-seg other" data-v="11.96" style="flex:11.96"><span class="mem-seg-lab">预留/工作区<br><b>~12</b></span></div>
-      </div>
-      <div class="mem-legend">
-        <span class="ml"><i style="background:var(--asc)"></i>权重（W8A8+MXFP8）</span>
-        <span class="ml"><i style="background:var(--vio)"></i>KV cache</span>
-        <span class="ml"><i style="background:var(--mix)"></i>峰值激活</span>
-        <span class="ml"><i style="background:var(--line-3)"></i>预留</span>
-      </div>
-      <div class="mem-src">来源：<code>worker.py:928</code> free memory 明细 · <code>worker.py:649</code> Available KV cache memory</div>
-    </div>
-    <div class="mem-derive">
-      <div class="md-step panel"><div class="md-k">可用 KV 显存</div><div class="md-v"><span class="count" data-to="20.03" data-dec="2">0</span><span class="md-u">GiB</span></div><div class="md-s">profile 后剩余</div></div>
-      <div class="md-arr">→</div>
-      <div class="md-step panel"><div class="md-k">KV 容量</div><div class="md-v"><span class="count" data-to="499200" data-dec="0">0</span><span class="md-u">tokens</span></div><div class="md-s">按 block 切分</div></div>
-      <div class="md-arr">→</div>
-      <div class="md-step panel"><div class="md-k">超长请求并发</div><div class="md-v"><span class="count" data-to="3.75" data-dec="2">0</span><span class="md-u">×</span></div><div class="md-s">133,120 tok / 请求</div></div>
-      <div class="md-note">hybrid 模型 4 个 KV group，每组 <b>4480</b>（<code>kv cache group sizes [4480,4480,4480,4480]</code>）</div>
-    </div>
-  </div>
-</section>
-
-<!-- =================§ 投机解码剧场 ================= -->
-<section id="spec">
-  <div class="sec-head rv">
-    <div class="sec-kicker">Speculative Decoding · 投机解码剧场</div>
-    <h2>MTP：一次出 5 个草稿，能接受几个？</h2>
-    <p>这是「推理旅程 · R5」的核心。draft 模型先快速猜出 <b>5 个</b>候选 token，<b>RejectionSampler</b> 再用目标模型逐个校验：从前往后，与目标分布一致就<b>接受（绿）</b>，遇到第一个不一致就<b>拒绝（红）</b>并丢弃其后所有，最后在断点处补采一个。接受越多，省的时间越多。</p>
-  </div>
-  <div class="spec-wrap panel rv">
-    <div class="spec-controls">
-      <button class="btn btn-p btn-sm" id="specStep">▶ 校验这一轮</button>
-      <button class="btn btn-g btn-sm" id="specAgain">⟲ 换一轮</button>
-      <label class="spec-auto"><input type="checkbox" id="specAuto"> 自动连播</label>
-      <div class="spec-stat">本轮前进 <b id="specAdv">0</b> / 6 步 · 接受 <b id="specAcc">0</b> / 5 草稿</div>
-    </div>
-    <div class="spec-rows">
-      <div class="spec-row">
-        <div class="spec-row-lab">草稿 <span>draft →</span></div>
-        <div class="spec-tokens" id="specDraft"></div>
-      </div>
-      <div class="spec-row">
-        <div class="spec-row-lab">校验 <span>verify →</span></div>
-        <div class="spec-tokens" id="specVerify"></div>
-      </div>
-    </div>
-    <div class="spec-result" id="specResult">点击「校验这一轮」，看 RejectionSampler 如何裁决。</div>
-    <div class="spec-expl">
-      <div class="spec-expl-item"><span class="tok-demo acc"></span>接受 —— 草稿与目标一致，白赚一步</div>
-      <div class="spec-expl-item"><span class="tok-demo rej"></span>拒绝 —— 第一个不一致，其后全部作废</div>
-      <div class="spec-expl-item"><span class="tok-demo bonus"></span>补采 —— 在断点处由目标模型采样</div>
-    </div>
-  </div>
-</section>
-
 <!-- =================§ 模块速查 ================= -->
 <section id="lookup">
   <div class="sec-head rv">
@@ -751,70 +683,9 @@ section{padding:80px 0 30px}
 .tp-lab{font:700 12px/1 var(--f-s); fill:var(--txt)}
 .tp-lab2{font:500 10px/1 var(--f-m); fill:var(--mut)}
 .tp-badge{font:800 10px/1 var(--f-m); fill:var(--mix)}
-
-/* ============ memory ============ */
-.mem-grid{display:grid; grid-template-columns:1.5fr 1fr; gap:20px; align-items:stretch}
-@media (max-width:980px){.mem-grid{grid-template-columns:1fr}}
-.mem-card{padding:22px 24px; display:flex; flex-direction:column}
-.mem-card-t{font:800 15px/1.3 var(--f-d); color:var(--txt); margin-bottom:18px; display:flex; align-items:baseline; gap:10px}
-.mem-total{font:600 11px/1 var(--f-m); color:var(--mut); margin-left:auto}
-.mem-bar{display:flex; height:130px; border-radius:var(--r2); overflow:hidden; border:1px solid var(--line-2); box-shadow:inset 0 2px 10px rgba(0,0,0,.4)}
-.mem-seg{position:relative; display:flex; align-items:flex-end; justify-content:center; padding:10px 4px; overflow:hidden; transition:flex 1s cubic-bezier(.2,.7,.3,1); min-width:0}
-.mem-seg .mem-seg-lab{font:600 10.5px/1.35 var(--f-m); color:#04222e; text-align:center; white-space:nowrap}
-.mem-seg .mem-seg-lab b{font-size:14px}
-.mem-seg.w{background:linear-gradient(180deg,var(--asc),var(--asc-2))}
-.mem-seg.kv{background:linear-gradient(180deg,var(--vio),#8b6fe0)}
-.mem-seg.act{background:linear-gradient(180deg,var(--mix),#e09a3c)}
-.mem-seg.other{background:var(--line-3)}
-.mem-seg.other .mem-seg-lab{color:var(--txt-2)}
-.mem-legend{display:flex; flex-wrap:wrap; gap:14px; margin-top:14px}
-.ml{display:inline-flex; align-items:center; gap:6px; font:500 11.5px/1 var(--f-s); color:var(--txt-2)}
-.ml i{width:11px; height:11px; border-radius:3px; display:inline-block}
-.mem-src{margin-top:14px; padding-top:12px; border-top:1px dashed var(--line); font:500 11px/1.6 var(--f-m); color:var(--mut-2)}
-.mem-derive{display:flex; flex-direction:column; gap:8px; align-items:stretch}
-.md-step{padding:14px 16px; text-align:center}
-.md-k{font:700 11px/1 var(--f-m); color:var(--mut); text-transform:uppercase; letter-spacing:.08em; margin-bottom:7px}
-.md-v{font:800 26px/1 var(--f-m); color:var(--asc); font-variant-numeric:tabular-nums}
-.md-v .md-u{font-size:13px; color:var(--mut); margin-left:4px}
-.md-s{font:500 11px/1 var(--f-s); color:var(--mut); margin-top:5px}
-.md-arr{text-align:center; color:var(--asc); font:800 16px/1 var(--f-m)}
-.md-note{font:500 11.5px/1.6 var(--f-s); color:var(--txt-2); padding:10px 12px; background:var(--panel-2); border:1px solid var(--line); border-radius:var(--r2); text-align:center}
-.md-note b{color:var(--txt)}
 </style>
 
 <style>
-/* ============ spec decode ============ */
-.spec-wrap{padding:24px 26px}
-.spec-controls{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:22px}
-.spec-auto{display:inline-flex; align-items:center; gap:6px; font:500 12.5px/1 var(--f-s); color:var(--txt-2); cursor:pointer}
-.spec-auto input{accent-color:var(--asc)}
-.spec-stat{margin-left:auto; font:600 12.5px/1 var(--f-m); color:var(--mut)}
-.spec-stat b{color:var(--asc); font-size:15px}
-.spec-rows{display:flex; flex-direction:column; gap:16px; margin-bottom:18px}
-.spec-row{display:grid; grid-template-columns:120px 1fr; gap:14px; align-items:center}
-@media (max-width:760px){.spec-row{grid-template-columns:1fr}}
-.spec-row-lab{font:700 12px/1.4 var(--f-m); color:var(--txt-2)}
-.spec-row-lab span{display:block; color:var(--mut-2); font-weight:500; font-size:10.5px}
-.spec-tokens{display:flex; gap:8px; flex-wrap:wrap; min-height:56px; align-items:center}
-.tok{width:52px; height:56px; border-radius:var(--r2); display:flex; flex-direction:column; align-items:center; justify-content:center;
-  font:700 17px/1 var(--f-m); border:1.5px solid var(--line-2); background:var(--panel-2); color:var(--txt);
-  transition:all .35s cubic-bezier(.2,.7,.3,1); position:relative; transform:scale(.95); opacity:.55}
-.tok .tk-pos{font:600 9px/1 var(--f-m); color:var(--mut-2); margin-top:4px}
-.tok.live{transform:scale(1); opacity:1}
-.tok.acc{background:rgba(74,222,128,.14); border-color:var(--grn); color:var(--grn); box-shadow:0 0 14px rgba(74,222,128,.25); transform:scale(1); opacity:1}
-.tok.rej{background:rgba(248,113,113,.12); border-color:var(--red); color:var(--red); box-shadow:0 0 14px rgba(248,113,113,.2); transform:scale(1); opacity:1}
-.tok.bonus{background:rgba(167,139,250,.14); border-color:var(--vio); color:var(--vio); box-shadow:0 0 14px rgba(167,139,250,.25); transform:scale(1); opacity:1}
-.tok.drop{background:var(--panel); border-color:var(--line); color:var(--mut-2); text-decoration:line-through; transform:scale(.92); opacity:.4}
-.tok-demo{width:16px; height:16px; border-radius:4px; display:inline-block; vertical-align:-3px; margin-right:7px}
-.tok-demo.acc{background:rgba(74,222,128,.2); border:1.5px solid var(--grn)}
-.tok-demo.rej{background:rgba(248,113,113,.18); border:1.5px solid var(--red)}
-.tok-demo.bonus{background:rgba(167,139,250,.18); border:1.5px solid var(--vio)}
-.spec-result{padding:14px 18px; border-radius:var(--r2); background:var(--panel-2); border:1px solid var(--line); font:500 13.5px/1.7 var(--f-s); color:var(--txt-2); min-height:52px; transition:all .3s}
-.spec-result b{color:var(--asc)}
-.spec-result .ok{color:var(--grn); font-weight:700}
-.spec-result .bad{color:var(--red); font-weight:700}
-.spec-expl{display:flex; flex-wrap:wrap; gap:18px; margin-top:16px; font:500 12px/1.6 var(--f-s); color:var(--txt-2)}
-
 /* ============ lookup ============ */
 .lk-tools{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:18px}
 .lk-q{flex:1; min-width:220px; padding:11px 16px; border-radius:var(--pill); background:var(--panel); border:1px solid var(--line-2); color:var(--txt); font:500 13px/1 var(--f-s); transition:all .2s}
@@ -999,7 +870,7 @@ section{padding:80px 0 30px}
 
 {"id":"L13","layer":4,"side":"asc","clock":"16:39:50","t0":259,"t1":261,"prefix":"Worker_DPx_EPx","repeat":"×8",
 "name":"投机推理（MTP）加载","short":"draft 共享 embedding + 独立图",
-"duty":"加载 draft 模型（此处为 MTP 多 token 预测），与主模型共享 embedding，并为其独立包一层 ACL 图。运行时由 draft 模型先出草稿 token，再由 RejectionSampler 校验 / 接受（见 R5、投机解码剧场）。",
+"duty":"加载 draft 模型（此处为 MTP 多 token 预测），与主模型共享 embedding，并为其独立包一层 ACL 图。运行时由 draft 模型先出草稿 token，再由 RejectionSampler 校验 / 接受（见 R5）。",
 "points":[
 "检测到 MTP：draft 模型与 target 模型<b>共享 embedding 权重</b>",
 "用 <code>ACLGraphWrapper</code> 给 draft 模型独立包一层图（runtime_mode=FULL）",
@@ -1100,9 +971,9 @@ section{padding:80px 0 30px}
 "NPU 采样 kernel（<code>sample/sampler.py</code>、<code>penalties.py</code>）",
 "<code>propose_draft_token_ids</code>：draft 出草稿（MTP 5 个）",
 "<code>sample/rejection_sampler.py</code>：校验 / 接受，决定最终 token",
-"接受率体现在 spec_decode 指标（本日志统计被禁用）→ 见下方「投机解码剧场」"],
+"接受率体现在 spec_decode 指标（本日志统计被禁用）"],
 "files":[["asc","vllm_ascend/sample/sampler.py","NPU 采样 kernel（top-k/top-p/penalty）"],["asc","vllm_ascend/sample/rejection_sampler.py","MTP 草稿校验（rejection sampling）"],["asc","vllm_ascend/spec_decode/*","投机实现（MTP / Eagle 等）"],["up","vllm/v1/sample/sampler.py","vLLM 侧 sampler 基类"]],
-"logs":[{"empty":1,"msg":"无逐请求 INFO；接受率体现在统计行与 spec_decode 指标（本次统计被禁用）。下方「投机解码剧场」有交互演示。"}],
+"logs":[{"empty":1,"msg":"无逐请求 INFO；接受率体现在统计行与 spec_decode 指标（本次统计被禁用）。"}],
 "from":"logits（每请求）","to":"最终 token + 接受率统计"},
 
 {"id":"R6","layer":6,"side":"up","clock":"16:45:13","t0":5,"t1":6,"prefix":"ApiServer_N","repeat":"×1",
@@ -1461,13 +1332,6 @@ $$('.jk[data-goto]').forEach(function(a){
 </script>
 
 <style>
-/* reveal-grow for memory bar */
-.mem-seg{transform:scaleX(0); transform-origin:left center; transition:transform 1.05s cubic-bezier(.2,.7,.3,1)}
-.mem-bar.grow .mem-seg{transform:scaleX(1)}
-.mem-bar.grow .mem-seg.w{transition-delay:.05s}
-.mem-bar.grow .mem-seg.kv{transition-delay:.22s}
-.mem-bar.grow .mem-seg.act{transition-delay:.4s}
-.mem-bar.grow .mem-seg.other{transition-delay:.56s}
 /* topology single-rank filter */
 #topoSvg.one .stk-extra{display:none}
 </style>
@@ -1558,85 +1422,6 @@ $$('.tf-btn').forEach(function(b){
   });
 });
 selectTopo('worker');
-
-/* ================= memory ledger ================= */
-(function(){
-  var fired=false;
-  function fire(){
-    if(fired) return; fired=true;
-    var bar=$('#memBar'); if(bar) bar.classList.add('grow');
-    $$('.count').forEach(function(el){ countTo(el, parseFloat(el.getAttribute('data-to')), +(el.getAttribute('data-dec')||0), 1400); });
-  }
-  if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ fire(); io.disconnect(); } }); },{threshold:.25});
-    var sec=document.getElementById('memory'); if(sec) io.observe(sec);
-  } else fire();
-})();
-
-/* ================= speculative decoding demo ================= */
-var TARGET=['你','好','，','我','是','GLM','，','已','就','绪','，','可','以','帮','你'];
-var DISTRACT=['的','了','啊','呢','吧','哈','AI','模','型','。','！','呀','哦','嗯'];
-var specPos=0, specDraft=[], specAccN=0, specBusy=false, autoTimer=null, phase=0;
-function wAcc(max){ var pool=[0,1,1,2,2,3,3,3,4,4,4,5]; var a=pool[Math.floor(Math.random()*pool.length)]; return Math.min(a,max); }
-function tokEl(ch,cls,pos){ var d=document.createElement('div'); d.className='tok '+cls; d.innerHTML=esc(ch)+'<span class="tk-pos">'+pos+'</span>'; return d; }
-function specBuild(){
-  var rem=TARGET.length-specPos;
-  var nDraft=Math.min(5,rem);
-  specAccN=wAcc(nDraft);
-  specDraft=[];
-  for(var i=0;i<nDraft;i++){
-    var verdict= i<specAccN ? 'acc' : (i===specAccN ? 'rej' : 'drop');
-    var ch = verdict==='rej' ? DISTRACT[Math.floor(Math.random()*DISTRACT.length)] : TARGET[specPos+i];
-    specDraft.push({ch:ch, verdict:verdict});
-  }
-  var dd=$('#specDraft'); dd.innerHTML='';
-  specDraft.forEach(function(t,i){ dd.appendChild(tokEl(t.ch,'live','d'+(i+1))); });
-  $('#specVerify').innerHTML='';
-  $('#specResult').innerHTML='草稿已就绪（'+nDraft+' 个）。点「校验这一轮」，看 RejectionSampler 如何裁决。';
-}
-function specStep(){
-  if(specBusy) return;
-  if(!specDraft.length) specBuild();
-  specBusy=true;
-  var vd=$('#specVerify'); vd.innerHTML='';
-  var bonus = (specPos+specAccN) < TARGET.length ? TARGET[specPos+specAccN] : null;
-  /* recolor draft tokens */
-  $$('#specDraft .tok').forEach(function(el,i){
-    var v=specDraft[i].verdict;
-    setTimeout(function(){ el.classList.remove('live'); el.classList.add(v==='acc'?'acc':(v==='rej'?'rej':'drop')); }, i*140);
-  });
-  /* build verify row: accepted + bonus */
-  var accepted=specDraft.filter(function(t){return t.verdict==='acc';});
-  var delay=specDraft.length*140+150;
-  accepted.forEach(function(t,i){ setTimeout(function(){ vd.appendChild(tokEl(t.ch,'acc','✓'+(i+1))); }, delay+i*140); });
-  var adv=specAccN + (bonus?1:0);
-  var bi=accepted.length;
-  if(bonus){ setTimeout(function(){ vd.appendChild(tokEl(bonus,'bonus','+1')); }, delay+bi*140); }
-  setTimeout(function(){
-    $('#specAdv').textContent=adv;
-    $('#specAcc').textContent=specAccN;
-    var msg='草稿 '+specDraft.length+' 个，<b class="ok">接受 '+specAccN+' 个</b>（绿）。';
-    if(specAccN<specDraft.length){
-      var rejTok=specDraft[specAccN].ch;
-      msg+='第 '+(specAccN+1)+' 个「'+esc(rejTok)+'」与目标分布不一致 → <b class="bad">拒绝</b>（红），其后全部作废（灰）。';
-    }else{
-      msg+='全部命中，<b class="ok">无一拒绝</b>。';
-    }
-    if(bonus){ msg+='在断点由目标模型补采「'+esc(bonus)+'」（紫）。本轮前进 <b>'+adv+'</b> 步。'; }
-    else{ msg+='序列已到末尾。'; }
-    $('#specResult').innerHTML=msg;
-    specPos+=adv;
-    if(specPos>=TARGET.length){ specPos=0; $('#specResult').innerHTML+=' <b>✅ 演示序列生成完毕，已重置。</b>'; }
-    specDraft=[]; specBusy=false;
-  }, delay+(bi+(bonus?1:0))*140+200);
-}
-$('#specStep').addEventListener('click',function(){ if(phase===0){phase=1;} specStep(); });
-$('#specAgain').addEventListener('click',function(){ if(specBusy) return; if(specPos>=TARGET.length) specPos=0; specBuild(); });
-$('#specAuto').addEventListener('change',function(){
-  if(this.checked){ phase=0; autoTimer=setInterval(function(){ if(specBusy) return; if(phase===0){ specBuild(); phase=1; } else { specStep(); phase=0; } }, 1900); }
-  else { clearInterval(autoTimer); autoTimer=null; }
-});
-specBuild();
 
 /* ================= lookup ================= */
 var SIDE_SHORT={asc:'Ascend',up:'vLLM',mix:'协同'};
